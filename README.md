@@ -1,4 +1,4 @@
-# events-manager
+# EVENTS!
 cool showcase that allows you to post and subscribe to local events
 ## deployment
 To run the server open a terminal in the root folder and run 'npm run server', it will connect to the mongodb database and run the backend at port 5000.
