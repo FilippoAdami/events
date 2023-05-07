@@ -4,7 +4,7 @@
   "description": "cool showcase that allows you to post and subscribe to local events",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node index.js",
     "server": "nodemon server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/FilippoAdami/events-manager#readme",
   "dependencies": {
+    "concurrently": "^8.0.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^7.0.1",
     "nodemon": "^2.0.21"

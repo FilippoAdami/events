@@ -1,17 +1,15 @@
 import React from 'react';
 
-function About() {
+function SignUp() {
   return (
     <div>
       <h1>About the Smart-Public Showcase</h1>
       <p>
         The Smart-Public Showcase is a platform for users to upload and share their events with others.
       </p>
-      <p>
-        Our mission is to provide a space for people to discover and participate in unique, customized events that are not typically found in mainstream media.
-      </p>
+      <p>Sign in to create an Event profile</p>
     </div>
   );
 }
 
-export default About;
+export default SignUp;
