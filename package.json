@@ -4,7 +4,8 @@
     "description": "cool showcase that allows you to post and subscribe to local events",
     "main": "index.js",
     "scripts": {
-      "start": "start cmd /k \"cd ./server && npm run server \" && start cmd /k \"cd ./client && npm run style\" && start cmd /k \"cd ./client && npm start\""
+      "start": "start cmd /k \"cd ./server && npm run server \" && start cmd /k \"cd ./client && npm run style\" && start cmd /k \"cd ./client && npm start\"",
+      "test": "code . -n bash"
     },
     "repository": {
       "type": "git",
