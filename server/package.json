@@ -1,8 +1,7 @@
 {
-  "name": "events-manager",
+  "name": "server",
   "version": "1.0.0",
-  "description": "cool showcase that allows you to post and subscribe to local events",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "node index.js",
     "server": "nodemon server.js",
@@ -10,16 +9,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FilippoAdami/events-manager.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FilippoAdami/events-manager/issues"
-  },
-  "homepage": "https://github.com/FilippoAdami/events-manager#readme",
   "dependencies": {
     "concurrently": "^8.0.1",
     "cors": "^2.8.5",

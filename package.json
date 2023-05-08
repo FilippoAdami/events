@@ -1,0 +1,20 @@
+{
+    "name": "event-manager",
+    "version": "0.0.2",
+    "description": "cool showcase that allows you to post and subscribe to local events",
+    "main": "index.js",
+    "scripts": {
+      "start": "start cmd /k \"cd ./server && npm run server \" && start cmd /k \"cd ./client && npm run style\" && start cmd /k \"cd ./client && npm start\""
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/FilippoAdami/events-manager.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/FilippoAdami/events-manager/issues"
+    },
+    "homepage": "https://github.com/FilippoAdami/events-manager#readme"
+  }
+  

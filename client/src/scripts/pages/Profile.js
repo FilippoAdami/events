@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import Grid from '../components/grid';
-import Toggle from '../scripts/toggle.js';
+import Toggle from '../components/toggle.js';
 
 function Profile() {
   return (
