@@ -15,7 +15,7 @@ class UtenteAnonimo{
   }
   
   const utenteAnonimoSchema = new mongoose.Schema({
-    id: {type: int, required: true}
+    id: {type: Number, required: true}
   });
   
   const utenteAutenticatoSchema = new mongoose.Schema({
