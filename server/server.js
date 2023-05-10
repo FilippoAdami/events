@@ -1,50 +1,37 @@
-const path = require('path');
+require('dotenv').config({path: '../.env'});
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const adRoutes = require('./routes/ads');
 
-const UtenteAnonimo = require('./models/utente')
+const app = express();
 
-const uri = "mongodb+srv://IngSoft:2J0RD9QKWLvzAfI4@cluster0.z2gzp5m.mongodb.net/?retryWrites=true&w=majority";
-
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('Error connecting to MongoDB', err));
-const { Schema } = mongoose;
-
-const dataSchema = new Schema({
-  user_name: String,
-  email: String,
-  password: String,
-  phone: String,
-  instagram: String,
-  bio: String,
-  image: String,
-});
-  
-const Data = mongoose.model('Data', dataSchema);
-
-app.use(express.static(path.join(__dirname, 'client', 'build')));
-
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-});
-
-app.get('/datas', async (req, res) => {
+// Connect to MongoDB
+async function connectToDatabase() {
   try {
-    const datas = await Data.find();
-    res.json(datas);
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('Connected to database');
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
+    console.error('Failed to connect to database:', err);
   }
+}
+connectToDatabase();
+
+// Use body-parser middleware to parse request body
+app.use(bodyParser.json());
+
+// Set up a basic route
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
+// Set up routes
+app.use('/api', adRoutes);
 
-
+// Start the server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-});
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 

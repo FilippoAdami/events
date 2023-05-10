@@ -4,18 +4,20 @@
     "description": "cool showcase that allows you to post and subscribe to local events",
     "main": "index.js",
     "scripts": {
-      "start": "start cmd /k \"cd ./server && npm run server \" && start cmd /k \"cd ./client && npm run style\" && start cmd /k \"cd ./client && npm start\"",
-      "test": "code . -n bash"
+        "start": "start cmd /k \"cd ./server && npm run server \" && start cmd /k \"cd ./client && npm run style\" && start cmd /k \"cd ./client && npm start\"",
+        "test": "code . -n bash"
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/FilippoAdami/events-manager.git"
+        "type": "git",
+        "url": "git+https://github.com/FilippoAdami/events-manager.git"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-      "url": "https://github.com/FilippoAdami/events-manager/issues"
+        "url": "https://github.com/FilippoAdami/events-manager/issues"
     },
-    "homepage": "https://github.com/FilippoAdami/events-manager#readme"
-  }
-  
+    "homepage": "https://github.com/FilippoAdami/events-manager#readme",
+    "dependencies": {
+        "dotenv": "^16.0.3"
+    }
+}
