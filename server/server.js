@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
-const uri = "mongodb+srv://IngSoft:Bucchiarellone69@cluster0.z2gzp5m.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://IngSoft:2J0RD9QKWLvzAfI4@cluster0.z2gzp5m.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log('Connected to MongoDB'))
