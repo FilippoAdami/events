@@ -1,99 +1,92 @@
-/*
 const express = require('express')
 const router = express.Router()
-const UtenteAnonimo = require('../models/uAnonimo')
-const UtenteAutenticato = require('../models/uAutenticato')
-const Persona = require('../models/persona')
+const Persona = require('../models/personaM.js')
+
 
 //ritorna tutti gli utenti persona
-router.get('/user', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const persona = await Persona.find()
         res.send(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
-});
+})
 
-router.post('/user', async (req, res) => {
-    try {
-      const ad = new Ad(req.body);
-      await ad.save();
-      res.status(201).send(ad);
-    } catch (error) {
-      res.status(400).send(error);
-    }
-});
 
-//crea un utente persona
-/*router.post('/', async (req, res) => {
-    const utenteAnonimo = new UtenteAnonimo({
-        id: req.body.id
-    })
-    const utenteAutenticato = new UtenteAutenticato({
-        email: req.body.email,
-        password: req.body.password,
-        base: req.body.utenteAnonimo
-    })
-    const persona = new Persona({
-        nome: req.body.nome,
-        cognome: req.body.cognome,
-        telefono: req.body.telefono,
-        dataNascita: req.body.dataNascita,
-        prenotazioni: req.body.prenotazioni,
-        annunciPubblicati: req.body.annunciPubblicati,
-        base: req.body.utenteAutenticato
-    })
+//crea un oggetto persona
+router.post('/', async (req, res) => {
+    const persona = new Persona(
+        //{nome: req.body.nome}
+        req.body
+    )
     try {
         const newPersona = await persona.save()
-        res.status(201).json(newPersona)                  //201: oggetto creato correttamente
+        res.status(201).json(newPersona)                      //201: oggetto creato correttamente
     } catch (err) {
-        res.status(400).json({ message: err.message })          //400: errore da parte del cliente
+        res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
 
-//funzione che permette di trovare un utente tramite un parametro, in questo caso id
-async function getPersona(req, res, next){
+
+//funzione che ritorna l'utente persona con l'id corrispondente, utilizzata nei metodi sottostanti
+async function getPersona(req, res, next) {
     let persona
     try {
-        persona = await Persona.findById(req.params.id)
-        if(persona == null){
-           return res.status(404).json({ message: 'utente non trovato' })         //404: oggetto non esiste
-        }
+      persona = await Persona.findById(req.params.id)
+      if (persona == null) {
+        return res.status(404).json({ message: 'Utente non trovato' })    //400: errore da parte del cliente
+      }
     } catch (err) {
-        return res.status(500).json({ message: err.message })           //500: errore nel server
+      return res.status(500).json({ message: err.message })               //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
+  
     res.persona = persona
     next()
 }
 
+
+//modifica un oggetto persona già esistente
+router.patch('/:id', getPersona, async (req, res) => {
+    if (req.body.email != null) {
+      res.persona.email = req.body.email
+    }
+    if (req.body.password != null) {
+        res.persona.password = req.body.password
+      }
+    if (req.body.nome != null) {
+        res.persona.nome = req.body.nome
+    }
+    if (req.body.cognome != null) {
+      res.persona.cognome = req.body.cognome
+    } 
+    if (req.body.telefono!= null) {
+        res.persona.telefono = req.body.telefono
+    }   
+    try {
+      const updatedPersona = await res.persona.save()
+      res.json(updatedPersona)
+    } catch (err) {
+      res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
+    }
+})
+
+
 //ritorna l'utente con il parametro richiesto
 router.get('/:id', getPersona, (req, res) => {
-    res.json(res.persona)
+  res.json(res.persona)
 })
 
-//modifica un utente già esistente, in questo caso modifica solo l'id
-router.patch('/:id', getPersona, async (req, res) => {
-    if (req.body.id != null) {
-        res.persona.id = res.body.id
-    }
+
+//Rimuove un oggetto persona
+router.delete('/:id', getPersona, async (req, res) => {
     try {
-        const updatedPersona = await res.persona.save()
-        res.json(updatedPersona)
+      await res.persona.deleteOne()
+      res.json({ message: 'Utente correttamente rimosso' })
     } catch (err) {
-        res.status(400).json({ message: err.message })                  //400: errore da parte del cliente
+      res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
 
-//elimina l'utente con il parametro passato, in questo caso l'id
-router.delete('/id:', getPersona, async (req, res) => {
-    try {
-        await res.persona.remove()
-        res.json({ message: 'utente correttamente rimosso' })
-    } catch (err) {
-        res.status(500).json({ message: res.message })                  //500: errore nel server
-    }
-})
-
-module.exports = router
-*/
+  
+module.exports = router;
