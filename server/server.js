@@ -27,6 +27,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
 // Set up routes
 app.use('/api', adRoutes);
 
