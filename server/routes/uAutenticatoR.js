@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const UtenteAnonimo = require('../models/uAnonimo')
-const UtenteAutenticato = require('../models/uAutenticato')
+const UtenteAnonimo = require('../models/uAnonimoM')
+const UtenteAutenticato = require('../models/uAutenticatoM')
 
 //ritorna tutti gli utenti autenticati
 router.get('/', async (req, res) => {

@@ -2,7 +2,8 @@ require('dotenv').config({path: '../.env'});
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const adRoutes = require('./routes/ads');
+const annunciR = require('./routes/annunciR');
+const userRoutes = require('./routes/personaR');
 
 const app = express();
 
@@ -29,7 +30,8 @@ app.get('/', (req, res) => {
 });
 
 // Set up routes
-app.use('/api', adRoutes);
+app.use('/api', annunciR);
+//app.use('/api', userRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

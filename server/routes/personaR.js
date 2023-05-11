@@ -1,3 +1,4 @@
+/*
 const express = require('express')
 const router = express.Router()
 const UtenteAnonimo = require('../models/uAnonimo')
@@ -5,27 +6,35 @@ const UtenteAutenticato = require('../models/uAutenticato')
 const Persona = require('../models/persona')
 
 //ritorna tutti gli utenti persona
-router.get('/', async (req, res) => {
+router.get('/user', async (req, res) => {
     try {
         const persona = await Persona.find()
         res.send(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
-})
+});
 
-module.exports = router;
+router.post('/user', async (req, res) => {
+    try {
+      const ad = new Ad(req.body);
+      await ad.save();
+      res.status(201).send(ad);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+});
 
 //crea un utente persona
-router.post('/', async (req, res) => {
-    /*const utenteAnonimo = new UtenteAnonimo({
+/*router.post('/', async (req, res) => {
+    const utenteAnonimo = new UtenteAnonimo({
         id: req.body.id
     })
     const utenteAutenticato = new UtenteAutenticato({
         email: req.body.email,
         password: req.body.password,
         base: req.body.utenteAnonimo
-    })*/
+    })
     const persona = new Persona({
         nome: req.body.nome,
         cognome: req.body.cognome,
@@ -87,4 +96,4 @@ router.delete('/id:', getPersona, async (req, res) => {
 })
 
 module.exports = router
-
+*/

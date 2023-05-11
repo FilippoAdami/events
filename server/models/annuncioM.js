@@ -1,4 +1,5 @@
 /* 
+ADS model:
 ID int (chiave primaria)
 ID pubblicatore int (chiave esterna)
 titolo String (max 30 caratteri)
@@ -9,9 +10,8 @@ luogo int (14 caratteri)
 contatto String (max 30 caratteri)
 click: int
 apparizioni: int
-*/
 
-/*
+APIs:
 GET: getAds (/), getAdById (../:adID), getAdsByUser (/profile) 
 POST: postNewAd (../:newAd),
 PUT: modifyAd (../:adID), 
@@ -19,7 +19,7 @@ DELETE: deleteAd (../:adID),
 */
 const mongoose = require('mongoose');
 
-const adSchema = new mongoose.Schema({
+const annuncioSchema = new mongoose.Schema({
     id: { type: Number, required: true },
     id_publisher: { type: Number, required: true },
     title: { type: String, required: true },
@@ -32,4 +32,4 @@ const adSchema = new mongoose.Schema({
     views: { type: Number, default: 0 },
 }, { collection: 'ads' });
 
-module.exports = mongoose.model('Ad', adSchema);
+module.exports = mongoose.model('Annuncio', annuncioSchema);

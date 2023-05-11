@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Ad = require('../models/inserzione');
+const Annuncio = require('../models/annuncioM.js');
 
-router.post('/ads', async (req, res) => {
+router.post('/annunci', async (req, res) => {
   try {
-    const ad = new Ad(req.body);
+    const ad = new Annuncio(req.body);
     await ad.save();
     res.status(201).send(ad);
   } catch (error) {
