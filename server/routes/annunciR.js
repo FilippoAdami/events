@@ -13,6 +13,16 @@ router.post('/annunci', async (req, res) => {
   }
 });
 
+// GET all ads
+router.get('/annunci', async (req, res) => {
+  try {
+    const annunci = await Annuncio.find();
+    res.json(annunci);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // API to GET an annuncio given its id
 router.get('/annunci/:id', async (req, res) => {
   try {
@@ -41,15 +51,7 @@ router.get('/annunci/publisher/:publisher_id', async (req, res) => {
   }
 });
 
-// GET all ads
-router.get('/annunci', async (req, res) => {
-  try {
-    const annunci = await Annuncio.find();
-    res.json(annunci);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+
 
 // API to DELETE an annuncio given its id
 router.delete('/annunci/:id', async (req, res) => {

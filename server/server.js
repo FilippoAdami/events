@@ -1,11 +1,14 @@
 require('dotenv').config({path: '../.env'});
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const annunciR = require('./routes/annunciR');
 const userRoutes = require('./routes/personaR');
 
 const app = express();
+// Allow requests from any origin
+app.use(cors());
 
 // Connect to MongoDB
 async function connectToDatabase() {
@@ -23,6 +26,13 @@ connectToDatabase();
 
 // Use body-parser middleware to parse request body
 app.use(bodyParser.json());
+
+// Use cors middleware with options
+app.use(cors({
+  origin: 'http://localhost:3000', // allow requests from this origin
+  methods: 'GET,POST,PUT,DELETE', // allow these HTTP methods
+  optionsSuccessStatus: 200 // return 200 for successful CORS pre-flight requests
+}));
 
 // Set up a basic route
 app.get('/', (req, res) => {
