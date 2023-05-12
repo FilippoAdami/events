@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const annunciR = require('./routes/annunciR');
 const personaR = require('./routes/personaR');
+const attivitaR = require('./routes/attivitaR');
 //const userRoutes = require('./routes/userRoutes');
 
 const app = express();
@@ -44,6 +45,7 @@ app.get('/', (req, res) => {
 // Set up routes
 app.use('/api', annunciR);
 app.use('/api', personaR);
+app.use('/api', attivitaR);
 //app.use('/api', userRoutes);
 
 // Start the server

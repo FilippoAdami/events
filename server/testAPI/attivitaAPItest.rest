@@ -1,0 +1,43 @@
+//test get all
+GET http://localhost:5000/api/attivita
+
+###
+//test get by id
+GET http://localhost:5000/api/attivita/645eb1805d40cf58f5f740c4
+
+###
+//test post new
+POST http://localhost:5000/api/attivita
+Content-Type: application/json
+
+{
+    "email": "A",
+    "password": "A",
+    "nomeAzienda": "A",
+    "indirizzo": "A",
+    "telefono": "A",
+    "partitaIVA": "1",
+    "IBAN": "A",
+    "eventiPubblicati": [1,1,1]
+}
+
+###
+//test update existing using id
+PUT http://localhost:5000/api/attivita/645eb1805d40cf58f5f740c4
+Content-Type: application/json
+
+{
+    "email": "B",
+    "password": "B",
+    "nomeAzienda": "B",
+    "indirizzo": "B",
+    "telefono": "B",
+    "partitaIVA": "2",
+    "IBAN": "B",
+    "eventiPubblicati": [2,2,2]
+}
+
+
+###
+//test delete exinsting using id
+DELETE http://localhost:5000/api/attivita/645eb1805d40cf58f5f740c4
