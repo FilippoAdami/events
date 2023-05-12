@@ -1,12 +1,13 @@
 //test get all
-GET http://localhost:5000/api/persona
+GET http://localhost:5000/api/users
+
 ###
 //test get by id
-GET http://localhost:5000/api/persona/645e4b0461e7233d91862f50
+GET http://localhost:5000/api/users/645e52b3295dc8cb90e6c867
 
 ###
 //test post new
-POST http://localhost:5000/api/persona
+POST http://localhost:5000/api/users
 Content-Type: application/json
 
 {
@@ -14,12 +15,13 @@ Content-Type: application/json
     "password": "A",
     "nome": "A",
     "cognome": "A",
-    "telefono": "A"
+    "telefono": "A",
+    "eventiPubblicati": [1,1,1]
 }
 
 ###
 //test update existing using id
-PATCH  http://localhost:5000/api/persona/645e4b0461e7233d91862f50
+PUT http://localhost:5000/api/users/645e69f8b1f086fa633adc43
 Content-Type: application/json
 
 {
@@ -27,10 +29,12 @@ Content-Type: application/json
     "password": "B",
     "nome": "B",
     "cognome": "B",
-    "telefono": "B"
+    "telefono": "B",
+    "eventiPubblicati": [2,2,2]
 }
+
 
 ###
 //test delete exinsting using id
-DELETE http://localhost:5000/api/persona/645e4b0461e7233d91862f50
+DELETE http://localhost:5000/api/users/645e52b4295dc8cb90e6c869
 
