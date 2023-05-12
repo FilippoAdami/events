@@ -9,8 +9,8 @@ const personaSchema = new mongoose.Schema({
   telefono: { type: String, required: true },
   dataNascita: { type: Date, default: Date.now },
   eventiPubblicati: [{type: Number}],
-  //prenotazioni: {type: lista},
-  //annunciPubblicati: {type: lista}
+  prenotazioni: [{type: Number}],
+  annunciPubblicati: [{type: Number}]
 }, { collection: 'users' });
   
 module.exports = mongoose.model('Persona', personaSchema);

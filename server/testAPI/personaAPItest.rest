@@ -3,7 +3,7 @@ GET http://localhost:5000/api/users
 
 ###
 //test get by id
-GET http://localhost:5000/api/users/645e52b3295dc8cb90e6c867
+GET http://localhost:5000/api/users/645e941a5ab90397bf897236
 
 ###
 //test post new
@@ -16,12 +16,14 @@ Content-Type: application/json
     "nome": "A",
     "cognome": "A",
     "telefono": "A",
-    "eventiPubblicati": [1,1,1]
+    "eventiPubblicati": [1,1,1],
+    "prenotazioni": [1,1,1],
+    "annunciPubblicati": [1,1,1]
 }
 
 ###
 //test update existing using id
-PUT http://localhost:5000/api/users/645e6bc6236269d8f5f444f5
+PUT http://localhost:5000/api/users/645e941a5ab90397bf897236
 Content-Type: application/json
 
 {
@@ -30,11 +32,14 @@ Content-Type: application/json
     "nome": "B",
     "cognome": "B",
     "telefono": "B",
-    "eventiPubblicati": [2,2,2]
+    "eventiPubblicati": [2,2,2],
+    "eventiPubblicati": [2,2,2],
+    "prenotazioni": [2,2,2],
+    "annunciPubblicati": [2,2,2]
 }
 
 
 ###
 //test delete exinsting using id
-DELETE http://localhost:5000/api/users/645e52b4295dc8cb90e6c869
+DELETE http://localhost:5000/api/users/645e941a5ab90397bf897236
 
