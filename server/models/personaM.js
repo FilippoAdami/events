@@ -11,6 +11,6 @@ const personaSchema = new mongoose.Schema({
   //eventiPubblicati: {type: lista},
   //prenotazioni: {type: lista},
   //annunciPubblicati: {type: lista}
-}, { collection: 'ads' });
+}, { collection: 'persona' });
   
 module.exports = mongoose.model('Persona', personaSchema);

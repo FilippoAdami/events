@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 
 // Set up routes
 app.use('/api', annunciR);
-app.use('/personaR', personaR);
+app.use('/api', personaR);
 //app.use('/api', userRoutes);
 
 // Start the server

@@ -1,13 +1,12 @@
 //test get all
-GET http://localhost:5000/personaR/
-
+GET http://localhost:5000/api/persona
 ###
 //test get by id
-GET http://localhost:5000/personaR/645d42a1ce50a687bd2954ef
+GET http://localhost:5000/api/persona/645e4b0461e7233d91862f50
 
 ###
 //test post new
-POST http://localhost:5000/personaR
+POST http://localhost:5000/api/persona
 Content-Type: application/json
 
 {
@@ -20,7 +19,7 @@ Content-Type: application/json
 
 ###
 //test update existing using id
-PATCH  http://localhost:5000/personaR/645d42a1ce50a687bd2954ef
+PATCH  http://localhost:5000/api/persona/645e4b0461e7233d91862f50
 Content-Type: application/json
 
 {
@@ -33,5 +32,5 @@ Content-Type: application/json
 
 ###
 //test delete exinsting using id
-DELETE http://localhost:5000/personaR/645d42a1ce50a687bd2954ef
+DELETE http://localhost:5000/api/persona/645e4b0461e7233d91862f50
 
