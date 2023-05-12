@@ -21,7 +21,7 @@ Content-Type: application/json
 
 ###
 //test update existing using id
-PUT http://localhost:5000/api/users/645e69f8b1f086fa633adc43
+PUT http://localhost:5000/api/users/645e6bc6236269d8f5f444f5
 Content-Type: application/json
 
 {

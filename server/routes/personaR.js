@@ -46,8 +46,8 @@ async function getPersona(req, res, next) {
 //modifica un oggetto persona già esistente
 router.put('/users/:id', getPersona, async (req, res) => {
   if (req.body != null) {
-    Object.keys(req.body).forEach(key => {                               //funzione che permette di sovrascrivere in nuovi dati su quelli vecchi
-      res.persona[key] = req.body[key]
+    Object.keys(req.body).forEach(dato => {                               //funzione che permette di sovrascrivere in nuovi dati su quelli vecchi
+      res.persona[dato] = req.body[dato]
     })
   }
     try {
