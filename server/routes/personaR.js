@@ -4,7 +4,7 @@ const Persona = require('../models/personaM.js')
 
 
 //ritorna tutti gli utenti persona
-router.get('/', async (req, res) => {
+router.get('/persone', async (req, res) => {
     try {
         const persona = await Persona.find()
         res.send(persona)                             
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
 
 //crea un oggetto persona
-router.post('/', async (req, res) => {
+router.post('/persone', async (req, res) => {
     const persona = new Persona(
         //{nome: req.body.nome}
         req.body
@@ -47,7 +47,7 @@ async function getPersona(req, res, next) {
 
 
 //modifica un oggetto persona già esistente
-router.patch('/:id', getPersona, async (req, res) => {
+router.patch('/persone/:id', getPersona, async (req, res) => {
     if (req.body.email != null) {
       res.persona.email = req.body.email
     }
@@ -73,13 +73,13 @@ router.patch('/:id', getPersona, async (req, res) => {
 
 
 //ritorna l'utente con il parametro richiesto
-router.get('/:id', getPersona, (req, res) => {
+router.get('/persone/:id', getPersona, (req, res) => {
   res.json(res.persona)
 })
 
 
 //Rimuove un oggetto persona
-router.delete('/:id', getPersona, async (req, res) => {
+router.delete('/persone/:id', getPersona, async (req, res) => {
     try {
       await res.persona.deleteOne()
       res.json({ message: 'Utente correttamente rimosso' })
