@@ -89,6 +89,9 @@ function ShowAnnunci() {
     <div>
       <h1>GET Annunci</h1>
       <textarea value={JSON.stringify(ads, null, 2)} readOnly />
+      <form onSubmit={useEffect}>
+        <button type="askget"> Get </button>
+      </form>
     </div>
   );
 };
