@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const annunciR = require('./routes/annunciR');
 const personaR = require('./routes/personaR');
 const attivitaR = require('./routes/attivitaR');
+const bannerR = require('./routes/bannerR');
+const bannerM = require('./models/bannerM');
+
 //const userRoutes = require('./routes/userRoutes');
 
 const app = express();
@@ -46,10 +49,12 @@ app.get('/', (req, res) => {
 app.use('/api', annunciR);
 app.use('/api', personaR);
 app.use('/api', attivitaR);
+app.use('/api', bannerR);
+
 //app.use('/api', userRoutes);
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
+  
 
