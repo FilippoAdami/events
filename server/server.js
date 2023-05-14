@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const annunciR = require('./routes/annunciR');
 const userRoutes = require('./routes/personaR');
+const amministratoriR = require('./routes/amministratoriR');
 
 const app = express();
 // Allow requests from any origin
@@ -41,6 +42,7 @@ app.get('/', (req, res) => {
 
 // Set up routes
 app.use('/api', annunciR);
+app.use('/api', amministratoriR);
 //app.use('/api', userRoutes);
 
 // Start the server

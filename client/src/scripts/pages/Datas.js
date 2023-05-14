@@ -1,7 +1,53 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const AddAnnuncio = () => {
+class Annuncio extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+        id: props.id,
+        id_publisher: props.id_publisher,
+        title: props.title,
+        description: props.description,
+        date: props.date,
+        time: props.time,
+        place: props.place,
+        contact: props.contact,
+    };
+  }
+  delete = this.delete.bind(this);
+  trying = this.trying.bind(this);
+
+  trying(){
+    alert(this.state.id);
+  }
+
+  delete(){
+    axios
+      .delete(`http://localhost:5000/api/annunci/${this.state.id}`)
+      .then((response) => {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  render(){
+      return(
+          <p id="annuncio">
+              <div>{this.state.title} id {this.state.id}</div>
+              <div>{this.state.description}</div>
+              <div>{this.state.date.toLocaleDateString()}</div>
+              <div>{this.state.place}</div>
+              <div>{this.state.contact}</div>
+              <button onClick={this.delete}>Delete</button>
+          </p>
+      );
+  }
+}
+
+function AddAnnuncio() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [place, setPlace] = useState("");
@@ -75,21 +121,31 @@ const AddAnnuncio = () => {
   );
 };
 
-function ShowAnnunci() {
+function AnnunciList() {
   const [ads, setAds] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/annunci")
-      .then((response) => setAds(response.data))
-      .catch((error) => console.error(error));
+    axios.get("http://localhost:5000/api/annunci").then((response) => {
+      setAds(response.data);
+    });
   }, []);
 
   return (
-    <div>
-      <h1>GET Annunci</h1>
-      <textarea value={JSON.stringify(ads, null, 2)} readOnly />
-    </div>
+    <p>
+      {ads.map((ad) => (
+        <Annuncio
+          key={ad._id}
+          id={ad._id}
+          id_publisher={ad.id_publisher}
+          title={ad.title}
+          description={ad.description}
+          date={new Date(ad.date)}
+          time={ad.time}
+          place={ad.place}
+          contact={ad.contact}
+        />
+      ))}
+    </p>
   );
 };
 
@@ -100,7 +156,7 @@ function ModifyAnnuncio() {
   const [place, setPlace] = useState("");
   const [contact, setContact] = useState("");
 
-  const handleSubmit = (event) => {
+  const modifyA = (event) => {
     event.preventDefault();
     const data = {
       id_publisher: 1,
@@ -126,7 +182,7 @@ function ModifyAnnuncio() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={modifyA}>
       <label>
         ID:
         <input
@@ -176,48 +232,13 @@ function ModifyAnnuncio() {
   );
 };
 
-function DeleteAnnuncio() {
-  const [id, setId] = useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios
-      .delete(`http://localhost:5000/api/annunci/${id}`)
-      .then((response) => {
-        console.log(response);
-        setId("");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+function Datas(){
+  const date = new Date();
   return (
     <div>
-      <h2>Delete Ad</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          ID:
-          <input
-            type="text"
-            value={id}
-            onChange={(event) => setId(event.target.value)}
-          />
-        </label>
-        <button type="submit">Delete</button>
-      </form>
+      <AddAnnuncio /> <ModifyAnnuncio /> <AnnunciList />
     </div>
   );
-};
-
-class Datas extends React.Component{
-  render(){
-  return (
-    <div>
-      <AddAnnuncio /> <ShowAnnunci /> <ModifyAnnuncio /> <DeleteAnnuncio />
-    </div>
-  );
-}
 }
 
 export default Datas;

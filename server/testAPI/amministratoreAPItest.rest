@@ -1,0 +1,35 @@
+//test get all
+GET http://localhost:5000/api/amministratori
+
+###
+//test get by id
+GET http://localhost:5000/api/amministratori/646142120603edb5e3301ad4
+
+###
+//test get by role
+GET http://localhost:5000/api/amministratori/role/super-user
+
+###
+//test post new
+POST http://localhost:5000/api/amministratori
+Content-Type: application/json
+
+{
+    "id": "hyu",
+    "role": "responsabile_pubblicita"
+}
+
+###
+
+//test update existing using id
+PUT http://localhost:5000/api/amministratori/64614096099144ce55dd9162
+Content-Type: application/json
+
+{
+    "id": 0,
+    "role": "moderatore"
+}
+
+###
+//test delete existing using id
+DELETE http://localhost:5000/api/amministratori/646142120603edb5e3301ad4
