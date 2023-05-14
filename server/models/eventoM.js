@@ -3,7 +3,7 @@ const Segnalazione = require('../models/segnalazioneM');
 const Immagine = require('../models/imageM.js');
 
 const eventoSchema = new mongoose.Schema({
-    id_inserzione : {type : Number , required : true},
+    id_Evento : {type : Number , required : true},
     titolo : {type : String, required : true},
     data :{type : Date, required : true},
     ora : {type: Number, required : true }, // non sono convinto del tipo
