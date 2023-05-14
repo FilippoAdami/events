@@ -1,14 +1,16 @@
-/*const mongoose = require('mongoose')
-const utenteAutenticatoSchema = require('./uAutenticato')
+const mongoose = require('mongoose');
 
 const personaSchema = new mongoose.Schema({
-  nome: {type: String, required: true},
-  cognome: {type: String, required: true},
-  contatto: {type: String, required: true},
-  dataNascita: {type: String, required: true},
-  prenotazioni: {type: String, required: true},
-  annunciPubblicati: {type: String, required: true},
-  base: {type: utenteAutenticatoSchema, required: false}
+  //id: {type: Number, required: true},
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  nome: { type: String, required: true },
+  cognome: { type: String, required: true },
+  telefono: { type: String, required: true },
+  dataNascita: { type: Date, default: Date.now },
+  eventiPubblicati: [{type: Number}],
+  prenotazioni: [{type: Number}],
+  annunciPubblicati: [{type: Number}]
 }, { collection: 'users' });
-
-module.exports = mongoose.model('Persona', personaSchema); */
+  
+module.exports = mongoose.model('Persona', personaSchema);

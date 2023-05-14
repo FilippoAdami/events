@@ -1,0 +1,59 @@
+GET http://localhost:5000/api/banners
+
+###
+// test get show true
+GET http://localhost:5000/api/banners/show_true
+
+###
+// test get show fasle
+GET http://localhost:5000/api/banners/show_false
+
+###
+//test get by id
+GET http://localhost:5000/api/banners/645fbf73bf37e280c8d51cb5
+
+###
+POST http://localhost:5000/api/banners
+Content-Type: application/json
+
+{
+    "id_publisher": 3,
+    "title" : "non visibile",
+    "descrizione" : "sto per piangere",
+    "budget": 4,
+    "link": "come non piangere",
+    "show" : false
+    //"views":20
+    //"clicks":30
+}
+
+###
+//test delete exinsting using id
+DELETE http://localhost:5000/api/banners/645fb39e7b9824fd77ef1b6d
+
+
+###
+//test update existing using id
+PUT http://localhost:5000/api/banners/645fba5e6268a82fe86ccfea
+Content-Type: application/json
+
+{
+    "id_publisher": 3,
+    "title" : "cambio3",
+    "descrizione" : "sono molto contento2",
+    "budget": 4000,
+    "link": "hahahahhhahahahha2",
+    "show": "false"
+    //"clicks":10
+    //"views":100
+}
+
+
+###
+//test delete exinsting using id
+PATCH  http://localhost:5000/api/banners/645fbf73bf37e280c8d51cb5
+Content-Type: application/json
+
+{
+    "action" : "inv_show"
+}

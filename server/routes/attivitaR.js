@@ -1,58 +1,58 @@
 const express = require('express')
 const router = express.Router()
-const Persona = require('../models/personaM.js')
+const Attivita = require('../models/attivitaM.js')
 
 
-//ritorna tutti gli utenti persona
-router.get('/users', async (req, res) => {
+//ritorna tutti gli utenti attività
+router.get('/attivita', async (req, res) => {
     try {
-        const persona = await Persona.find()
-        res.json(persona)                             
+        const attivita = await Attivita.find()
+        res.json(attivita)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
 
 
-//crea un oggetto persona
-router.post('/users', async (req, res) => {
-    const persona = new Persona(req.body)
+//crea un oggetto attività
+router.post('/attivita', async (req, res) => {
+    const attivita = new Attivita(req.body)
     try {
-        const newPersona = await persona.save()
-        res.status(201).json(newPersona)                      //201: oggetto creato correttamente
+        const newAttivita = await attivita.save()
+        res.status(201).json(newAttivita)                      //201: oggetto creato correttamente
     } catch (err) {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
 
 
-//funzione che ritorna l'utente persona con l'id corrispondente, utilizzata nei metodi sottostanti
-async function getPersona(req, res, next) {
-    let persona
+//funzione che ritorna l'utente attività con l'id corrispondente, utilizzata nei metodi sottostanti
+async function getAttivita(req, res, next) {
+    let attivita
     try {
-      persona = await Persona.findById(req.params.id)
-      if (persona == null) {
+      attivita = await Attivita.findById(req.params.id)
+      if (attivita == null) {
         return res.status(404).json({ message: 'Utente non trovato' })    //400: errore da parte del cliente
       }
     } catch (err) {
       return res.status(500).json({ message: err.message })               //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
   
-    res.persona = persona
+    res.attivita = attivita
     next()
 }
 
 
-//modifica un oggetto persona già esistente
-router.put('/users/:id', getPersona, async (req, res) => {
+//modifica un oggetto attività già esistente
+router.put('/attivita/:id', getAttivita, async (req, res) => {
   if (req.body != null) {
     Object.keys(req.body).forEach(dato => {                               //funzione che permette di sovrascrivere in nuovi dati su quelli vecchi
-      res.persona[dato] = req.body[dato]
+      res.attivita[dato] = req.body[dato]
     })
   }
     try {
-      const updatedPersona = await res.persona.save()
-      res.json(updatedPersona)
+      const newAttivita = await res.attivita.save()
+      res.json(newAttivita)
     } catch (err) {
       res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
     }
@@ -60,20 +60,20 @@ router.put('/users/:id', getPersona, async (req, res) => {
 
 
 //ritorna l'utente con il parametro richiesto
-router.get('/users/:id', getPersona, (req, res) => {
-  res.json(res.persona)
+router.get('/attivita/:id', getAttivita, (req, res) => {
+  res.json(res.attivita)
 })
 
 
-//Rimuove un oggetto persona
-router.delete('/users/:id', getPersona, async (req, res) => {
+//Rimuove un oggetto attività
+router.delete('/attivita/:id', getAttivita, async (req, res) => {
     try {
-      await res.persona.deleteOne()
+      await res.attivita.deleteOne()
       res.json({ message: 'Utente correttamente rimosso' })
     } catch (err) {
       res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
 
-  
+
 module.exports = router;

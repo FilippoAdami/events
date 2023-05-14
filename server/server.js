@@ -3,7 +3,14 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
 const annunciR = require('./routes/annunciR');
+const personaR = require('./routes/personaR');
+const attivitaR = require('./routes/attivitaR');
+const bannerR = require('./routes/bannerR');
+const bannerM = require('./models/bannerM');
+
+//const userRoutes = require('./routes/userRoutes');
 const userRoutes = require('./routes/personaR');
 const amministratoriR = require('./routes/amministratoriR');
 
@@ -42,11 +49,15 @@ app.get('/', (req, res) => {
 
 // Set up routes
 app.use('/api', annunciR);
+app.use('/api', personaR);
+app.use('/api', attivitaR);
+app.use('/api', bannerR);
+
 app.use('/api', amministratoriR);
 //app.use('/api', userRoutes);
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
+  
 
