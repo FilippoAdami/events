@@ -57,3 +57,34 @@ router.get('/:idEvento/postiLiberi', async (req,res)=>{
         req.status(200).send(evento.select(postiLiberi));
     }
 });
+
+// get coordinate
+
+router.get('/:idEvento/coordinate',async (req, res) => {
+    const evento = await Evento.findOne(req.params.idEvento);
+    if(!evento)
+    {
+        res.status(404).send("no event found with the given id");
+    }
+    else
+    {
+        res.status(200).send(evento.select(indirizzo));
+    }
+})
+
+
+// get utenti prenotati
+
+router.get('/:idEvento/utentiPrenotati',(req,res)=>{
+
+    const evento = Evento.findOne(req.params.idEvento).populate("Persona",{"nome","email","telefono"});
+
+    if(evento.populated("Persona"))
+    {
+        res.status(200).send(evento.select("utentiPrenotati"));
+    }
+    else
+    {
+        console.log("error while populating, retry");
+    }
+})
