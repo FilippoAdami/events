@@ -1,0 +1,862 @@
+openapi: '3.0.0'
+info:
+  title: Events API
+  version: 1.0.0
+paths:
+  /api/amministratori:
+    get:
+      summary: Get all amministratori
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amministratore'
+    post:
+      summary: Create a new amministratori
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Amministratore'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  role:
+                    type: string
+                    enum:
+                      - super-user
+                      - moderatore
+                      - responsabile_pubblicita
+  /api/amministratori/{id}:
+    get:
+      summary: Get an amministratore by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the amministratore
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  role:
+                    type: string
+                    enum:
+                      - super-user
+                      - moderatore
+                      - responsabile_pubblicita
+    delete:
+      summary: Delete an amministratore by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the amministratore
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amministratore'
+    put:
+      summary: Update an amministratore by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the amministratore
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Amministratore'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  role:
+                    type: string
+                    enum:
+                      - super-user
+  /api/amministratori/role/{role}:
+    get:
+      summary: Get all amministratori by role
+      parameters:
+        - name: role
+          in: path
+          description: Role of the amministratori
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amministratore'
+  /api/users:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+              $ref: '#/components/schemas/Persona'
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  password:
+                    type: string
+                  nome:
+                    type: string
+                  cognome:
+                    type: string
+                  telefono:
+                    type: string
+                  dataNascita:
+                    type: string
+                  eventiPubblicati:
+                    type: array
+                    items:
+                      type: number
+                  prenotazioni:
+                    type: array
+                    items:
+                      type: number
+                  annunciPubblicati:
+                    type: array
+                    items:
+                      type: number
+  /api/users/{id}:
+    get:
+      summary: Get a user by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: User ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+              $ref: '#/components/schemas/Persona'
+        '404':
+          description: User not found
+    put:
+      summary: Update a user by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: User ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  password:
+                    type: string
+                  nome:
+                    type: string
+                  cognome:
+                    type: string
+                  telefono:
+                    type: string
+                  dataNascita:
+                    type: string
+                  eventiPubblicati:
+                    type: array
+                    items:
+                      type: number
+                  prenotazioni:
+                    type: array
+                    items:
+                      type: number
+                  annunciPubblicati:
+                    type: array
+                    items:
+                      type: number
+        '404':
+          description: User not found
+    delete:
+      summary: Delete a user by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: User ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+        '404':
+          description: User not found
+  /api/attivita:
+    get:
+      summary: Get all attività
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attivita'
+    post:
+      summary: Create a new attività
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attivita'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+  /api/attivita/{id}:
+    get:
+      summary: Get an attività by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attività ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+    put:
+      summary: Update an attività by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attività ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attivita'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+    delete:
+      summary: Delete an attività by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attività ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /annunci:
+    post:
+      summary: Create a new annuncio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annuncio'
+      responses:
+        '201':
+          description: Annuncio created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annuncio'
+        '400':
+          description: Bad request
+    get:
+      summary: Get all annunci
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annuncio'
+        '500':
+          description: Internal server error
+  /annunci/{id}:
+    get:
+      summary: Get an annuncio by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Annuncio ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annuncio'
+        '404':
+          description: Annuncio not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update an annuncio by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Annuncio ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annuncio'
+      responses:
+        '200':
+          description: Annuncio updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annuncio'
+        '404':
+          description: Annuncio not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete an annuncio by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Annuncio ID
+      responses:
+        '200':
+          description: Annuncio deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annuncio'
+        '404':
+          description: Annuncio not found
+        '500':
+          description: Internal server error
+  /annunci/publisher/{publisher_id}:
+    get:
+      summary: Get annunci by publisher ID
+      parameters:
+        - in: path
+          name: publisher_id
+          schema:
+            type: string
+          required: true
+          description: Publisher ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annuncio'
+        '404':
+          description: Publisher not found
+        '500':
+          description: Internal server error
+  /banners:
+    get:
+      summary: Get all banners
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Banner'
+        '500':
+          description: Internal server error
+    post:
+      summary: Create a new banner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Banner'
+      responses:
+        '201':
+          description: Banner created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '400':
+          description: Bad request
+  /banners/show_true:
+    get:
+      summary: Get banners with show true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Banner'
+        '500':
+          description: Internal server error
+  /banners/show_false:
+    get:
+      summary: Get banners with show false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Banner'
+        '500':
+          description: Internal server error
+  /banners/{id}:
+    get:
+      summary: Get a banner by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Banner ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '404':
+          description: Banner not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete a banner by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Banner ID
+      responses:
+        '200':
+          description: Banner deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '404':
+          description: Banner not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update a banner by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Banner ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Banner'
+      responses:
+        '200':
+          description: Banner updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '404':
+          description: Banner not found
+        '400':
+          description: Bad request
+  /banners/{id}/update:
+    patch:
+      summary: Update specific attributes of a banner by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Banner ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                action:
+                  type: string
+                  enum: [up_views, up_clicks, inv_show]
+                  description: |
+                    The action to perform on the banner. Available actions are:
+                    - `up_views`: Increment the views count of the banner by 1.
+                    - `up_clicks`: Increment the clicks count of the banner by 1.
+                    - `inv_show`: Toggle the `show` attribute of the banner.
+      responses:
+        '200':
+          description: Banner attributes updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '404':
+          description: Banner not found
+        '400':
+          description: Bad request
+        '406':
+          description: Not Acceptable
+
+
+
+components:
+  schemas:
+    Attivita:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+        nomeAzienda:
+          type: string
+          required: true
+        indirizzo:
+          type: string
+          required: true
+        telefono:
+          type: string
+          required: true
+        partitaIVA:
+          type: number
+          required: true
+        IBAN:
+          type: string
+          required: true
+        eventiPubblicati:
+          type: array
+          items:
+            type: number
+    Amministratore:
+      type: object
+      properties:
+        id:
+          type: string
+          required: true
+        role:
+          type: string
+          required: true
+          enum: [super-user, moderatore, responsabile_pubblicita]
+    Persona:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+        nome:
+          type: string
+          required: true
+        cognome:
+          type: string
+          required: true
+        telefono:
+          type: string
+          required: true
+        dataNascita:
+          type: string
+          format: date
+        eventiPubblicati:
+          type: array
+          items:
+            type: number
+        prenotazioni:
+          type: array
+          items:
+            type: number
+        annunciPubblicati:
+          type: array
+          items:
+            type: number
+    Annuncio:
+      type: object
+      properties:
+        id:
+          type: number
+          required: true
+        id_publisher:
+          type: number
+          required: true
+        title:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        date:
+          type: string
+          format: date
+          default: "yyyy-mm-dd"
+        time:
+          type: number
+          required: true
+        place:
+          type: string
+          required: false
+        contact:
+          type: string
+          required: false
+        clicks:
+          type: number
+          default: 0
+        views:
+          type: number
+          default: 0
+    Evento:
+      type: object
+      properties:
+        id_Evento:
+          type: number
+          required: true
+        titolo:
+          type: string
+          required: true
+        data:
+          type: string
+          format: date
+          required: true
+        ora:
+          type: number
+          required: true
+        indirizzo:
+          type: string
+          required: true
+        descrizione:
+          type: string
+          required: false
+        immagini:
+          type: array
+          items:
+            $ref: "#/components/schemas/Immagine"
+        costo:
+          type: number
+          required: true
+        posti:
+          type: number
+          required: true
+        postiLiberi:
+          type: number
+          required: true
+        visibilita:
+          type: boolean
+          required: true
+        categoria:
+          type: string
+          enum:
+            - social life
+            - sport
+            - studio
+            - svago
+            - viaggi
+            - business/progetti
+            - cultura
+            - arte
+            - cinema
+            - filosofia
+            - altro
+          required: false
+        pubblicatore:
+          type: string
+          required: true
+        utentiPrenotati:
+          type: array
+          items:
+            type: number
+        segnalato:
+          type: boolean
+          required: true
+        segnalazioni:
+          type: array
+          items:
+            $ref: "#/components/schemas/Segnalazione"
+    Banner:
+      type: object
+      properties:
+        id_publisher:
+          type: number
+          required: true
+        title:
+          type: string
+          required: true
+        descrizione:
+          type: string
+          required: true
+        budget:
+          type: number
+          default: 0
+        link:
+          type: string
+          required: true
+        clicks:
+          type: number
+          default: 0
+        views:
+          type: number
+          default: 0
+        show:
+          type: boolean
+          default: true
+    Immagine:
+      type: object
+      properties:
+        content:
+          type: string
+          format: binary
+          required: true
+        name:
+          type: string
+          required: true
+    Segnalazione:
+      type: object
+      properties:
+        id_segnalazione:
+          type: number
+          required: true
+        id_autore:
+          type: number
+          required: true
+        info:
+          type: string
+      collection: 'segnalazioni'

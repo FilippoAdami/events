@@ -1,22 +1,21 @@
 require('dotenv').config({path: '../.env'});
+
+//modules imports
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 
-const annunciR = require('./routes/annunciR');
-const personaR = require('./routes/personaR');
-const attivitaR = require('./routes/attivitaR');
-const bannerR = require('./routes/bannerR');
-const bannerM = require('./models/bannerM');
-
-//const userRoutes = require('./routes/userRoutes');
-const userRoutes = require('./routes/personaR');
-const amministratoriR = require('./routes/amministratoriR');
-
+//set the express app & allow requests from any origin using cors
 const app = express();
-// Allow requests from any origin
 app.use(cors());
+
+// Load the SwaggerAPI.yaml file & serve the SwaggerUI at /api-docs
+const swaggerDocument = YAML.load('./swagger.yaml');
+const routes = require('./routes/routes.js');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Connect to MongoDB
 async function connectToDatabase() {
@@ -42,22 +41,9 @@ app.use(cors({
   optionsSuccessStatus: 200 // return 200 for successful CORS pre-flight requests
 }));
 
-// Set up a basic route
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-// Set up routes
-app.use('/api', annunciR);
-app.use('/api', personaR);
-app.use('/api', attivitaR);
-app.use('/api', bannerR);
-
-app.use('/api', amministratoriR);
-//app.use('/api', userRoutes);
+// Set up the routes
+app.use(routes);
 
 // Start the server
 const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-  
-

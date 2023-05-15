@@ -19,7 +19,6 @@ const eventoSchema = new mongoose.Schema({
     utentiPrenotati : [{type : Number}] , // conterrà solo gli id degli eventi prenotati
     segnalato : {type : Boolean, required: true},
     segnalazioni : [Segnalazione.Schema]
-
 }, {collection : 'eventi'} );
 
 module.exports = mongoose.model('Evento', eventoSchema);
