@@ -13,7 +13,7 @@ router.post('/annunci', async (req, res) => {
   }
 });
 
-// GET all ads
+//Get all annunci
 router.get('/annunci', async (req, res) => {
   try {
     const annunci = await Annuncio.find();
@@ -50,8 +50,6 @@ router.get('/annunci/publisher/:publisher_id', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-
 
 // API to DELETE an annuncio given its id
 router.delete('/annunci/:id', async (req, res) => {

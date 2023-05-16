@@ -4,10 +4,8 @@ const Evento = require('../models/eventoM');
 
 // mostra evento
 
-router.get('/:idEvento/show', (req,res) => {
-
-    const evento = Evento.find({id_Evento : req.params.Evento});
-
+router.get('/:idEvento/show', async (req,res) => {    
+    const evento = await Evento.find({id_Evento : req.params.Evento});
     if(!evento)
     {
         res.status(404).send("no event found using the id provided");
@@ -16,30 +14,77 @@ router.get('/:idEvento/show', (req,res) => {
     {
         res.status(200).json(evento);
     }
-
-})
+});
 
 // aggiungi evento
-
-
-router.post("/addEvento",(req,res)=> {
-
+router.post("/addEvento", async (req,res)=> {
     const newEvento = new Evento(req.body);
-    newEvento.save();
-
+    await newEvento.save();
     res.status(201).send("event created and save thx xoxo");
+});
 
+// remove evento
+router.delete('/:idEvento/destroy', async (req,res) => {
+    const eventoDaEliminare = await  Evento.find(req.params.idEvento);
+    const deletedCOunt = Evento.deleteOne(eventoDaEliminare);
+    res.status(204).send("resource deleted xoxo");
+
+});
+
+// modify evento
+router.put('/:idEvento/change',async (req,res) => 
+{
+        const evento = await Evento.findOneAndUpdate({id_Evento :  req.params.idEvento},req.body);
+        if(!evento)
+        {
+            res.status(404).send("no evetn found with the given id");
+        }
+        else
+        {
+            res.status(204).send("changes made, well done xoxo");
+        }
+});
+
+// get postiLiberi
+router.get('/:idEvento/postiLiberi', async (req,res)=>{
+    const evento =await Evento.findOne(req.params.idEvento);
+    if(!evento)
+    {
+        res.status(404).send("no event found with the given id");
+    }
+    else
+    {
+        req.status(200).send(evento.select(postiLiberi));
+    }
+});
+
+// get coordinate
+
+router.get('/:idEvento/coordinate',async (req, res) => {
+    const evento = await Evento.findOne(req.params.idEvento);
+    if(!evento)
+    {
+        res.status(404).send("no event found with the given id");
+    }
+    else
+    {
+        res.status(200).send(evento.select(indirizzo));
+    }
 })
 
 
-// remove evento
+// get utenti prenotati
 
-router.delete(':idEvento/destroy',(req,res) => {
+router.get('/:idEvento/utentiPrenotati',(req,res)=>{
 
-    const eventoDaEliminare = Evento.find(req.params.idEvento);
+    const evento = Evento.findOne(req.params.idEvento).populate("Persona",{"nome","email","telefono"});
 
-    const deletedCOunt = Evento.deleteOne(eventoDaEliminare);
-    
-    res.status(204).send("resource deleted xoxo");
-
+    if(evento.populated("Persona"))
+    {
+        res.status(200).send(evento.select("utentiPrenotati"));
+    }
+    else
+    {
+        console.log("error while populating, retry");
+    }
 })

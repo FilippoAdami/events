@@ -14,8 +14,6 @@ router.get('/banners', async (req, res) => {
     }
 })
 
-
-
 //ritorna tutti i banner con show attivo
 router.get('/banners/show_true', async (req, res) => {
     try {
@@ -28,7 +26,6 @@ router.get('/banners/show_true', async (req, res) => {
     }
 })
 
-
 //ritorna tutti i banner con show false
 router.get('/banners/show_false', async (req, res) => {
     try {
@@ -40,8 +37,6 @@ router.get('/banners/show_false', async (req, res) => {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
-
-
 
 //crea un oggetto banner
 router.post('/banners', async (req, res) => { 
@@ -87,14 +82,10 @@ async function getBanner(req, res, next) {
     next()
 }
 
-
-
 //ritorna il banner con il parametro richiesto
 router.get('/banners/:id', getBanner, (req, res) => {
     res.json(res.banner)
 })
-
-
 
 //Rimuove un oggetto banner
 router.delete('/banners/:id', getBanner, async (req, res) => {
@@ -134,8 +125,6 @@ router.put('/banners/:id', getBanner, async (req, res) => {
         res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
     }
 })
-
-
 
 //Aggiornare gli attributi di un banner; l'utente avra gia fatto la get del banner; nell'update deve inserire quale azione fare
 
@@ -181,6 +170,6 @@ router.patch('/banners/:id', getBanner,defineAction, async (req, res) => {
     }catch(err){
         res.status(500).json({ message: err.message })                      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
-})
+});
 
 module.exports = router;

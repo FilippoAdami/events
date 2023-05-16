@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Attivita = require('../models/attivitaM.js')
 
-
 //ritorna tutti gli utenti attività
 router.get('/attivita', async (req, res) => {
     try {
@@ -12,7 +11,6 @@ router.get('/attivita', async (req, res) => {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
-
 
 //crea un oggetto attività
 router.post('/attivita', async (req, res) => {
@@ -24,7 +22,6 @@ router.post('/attivita', async (req, res) => {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
-
 
 //funzione che ritorna l'utente attività con l'id corrispondente, utilizzata nei metodi sottostanti
 async function getAttivita(req, res, next) {
@@ -42,7 +39,6 @@ async function getAttivita(req, res, next) {
     next()
 }
 
-
 //modifica un oggetto attività già esistente
 router.put('/attivita/:id', getAttivita, async (req, res) => {
   if (req.body != null) {
@@ -58,12 +54,10 @@ router.put('/attivita/:id', getAttivita, async (req, res) => {
     }
 })
 
-
 //ritorna l'utente con il parametro richiesto
 router.get('/attivita/:id', getAttivita, (req, res) => {
   res.json(res.attivita)
 })
-
 
 //Rimuove un oggetto attività
 router.delete('/attivita/:id', getAttivita, async (req, res) => {
@@ -74,6 +68,5 @@ router.delete('/attivita/:id', getAttivita, async (req, res) => {
       res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
-
 
 module.exports = router;
