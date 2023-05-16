@@ -10,7 +10,7 @@ GET http://localhost:5000/api/banners/show_false
 
 ###
 //test get by id
-GET http://localhost:5000/api/banners/645fbf73bf37e280c8d51cb5
+GET http://localhost:5000/api/banners/645fbf5ebf37e280c8d51caf
 
 ###
 POST http://localhost:5000/api/banners
@@ -22,14 +22,22 @@ Content-Type: application/json
     "descrizione" : "sto per piangere",
     "budget": 4,
     "link": "come non piangere",
-    "show" : false
+    "show" : false,
+    "image": {
+        "data": "<base64-encoded-image-data>",
+        "contentType": "image/jpeg"
+    }
     //"views":20
     //"clicks":30
 }
 
 ###
 //test delete exinsting using id
-DELETE http://localhost:5000/api/banners/645fb39e7b9824fd77ef1b6d
+DELETE http://localhost:5000/api/banners/64609b307dcba0d0f77e1f35
+
+###
+//test all delete exinsting 
+DELETE http://localhost:5000/api/banners
 
 
 ###

@@ -5,6 +5,7 @@ import Profile from './pages/Profile.js';
 import Datas from './pages/Datas.js';
 import LogIn from './pages/LogIn.js';
 import SignUp from './pages/SignUp.js';
+import ResPubbHome from './pages/ResPubbHome.js';
 
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
               <li><Link to="/login">Log In</Link></li>
               <li><Link to="/signup">Sign Up</Link></li>
               <li><Link to="/datas">Datas</Link></li>
+              <li><Link to="/respubbhome">HomeRespPubb</Link></li>
+
             </ul>
           </nav>
         </header>
@@ -28,6 +31,7 @@ function App() {
         <Route path="/login" element={<LogIn/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/datas" element={<Datas/>} />
+        <Route path="/respubbhome" element={<ResPubbHome/>} />
       </Routes>
       </div>
     </Router>

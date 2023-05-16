@@ -6,7 +6,6 @@ const Evento = require('../models/eventoM');
 
 router.get('/:idEvento/show', (req,res) => {
 
-    
     const evento = Evento.find({id_Evento : req.params.Evento});
 
     if(!evento)

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Segnalazione = require('../models/segnalazioneM');
-const Immagine = require('../models/imageM.js');
 
 const eventoSchema = new mongoose.Schema({
     id_Evento : {type : Number , required : true},
@@ -9,7 +8,7 @@ const eventoSchema = new mongoose.Schema({
     ora : {type: Number, required : true }, // non sono convinto del tipo
     indirizzo : {type : String , required : true},
     descrizione : {type : String, required: false},
-    immagini : {ImmagineSchema}, //https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/
+    immagini : [{type : String, required: false}], 
     costo : {type: Number, required : true},
     posti : {type : Number, required:  true}, // forse potrebbe essere facoltativo
     postiLiberi : {type : Number, required : true},

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Banner = require('../models/bannerM.js')
 
+const fs = require('fs')
 
 //ritorna tutti i banner 
 router.get('/banners', async (req, res) => {
@@ -43,8 +44,9 @@ router.get('/banners/show_false', async (req, res) => {
 
 
 //crea un oggetto banner
-router.post('/banners', async (req, res) => {
-    const banner = new Banner(req.body); 
+router.post('/banners', async (req, res) => { 
+    
+    const banner = new Banner(req.body);
 
     if(req.body.clicks && req.body.clicks != 0){            // controllo che non vengano creati nuovi banner con clicks diverso da zero
         banner.clicks = 0
@@ -64,6 +66,7 @@ router.post('/banners', async (req, res) => {
     }
 })
 
+    
 
 
 
@@ -98,6 +101,16 @@ router.delete('/banners/:id', getBanner, async (req, res) => {
     try {
       await res.banner.deleteOne()
       res.json({ message: 'Banner correttamente rimosso' })
+    } catch (err) {
+      res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
+    }
+})
+
+//Rimuove tuuti gli oggetto banner
+router.delete('/banners', async (req, res) => {
+    try {
+      await Banner.deleteMany();
+      res.json({ message: 'Banners correttamente rimossi' })
     } catch (err) {
       res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
