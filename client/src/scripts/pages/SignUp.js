@@ -67,8 +67,8 @@ function SignUp() {
         <input
           value = { dataNascita }
           onChange={ (e) => setDataNascita(e.target.value)}
-          type = "text"
-          placeholder = "dataNascita"
+          type = "date"
+          placeholder = "data di nascita"
         />
         <br />
         <input type = "submit" value = "registrati" />
