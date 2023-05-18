@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Attivita = require('../models/attivitaM.js')
+const Attivita = require('../models/attivitaM')
 
 //ritorna tutti gli utenti attività
 router.get('/attivita', async (req, res) => {
@@ -22,6 +22,27 @@ router.post('/attivita', async (req, res) => {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
+
+
+//api registrazione
+router.post('/attivita/register', async (req, res) => {
+  try {
+    await Attivita.create({
+      email: req.body.email,
+      password: req.body.password,
+      nomeAttivita: req.body.nomeAttivita,
+      indirizzo: req.body.indirizzo,
+      telefono: req.body.telefono,
+      partitaIVA: req.body.partitaIVA,
+      IBAN: req.body.IBAN 
+    })
+    res.json({ status: 'ok' })
+  } catch (err) {
+    console.log(err)
+    res.json({ status: 'error', error: 'duplicate mail' })  
+  }
+})
+
 
 //funzione che ritorna l'utente attività con l'id corrispondente, utilizzata nei metodi sottostanti
 async function getAttivita(req, res, next) {

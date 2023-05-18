@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 
-
-function SignUp() {
-
+function SignUpAttivita () {
+    
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [nome, setNome] = useState('')
-  const [cognome, setCognome] = useState('')
+  const [nomeAttivita, setNomeAttivita] = useState('')
+  const [indirizzo, setIndirizzo] = useState('')
   const [telefono, setTelefono] = useState('')
-  const [dataNascita, setDataNascita] = useState('')
+  const [partitaIVA, setPerititaIVA] = useState('')
+  const [IBAN, setIBAN] = useState('')
 
   async function register(event){
     event.preventDefault()
-    const response = await fetch('http://localhost:5000/api/users/register', {
+    const response = await fetch('http://localhost:5000/api/attivita/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email, password, nome, cognome, telefono, dataNascita,
+        email, password, nomeAttivita, indirizzo, telefono, partitaIVA, IBAN
       })
     })
 
@@ -31,7 +31,7 @@ function SignUp() {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Register Attivita</h1>
       <form onSubmit = {register} >
         <input
           value = { email }
@@ -48,17 +48,17 @@ function SignUp() {
         />
         <br />
         <input
-          value = { nome }
-          onChange={ (e) => setNome(e.target.value)}
+          value = { nomeAttivita }
+          onChange={ (e) => setNomeAttivita(e.target.value)}
           type = "text"
-          placeholder = "nome"
+          placeholder = "nome attività"
         />
         <br />
         <input
-          value = { cognome }
-          onChange={ (e) => setCognome(e.target.value)}
+          value = { indirizzo }
+          onChange={ (e) => setIndirizzo(e.target.value)}
           type = "text"
-          placeholder = "cognome"
+          placeholder = "indirizzo"
         />
         <br />
         <input
@@ -69,19 +69,25 @@ function SignUp() {
         />
         <br />
         <input
-          value = { dataNascita }
-          onChange={ (e) => setDataNascita(e.target.value)}
-          type = "text"
-          placeholder = "dataNascita"
+          value = { partitaIVA }
+          onChange={ (e) => setPerititaIVA(e.target.value)}
+          type = "number"
+          placeholder = "partita iva"
+        />
+        <input
+          value = { IBAN }
+          onChange={ (e) => setIBAN(e.target.value)}
+          type = "number"
+          placeholder = "IBAN"
         />
         <br />
         <input type = "submit" value = "registrati" />
       </form>
       <br/><br/>
-      <h4>Sei una Azienda ? Clicca qui per registrati come Attività</h4>
-      <button type='button' onClick={() => {navigate("/signup/attivita")}}> Registrati </button>
+      <h4>Torna alla registrazione utente</h4>
+      <button type='button' onClick={() => {navigate("/signup")}}> Indietro </button>
     </div>
   );
 }
 
-export default SignUp;
+export default SignUpAttivita;

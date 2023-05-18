@@ -15,7 +15,7 @@ router.get('/banners', async (req, res) => {
 })
 
 //ritorna tutti i banner con show attivo
-router.get('/banners/show_true', async (req, res) => {
+router.get('/banners?show=true', async (req, res) => {
     try {
         const banner = await Banner.find(
             { show : "true" }                               //filtro, solo i banner con attributo show true
@@ -27,7 +27,7 @@ router.get('/banners/show_true', async (req, res) => {
 })
 
 //ritorna tutti i banner con show false
-router.get('/banners/show_false', async (req, res) => {
+router.get('/banners?show=true', async (req, res) => {
     try {
         const banner = await Banner.find(
             { show : "false" }                               //filtro, solo i banner con attributo show false
