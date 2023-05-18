@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Persona = require('../models/personaM.js')
+const Persona = require('../models/personaM')
 
 
 //ritorna tutti gli utenti persona
@@ -23,6 +23,38 @@ router.post('/users', async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
+})
+
+
+//api registrazione
+router.post('/users/register', async (req, res) => {
+  console.log(req.body)
+  try {
+    await Persona.create({
+      email: req.body.email,
+      password: req.body.password,
+      nome: req.body.nome,
+      cognome: req.body.cognome,
+      telefono: req.body.telefono,
+      dataNascita: req.body.dataNascita,
+    })
+    res.json({ status: 'ok' })
+  } catch (err) {
+    res.json({ status: 'error', error: 'duplicate mail' })  
+  }
+})
+
+//api login
+router.post('/users/login', async (req, res) => {
+    const persona = await Persona.findOne({ 
+      email: req.body.email,
+      password: req.body.password,
+    })
+  if(persona) {
+    return res.status(200).json({ persona: true })
+  } else {
+    return res.status(400).json({ persona: false })
+  }
 })
 
 
