@@ -97,16 +97,17 @@ router.delete('/banners/:id', getBanner, async (req, res) => {
     }
 })
 
+/*API implementato solo per motivi di testing 
 //Rimuove tuuti gli oggetto banner
 router.delete('/banners', async (req, res) => {
     try {
       await Banner.deleteMany();
       res.json({ message: 'Banners correttamente rimossi' })
     } catch (err) {
-      res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
+      res.status(500).json({ message: err.message })                
     }
 })
-
+*/
 
 
 //Modificare un banner pubblicitario

@@ -77,7 +77,7 @@ router.get('/:idEvento/coordinate',async (req, res) => {
 
 router.get('/:idEvento/utentiPrenotati',(req,res)=>{
 
-    const evento = Evento.findOne(req.params.idEvento).populate("Persona",{"nome","email","telefono"});
+    //const evento = Evento.findOne(req.params.idEvento).populate("Persona",{"nome", "email","telefono"});
 
     if(evento.populated("Persona"))
     {

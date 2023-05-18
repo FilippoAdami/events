@@ -838,16 +838,6 @@ components:
         show:
           type: boolean
           default: true
-    Immagine:
-      type: object
-      properties:
-        content:
-          type: string
-          format: binary
-          required: true
-        name:
-          type: string
-          required: true
     Segnalazione:
       type: object
       properties:
