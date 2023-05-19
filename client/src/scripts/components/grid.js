@@ -40,7 +40,7 @@ const InfiniteScroll = () => {
     }
 
     let contentBackup = content; //backup of the content variable to restore the content after the banner
-    alert("annunci: "+JSON.stringify(annunci[0]));
+    //alert("annunci: "+JSON.stringify(annunci[0]));
     //for cicly that generates the divs
     for (let i = 0; i < divsNumberIncrement; i++) {
       //checks if it's time for a banner to appear
