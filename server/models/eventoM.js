@@ -4,7 +4,7 @@ const Persona = require('../models/personaM');
 
 
 const eventoSchema = new mongoose.Schema({
-    id_Evento : {type : Number , required : true},
+    //id_Evento : {type : Number , required : true},
     titolo : {type : String, required : true},
     data :{type : Date, required : true},
     ora : {type: Number, required : true }, // non sono convinto del tipo
