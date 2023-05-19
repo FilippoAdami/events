@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 
-function SignUpAttivita () {
-    
+function SignUpAttivita() {
+
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
@@ -10,18 +10,18 @@ function SignUpAttivita () {
   const [nomeAttivita, setNomeAttivita] = useState('')
   const [indirizzo, setIndirizzo] = useState('')
   const [telefono, setTelefono] = useState('')
-  const [partitaIVA, setPerititaIVA] = useState('')
-  const [IBAN, setIBAN] = useState('')
+  const [partitaIVA, setPartitaIVA] = useState('')
+  const [iban, setIban] = useState('')
 
   async function register(event){
     event.preventDefault()
-    const response = await fetch('http://localhost:5000/api/attivita/register', {
+    const response = await fetch('http://localhost:5000/api/users/attivita/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email, password, nomeAttivita, indirizzo, telefono, partitaIVA, IBAN
+        email, password, nomeAttivita, indirizzo, telefono, partitaIVA, iban, 
       })
     })
 
@@ -31,7 +31,7 @@ function SignUpAttivita () {
 
   return (
     <div>
-      <h1>Register Attivita</h1>
+      <h1>Sign up Attività</h1>
       <form onSubmit = {register} >
         <input
           value = { email }
@@ -51,7 +51,7 @@ function SignUpAttivita () {
           value = { nomeAttivita }
           onChange={ (e) => setNomeAttivita(e.target.value)}
           type = "text"
-          placeholder = "nome attività"
+          placeholder = "nomeAttivita"
         />
         <br />
         <input
@@ -70,22 +70,23 @@ function SignUpAttivita () {
         <br />
         <input
           value = { partitaIVA }
-          onChange={ (e) => setPerititaIVA(e.target.value)}
-          type = "number"
-          placeholder = "partita iva"
+          onChange={ (e) => setPartitaIVA(e.target.value)}
+          type = "text"
+          placeholder = "partitaIVA"
         />
+        <br />
         <input
-          value = { IBAN }
-          onChange={ (e) => setIBAN(e.target.value)}
-          type = "number"
-          placeholder = "IBAN"
+          value = { iban }
+          onChange={ (e) => setIban(e.target.value)}
+          type = "text"
+          placeholder = "iban"
         />
         <br />
         <input type = "submit" value = "registrati" />
       </form>
       <br/><br/>
       <h4>Torna alla registrazione utente</h4>
-      <button type='button' onClick={() => {navigate("/signup")}}> Indietro </button>
+      <button type='button' onClick={() => {navigate("/signup")}}> registra persona </button>
     </div>
   );
 }

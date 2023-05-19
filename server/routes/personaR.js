@@ -25,9 +25,9 @@ router.post('/users', async (req, res) => {
     }
 })
 
-
+//11000
 //api registrazione
-router.post('/users/register', async (req, res) => {
+router.post('/users/persona/register', async (req, res) => {
   console.log(req.body)
   try {
     await Persona.create({
@@ -40,12 +40,12 @@ router.post('/users/register', async (req, res) => {
     })
     res.json({ status: 'ok' })
   } catch (err) {
-    res.json({ status: 'error', error: 'duplicate mail' })  
+    res.json({ status: 'error', error: err })  
   }
 })
 
 //api login
-router.post('/users/login', async (req, res) => {
+router.post('/users/persona/login', async (req, res) => {
     const persona = await Persona.findOne({ 
       email: req.body.email,
       password: req.body.password,

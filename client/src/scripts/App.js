@@ -4,9 +4,9 @@ import Home from './pages/Home.js';
 import Profile from './pages/Profile.js';
 import Datas from './pages/Datas.js';
 import LogIn from './pages/LogIn.js';
-import SignUp from './pages/SignUp.js';
-import SignUpAttivita from './pages/SignUpAttivita.js';
+import SignUpPersona from './pages/SignUpPersona.js';
 import ResPubbHome from './pages/ResPubbHome.js';
+import SignUpAttivita from './pages/SignUpAttivita.js';
 
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/login" element={<LogIn/>} />
-        <Route path="/signup" element={<SignUp/>} />
+        <Route path="/signup" element={<SignUpPersona/>} />
         <Route path="/datas" element={<Datas/>} />
         <Route path="/respubbhome" element={<ResPubbHome/>} />
         <Route path='/signup/attivita' element={<SignUpAttivita/>}/>

@@ -8,8 +8,8 @@ const attivitaSchema = new mongoose.Schema({
   indirizzo: { type: String, required: true },
   telefono: { type: String, required: true },
   partitaIVA: { type: Number, required: true},
-  IBAN: { type: String, required: true },
+  iban: { type: String, required: true },
   eventiPubblicati: [{ type: Number }]
-}, { collection: 'attivita' });
+}, { collection: 'users' });
   
 module.exports = mongoose.model('Attivita', attivitaSchema);

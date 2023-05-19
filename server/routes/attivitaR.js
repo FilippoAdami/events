@@ -12,6 +12,7 @@ router.get('/attivita', async (req, res) => {
     }
 })
 
+/*
 //crea un oggetto attività
 router.post('/attivita', async (req, res) => {
     const attivita = new Attivita(req.body)
@@ -22,10 +23,10 @@ router.post('/attivita', async (req, res) => {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
+*/
 
-
-//api registrazione
-router.post('/attivita/register', async (req, res) => {
+router.post('/users/attivita/register', async (req, res) => {
+  console.log(req.body)
   try {
     await Attivita.create({
       email: req.body.email,
@@ -34,12 +35,11 @@ router.post('/attivita/register', async (req, res) => {
       indirizzo: req.body.indirizzo,
       telefono: req.body.telefono,
       partitaIVA: req.body.partitaIVA,
-      IBAN: req.body.IBAN 
+      iban: req.body.iban,
     })
     res.json({ status: 'ok' })
   } catch (err) {
-    console.log(err)
-    res.json({ status: 'error', error: 'duplicate mail' })  
+    res.json({ status: 'error', error: err })  
   }
 })
 

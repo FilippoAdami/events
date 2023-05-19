@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 
-
-function SignUp() {
+function SignUpPersona() {
 
   const navigate = useNavigate()
 
@@ -15,7 +14,7 @@ function SignUp() {
 
   async function register(event){
     event.preventDefault()
-    const response = await fetch('http://localhost:5000/api/users/register', {
+    const response = await fetch('http://localhost:5000/api/users/persona/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,7 +30,7 @@ function SignUp() {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Sign up Persona</h1>
       <form onSubmit = {register} >
         <input
           value = { email }
@@ -72,16 +71,16 @@ function SignUp() {
           value = { dataNascita }
           onChange={ (e) => setDataNascita(e.target.value)}
           type = "date"
-          placeholder = "data di nascita"
+          placeholder = "dataNascita"
         />
         <br />
         <input type = "submit" value = "registrati" />
       </form>
       <br/><br/>
       <h4>Sei una Azienda ? Clicca qui per registrati come Attività</h4>
-      <button type='button' onClick={() => {navigate("/signup/attivita")}}> Registrati </button>
+      <button type='button' onClick={() => {navigate("/signup/attivita")}}> registra attività </button>
     </div>
   );
 }
 
-export default SignUp;
+export default SignUpPersona;
