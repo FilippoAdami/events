@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Attivita = require('../models/attivitaM')
+const Persona = require('../models/personaM')
 
 //ritorna tutti gli utenti attività
 router.get('/attivita', async (req, res) => {
@@ -41,6 +42,23 @@ router.post('/users/attivita/register', async (req, res) => {
   } catch (err) {
     res.json({ status: 'error', error: err })  
   }
+})
+
+//api login
+router.post('/users/login', async (req, res) => {
+  const persona = await Persona.findOne({ 
+    email: req.body.email,
+    password: req.body.password,
+  })
+  const attivita = await Attivita.findOne({
+    email: req.body.email,
+    password: req.body.password,
+  })
+if(persona || attivita) {
+  return res.status(200).json({ persona: true })
+} else {
+  return res.status(400).json({ persona: false })
+}
 })
 
 
