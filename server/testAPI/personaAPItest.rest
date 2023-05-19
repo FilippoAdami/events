@@ -11,14 +11,24 @@ POST http://localhost:5000/api/users
 Content-Type: application/json
 
 {
-    "email": "A",
-    "password": "A",
+    "email": "F",
+    "password": "F",
     "nome": "A",
     "cognome": "A",
     "telefono": "A",
     "eventiPubblicati": [1,1,1],
     "prenotazioni": [1,1,1],
     "annunciPubblicati": [1,1,1]
+}
+
+###
+//test post new
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "email": "F",
+    "password": "F"
 }
 
 ###

@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Banner = require('../models/bannerM.js')
 
+const fs = require('fs')
+
 //ritorna tutti i banner 
 router.get('/banners', async (req, res) => {
     try {
@@ -13,7 +15,7 @@ router.get('/banners', async (req, res) => {
 })
 
 //ritorna tutti i banner con show attivo
-router.get('/banners/show_true', async (req, res) => {
+router.get('/banners?show=true', async (req, res) => {
     try {
         const banner = await Banner.find(
             { show : "true" }                               //filtro, solo i banner con attributo show true
@@ -25,7 +27,7 @@ router.get('/banners/show_true', async (req, res) => {
 })
 
 //ritorna tutti i banner con show false
-router.get('/banners/show_false', async (req, res) => {
+router.get('/banners?show=true', async (req, res) => {
     try {
         const banner = await Banner.find(
             { show : "false" }                               //filtro, solo i banner con attributo show false
@@ -37,8 +39,9 @@ router.get('/banners/show_false', async (req, res) => {
 })
 
 //crea un oggetto banner
-router.post('/banners', async (req, res) => {
-    const banner = new Banner(req.body); 
+router.post('/banners', async (req, res) => { 
+    
+    const banner = new Banner(req.body);
 
     if(req.body.clicks && req.body.clicks != 0){            // controllo che non vengano creati nuovi banner con clicks diverso da zero
         banner.clicks = 0
@@ -57,6 +60,10 @@ router.post('/banners', async (req, res) => {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
+
+    
+
+
 
 //funzione che ritorna il banner con l'id corrispondente, utilizzata nei metodi sottostanti
 async function getBanner(req, res, next) {
@@ -89,6 +96,19 @@ router.delete('/banners/:id', getBanner, async (req, res) => {
       res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
+
+/*API implementato solo per motivi di testing 
+//Rimuove tuuti gli oggetto banner
+router.delete('/banners', async (req, res) => {
+    try {
+      await Banner.deleteMany();
+      res.json({ message: 'Banners correttamente rimossi' })
+    } catch (err) {
+      res.status(500).json({ message: err.message })                
+    }
+})
+*/
+
 
 //Modificare un banner pubblicitario
 router.put('/banners/:id', getBanner, async (req, res) => {
