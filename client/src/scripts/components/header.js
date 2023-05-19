@@ -5,10 +5,14 @@ import Logo from '../elements/logo.js';
 import Menu from '../subcomponents/menu.js'
 import ProfileMenu from '../subcomponents/profileMenu.js';
 
+
 function Header() {
   return (
     <div id="header">
-        
+      <Logo />
+      <Filter />
+      <Account />
+      <Menu />     
     </div>
   );
 }

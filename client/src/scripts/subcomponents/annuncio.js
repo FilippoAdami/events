@@ -1,6 +1,58 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Annuncio from "../subcomponents/annuncio";
+class Annuncio extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+        id: props.id,
+        id_publisher: props.id_publisher,
+        title: props.title,
+        description: props.description,
+        date: props.date,
+        time: props.time,
+        place: props.place,
+        contact: props.contact,
+    };
+  }
+  /*
+  delete = this.deleteF.bind(this);
+
+  deleteF(){
+    axios
+      .delete(`http://localhost:5000/api/annunci/${this.state.id}`)
+      .then((response) => {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } */
+  render(){
+      return(
+          <p id="annuncio">
+              <div>{this.state.title} id {this.state.id}</div>
+              <div>{this.state.description}</div>
+              <div>{this.state.date.toLocaleDateString()}</div>
+              <div>{this.state.place}</div>
+              <div>{this.state.contact}</div>
+              <button onClick={this.delete}>Delete</button>
+          </p>
+      );
+  }
+}
+
+function DeleteAnnuncio(id){
+  axios
+    .delete(`http://localhost:5000/api/annunci/${id}`)
+    .then((response) => {
+      console.log(response);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 function AddAnnuncio() {
   const [title, setTitle] = useState("");
@@ -187,14 +239,37 @@ function ModifyAnnuncio() {
   );
 };
 
-function Datas(){
-  const date = new Date();
-  return (
-    <div>
-      <AddAnnuncio /> <ModifyAnnuncio /> <AnnunciList />
-    </div>
-  );
+async function fetchAnnunci() {
+  try {
+    const response = await axios.get('http://localhost:5000/api/annunci');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching annunci:', error);
+    return [];
+  }
 }
 
-export {AddAnnuncio, ModifyAnnuncio, AnnunciList};
-export default Datas;
+async function getAnnunciArray() {
+  try {
+    const response = await fetchAnnunci();
+    return response.map(ad => (
+      <Annuncio
+        key={ad._id}
+        id={ad._id}
+        id_publisher={ad.id_publisher}
+        title={ad.title}
+        description={ad.description}
+        date={new Date(ad.date)}
+        time={ad.time}
+        place={ad.place}
+        contact={ad.contact}
+      />
+    ));
+  } catch (error) {
+    console.error('Error getting annunci array:', error);
+    return [];
+  }
+}
+
+export {AddAnnuncio, ModifyAnnuncio, AnnunciList, DeleteAnnuncio, getAnnunciArray};
+export default Annuncio;

@@ -635,8 +635,6 @@ paths:
         '406':
           description: Not Acceptable
 
-
-
 components:
   schemas:
     Attivita:

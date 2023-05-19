@@ -8,10 +8,9 @@ import Toggle from '../components/toggle.js';
 function Home() {
   return (
     <nobr>
-      <h1>Welcome to the Smart-Public Showcase</h1>
-      <p>
-        Here, registered users can upload customized events and share them with others.
-      </p>
+      <Header />
+      <Toggle />
+      <Grid />
     </nobr>
   );
 }
