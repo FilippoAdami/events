@@ -6,17 +6,16 @@ import Map from '../components/map';
 import Toggle from '../components/toggle.js';
 
 function Home() {
-  const [selectedOption, setSelectedOption] = useState('annunci');
+  const [selectedOption, setSelectedOption] = useState('annunci'); //variable that indicates whether to display events or ads
 
   const handleToggle = (option) => {
-    //check if the option is already selected
+    //check if the option is already selected to avoid useless re-rendering
     if (option === selectedOption) {
       return;
     }
     setSelectedOption(option);
     console.log('selectedOption toggled to ' + option);
   };
-
 
   return (
     <>

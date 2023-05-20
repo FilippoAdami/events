@@ -26,6 +26,7 @@ const Grid = ({ selectedOption }) => {
   useEffect(() => {
     setDivNumber(0);
     setDivs([]);
+    //fetch the annunci from the database
     axios.get("http://localhost:5000/api/annunci")
       .then((response) => {
         const fetchedAnnunci = response.data.map((annuncio) => (
@@ -110,22 +111,16 @@ const Grid = ({ selectedOption }) => {
       let type = (divNumber+i+1)%bannerFrequency;
       if(type===0) { content = 'banner'; }
       else if (type!==0 && content === 'banner'){content = contentBackup;}
-
-
     let annuncioIndex = divNumber + i;
-    let annuncioComponent = null;
+    let annuncioComponent = '';
+    //checks if the div will contain an annuncio or stay empty
     if (annuncioIndex < annunci.length) {
       annuncioComponent = annunci[annuncioIndex];
     }
-
-
-      //div generation
-      newDivs.push(<>{annuncioComponent}</>);
-      
+      newDivs.push(<>{annuncioComponent}</>);  //div generation 
     }
-
-
-    console.log('divs generated: \n'+JSON.stringify(newDivs[0]));
+    //console.log('divs generated: \n'+JSON.stringify(newDivs[0]));
+    //updates the divs, the divNumber and the loading variables
     setDivs((prevDivs) => [...prevDivs, ...newDivs]);
     setDivNumber((prevDivNumber) => prevDivNumber + divsNumberIncrement);
     loading = false;
