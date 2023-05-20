@@ -5,10 +5,10 @@ const Attivita = require('../models/attivitaM')
 
 
 //ritorna tutti gli utenti persona
-router.get('/users', async (req, res) => {
+router.get('/persone', async (req, res) => {
     try {
         const persona = await Persona.find()
-        res.json(persona)                             
+        res.status(200).json(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
@@ -16,7 +16,7 @@ router.get('/users', async (req, res) => {
 
 
 //crea un oggetto persona
-router.post('/users', async (req, res) => {
+router.post('/persone', async (req, res) => {
     const persona = new Persona(req.body)
     try {
         const newPersona = await persona.save()
@@ -28,7 +28,7 @@ router.post('/users', async (req, res) => {
 
 //11000
 //api registrazione
-router.post('/users/persona/register', async (req, res) => {
+router.post('/persone/register', async (req, res) => {
   console.log(req.body)
   try {
     await Persona.create({
@@ -81,7 +81,7 @@ async function getPersona(req, res, next) {
 
 
 //modifica un oggetto persona già esistente
-router.put('/users/:id', getPersona, async (req, res) => {
+router.put('/persone/:id', getPersona, async (req, res) => {
   if (req.body != null) {
     Object.keys(req.body).forEach(dato => {                               //funzione che permette di sovrascrivere in nuovi dati su quelli vecchi
       res.persona[dato] = req.body[dato]
@@ -97,13 +97,13 @@ router.put('/users/:id', getPersona, async (req, res) => {
 
 
 //ritorna l'utente con il parametro richiesto
-router.get('/users/:id', getPersona, (req, res) => {
+router.get('/persone/:id', getPersona, (req, res) => {
   res.json(res.persona)
 })
 
 
 //Rimuove un oggetto persona
-router.delete('/users/:id', getPersona, async (req, res) => {
+router.delete('/persone/:id', getPersona, async (req, res) => {
     try {
       await res.persona.deleteOne()
       res.json({ message: 'Utente correttamente rimosso' })

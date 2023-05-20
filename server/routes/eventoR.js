@@ -32,7 +32,7 @@ router.post("/addEvento", async (req,res)=> {
         postiLiberi : req.body.posti,
         visibilita : req.body.visibilita,
         categoria : req.body.categoria,
-        pubblicatore : ,
+        pubblicatore : req.body.pubblicatore,
         utentiPreonotati : [],
         segnalato : false,
         segnalazioni : []

@@ -3,7 +3,7 @@ GET http://localhost:5000/api/attivita
 
 ###
 //test get by id
-GET http://localhost:5000/api/attivita/645eb1805d40cf58f5f740c4
+GET http://localhost:5000/api/attivita/64688c96ed8a8925adeda515
 
 ###
 //test post new
@@ -17,7 +17,7 @@ Content-Type: application/json
     "indirizzo": "A",
     "telefono": "A",
     "partitaIVA": "1",
-    "IBAN": "A",
+    "IBAN": 4,
     "eventiPubblicati": [1,1,1]
 }
 

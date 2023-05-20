@@ -17,7 +17,7 @@ router.post('/amministratori', async (req, res) => {
 router.get('/amministratori', async (req, res) => {
   try {
     const amministratori = await Amministratore.find();
-    res.json(amministratori);
+    res.status(200).json(amministratori);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -28,9 +28,9 @@ router.get('/amministratori/:id', async (req, res) => {
   try {
     const amministratori = await Amministratore.findById(req.params.id);
     if (!amministratori) {
-      return res.status(404).send('amministratori not found');
+      return res.status(404).send('amministratore not found');
     }
-    res.json(amministratori);
+    res.status(200).json(amministratori);
   } catch (error) {
     console.log(error);
     res.status(500).send('Server error');
@@ -56,7 +56,7 @@ router.delete('/amministratori/:id', async (req, res) => {
     if (!amministratoriEliminato) {
       return res.status(404).send('amministratori not found');
     }
-    res.json(amministratoriEliminato);
+    res.status(200).json(amministratoriEliminato);
   }catch (error) {
     console.log(error);
     res.status(500).send('Server error');
@@ -72,7 +72,7 @@ router.put('/amministratori/:id', async (req, res) => {
     if (!amministratoriAggiornato) {
       return res.status(404).send('amministratori not found');
     }
-    res.json(amministratoriAggiornato);
+    res.status(200).json(amministratoriAggiornato);
   } catch (error) {
     console.log(error);
     res.status(500).send('Server error');

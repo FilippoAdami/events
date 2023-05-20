@@ -13,7 +13,7 @@ router.get('/attivita', async (req, res) => {
     }
 })
 
-/*
+
 //crea un oggetto attività
 router.post('/attivita', async (req, res) => {
     const attivita = new Attivita(req.body)
@@ -24,9 +24,9 @@ router.post('/attivita', async (req, res) => {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
-*/
 
-router.post('/users/attivita/register', async (req, res) => {
+
+router.post('attivita/register', async (req, res) => {
   console.log(req.body)
   try {
     await Attivita.create({
