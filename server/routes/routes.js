@@ -1,6 +1,6 @@
 //routes main file
 const express = require('express');
-const tokenChecker = require('./tokenChecker.js');
+const tokenChecker = require('../controllers/tokenChecker');
 const router = express.Router();
 
 //import routes
