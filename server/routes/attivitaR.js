@@ -12,7 +12,7 @@ router.post('/attivita/register', async (req, res) => {
   console.log(req.body)
   try {
     const passwordCryptata = await bcrypt.hash(req.body.password, 10)
-    await Attivita.create({
+    const attivita = await Attivita.create({
       email: req.body.email,
       password: passwordCryptata,
       nomeAttivita: req.body.nomeAttivita,
@@ -21,18 +21,8 @@ router.post('/attivita/register', async (req, res) => {
       partitaIVA: req.body.partitaIVA,
       iban: req.body.iban,
     })
-    return res.json({ 
-      attivita: true,
-      message: "utente registrato", 
-      email: req.body.email,
-      password: passwordCryptata,
-      nomeAttivita: req.body.nomeAttivita,
-      indirizzo: req.body.indirizzo,
-      telefono: req.body.telefono,
-      partitaIVA: req.body.partitaIVA,
-      iban: req.body.iban,
-    })
-  } catch (err) {
+    return res.json({attivita, message: "utente registrato"})
+    } catch (err) {
     return res.json({ status: 'error', error: err })  
   }
 })
@@ -67,18 +57,6 @@ router.get('/attivita', async (req, res) => {
         res.json(attivita)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
-    }
-})
-
-
-//crea un oggetto attività
-router.post('/attivita', async (req, res) => {
-    const attivita = new Attivita(req.body)
-    try {
-        const newAttivita = await attivita.save()
-        res.status(201).json(newAttivita)                      //201: oggetto creato correttamente
-    } catch (err) {
-        res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
 

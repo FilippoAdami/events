@@ -12,7 +12,7 @@ router.post('/persona/register', async (req, res) => {
   console.log(req.body)
   try {
     const passwordCryptata = await bcrypt.hash(req.body.password, 10)
-    await Persona.create({
+    const persona = await Persona.create({
       email: req.body.email,
       password: passwordCryptata,
       nome: req.body.nome,
@@ -20,16 +20,7 @@ router.post('/persona/register', async (req, res) => {
       telefono: req.body.telefono,
       dataNascita: req.body.dataNascita,
     })
-    return res.json({ 
-      persona: true,
-      message: "utente registrato", 
-      email: req.body.email,
-      password: passwordCryptata,
-      nome: req.body.nome,
-      cognome: req.body.cognome,
-      telefono: req.body.telefono,
-      dataNascita: req.body.dataNascita,
-    })
+    return res.json({persona, message: "utente registrato"})
   } catch (err) {
     return res.json({ status: 'error', error: err })  
   }
@@ -64,18 +55,6 @@ router.get('/persona', async (req, res) => {
         res.json(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
-    }
-})
-
-
-//crea un oggetto persona
-router.post('/persona', async (req, res) => {
-    const persona = new Persona(req.body)
-    try {
-        const newPersona = await persona.save()
-        res.status(201).json(newPersona)                      //201: oggetto creato correttamente
-    } catch (err) {
-        res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
 
