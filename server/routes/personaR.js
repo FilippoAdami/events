@@ -20,10 +20,8 @@ router.post('/persona/register', async (req, res) => {
       telefono: req.body.telefono,
       dataNascita: req.body.dataNascita,
     })
-    return res.json({persona, message: "utente registrato"})
     return res.status(201).json({persona, message: "utente registrato"})
-  } catch (err) {
-    return res.json({ status: 'error', error: err })  
+  } catch (err) { 
     return res.status(400).json({ status: 'error', error: err })  
   }
 })
@@ -42,7 +40,6 @@ router.post('/persona/login', async (req, res) => {
       var token = jwt.sign(payload, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ persona: true, message: "login effettuato", email: persona.email, token: token }) 
     } else {
-      return res.json({ message: "password sbagliata"})
       return res.status(400).json({ message: "password sbagliata"})
     }
   } catch {
@@ -54,8 +51,7 @@ router.post('/persona/login', async (req, res) => {
 //ritorna tutti gli utenti persona
 router.get('/persona', async (req, res) => {
     try {
-        const persona = await Persona.find()
-        res.json(persona)                             
+        const persona = await Persona.find()                           
         res.status(200).json(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
@@ -87,7 +83,7 @@ router.put('/persona/:id', getPersona, async (req, res) => {
   }
     try {
       const updatedPersona = await res.persona.save()
-      res.json(updatedPersona)
+      res.status(200).json({ updatedPersona, message: "utente modificato"})
     } catch (err) {
       res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
     }
@@ -95,7 +91,6 @@ router.put('/persona/:id', getPersona, async (req, res) => {
 
 //ritorna l'utente con il parametro richiesto
 router.get('/persona/:id', getPersona, (req, res) => {
-  res.json(res.persona)
   res.status(200).json(res.persona)
 })
 
@@ -103,7 +98,7 @@ router.get('/persona/:id', getPersona, (req, res) => {
 router.delete('/persona/:id', getPersona, async (req, res) => {
     try {
       await res.persona.deleteOne()
-      res.json({ message: 'Utente correttamente rimosso' })
+      res.status(200).json({ message: 'Utente correttamente rimosso' })
     } catch (err) {
       res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
