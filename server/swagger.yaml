@@ -60,8 +60,6 @@ paths:
                       - responsabile_pubblicita
         '400':
           description: Bad request 
-          
-
   /api/amministratori/{id}:
     get:
       tags:
@@ -95,7 +93,6 @@ paths:
           description: Amministratore not found 
         '500':
           description: Internal server error 
-
     delete:
       tags:
       - Amministratore
@@ -119,7 +116,6 @@ paths:
           description: Amministratore not found 
         '500':
           description: Internal server error 
-
     put:
       tags:
       - Amministratore
@@ -156,8 +152,6 @@ paths:
           description: Amministratore not found 
         '500':
           description: Server Error
-
-  
   /api/amministratori/role/{role}:
     get:
       tags:
@@ -185,11 +179,10 @@ paths:
         '500':
           description: Internal server error 
 
-
-
   /api/persona:
     get:
       tags:
+      - Persona
       summary: Get all users
       description: This endpoint returns the objects users saved in the database.
       responses:
@@ -201,28 +194,6 @@ paths:
                 $ref: '#/components/schemas/Persona'
         '500':
           description: Server Error
-
-    post:
-      tags: 
-      - Persona
-      summary: Create a new persona
-      description: This endpoint saves in the database a new object persona with the parameters send in the body request
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Persona'
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-             schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Bad request 
-
   /api/persona/{id}:
     get:
       tags:
@@ -247,7 +218,6 @@ paths:
           description: Persona not found
         '500':
           description: Server Error
-
     put:
       tags:
         - Persona
@@ -277,7 +247,6 @@ paths:
           description: Persona not found
         '500':
           description: Server Error
-
     delete:
       tags:
       - Persona
@@ -304,7 +273,6 @@ paths:
           description: Persona not found
         '500':
           description: Server Error
-
   /api/persona/register:
     post:
       tags: 
@@ -327,7 +295,6 @@ paths:
                 
         '400':
           description: Bad request
-
   /api/persona/login: 
     post:
       tags: 
@@ -366,7 +333,6 @@ paths:
         '500':
           description: Server Error
 
-
   /api/attivita:
     get:
       tags:
@@ -384,27 +350,6 @@ paths:
                   $ref: '#/components/schemas/Attivita'
         '500':
           description: Server Error
-    post:
-      tags:
-      - Attività
-      summary: Create a new attività
-      description: This endpoint saves in the database a new object attività with the parameters send in the body request
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Attivita'
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Attivita'
-        '400':
-          description: Bad request 
-
   /api/attivita/{id}:
     get:
       tags:
@@ -429,8 +374,6 @@ paths:
           description: Attività not found
         '500':
           description: Server Error
-
-
     put:
       tags:
       - Attività
@@ -460,7 +403,6 @@ paths:
           description: Attività not found
         '500':
           description: Server Error
-
     delete:
       tags:
       - Attività
@@ -487,7 +429,6 @@ paths:
           description: Attività not found
         '500':
           description: Server Error
-
   /api/attivita/register:
     post:
       tags: 
@@ -510,7 +451,6 @@ paths:
                 
         '400':
           description: Bad request
-
   /api/attivita/login: 
     post:
       tags: 
@@ -549,7 +489,163 @@ paths:
         '500':
           description: Server Error
 
-  /annunci:
+  /api/eventi:
+    post:
+      tags:
+        - Evento
+      summary: Add a new event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Evento'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+    get:
+          tags:
+          - Evento
+          summary: Get all events
+          responses:
+            '200':
+              description: Success
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Evento'
+            '500':
+              description: Internal server error
+  /api/eventi/:id:
+    get:
+      tags:
+        - Evento
+      summary: Get event by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evento'
+        '404':
+          description: Event not found
+    delete:
+      tags:
+        - Evento
+      summary: Delete event by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Event not found
+    put:
+      tags:
+        - Evento
+      summary: Modify event by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Evento'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Event not found
+  /api/eventi/:id/postiLiberi:
+    get:
+      tags:
+        - Evento
+      summary: Get the number of available seats for an event
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  postiLiberi:
+                    type: number
+  /api/eventi/:id/coordinate:
+    get:
+      tags:
+        - Evento
+      summary: Get the coordinates of an event
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  indirizzo:
+                    type: string
+  /api/eventi/:id/utentiPrenotati:
+    get:
+      tags:
+        - Evento
+      summary: Get users booked for an event
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Persona'
+
+  /api/annunci:
     post:
       tags:
       - Annunci
@@ -584,8 +680,7 @@ paths:
                   $ref: '#/components/schemas/Annuncio'
         '500':
           description: Internal server error
-
-  /annunci/{id}:
+  /api/annunci/{id}:
     get:
       tags:
       - Annunci
@@ -608,7 +703,6 @@ paths:
           description: Annuncio not found
         '500':
           description: Internal server error
-
     put:
       tags:
       - Annunci
@@ -637,7 +731,6 @@ paths:
           description: Annuncio not found
         '500':
           description: Internal server error
-
     delete:
       tags:
       - Annunci
@@ -660,8 +753,7 @@ paths:
           description: Annuncio not found
         '500':
           description: Internal server error
-
-  /annunci/publisher/{publisher_id}:
+  /api/annunci/publisher/{publisher_id}:
     get:
       tags:
       - Annunci
@@ -687,7 +779,6 @@ paths:
         '500':
           description: Internal server error
 
-
   /api/banners:
     get:
       tags:
@@ -705,7 +796,6 @@ paths:
                   $ref: '#/components/schemas/Banner'
         '500':
           description: Internal server error
-
     post:
       tags:
       - Banners
@@ -726,7 +816,6 @@ paths:
                 $ref: '#/components/schemas/Banner'
         '400':
           description: Bad request
-
   /api/banners?show=true:
     get:
       tags:
@@ -744,7 +833,6 @@ paths:
                   $ref: '#/components/schemas/Banner'
         '500':
           description: Internal server error
-
   /api/banners?show=false:
     get:
       tags:
@@ -762,7 +850,6 @@ paths:
                   $ref: '#/components/schemas/Banner'
         '500':
           description: Internal server error
-
   /api/banners/{id}:
     get:
       tags:
@@ -787,7 +874,6 @@ paths:
           description: Banner not found
         '500':
           description: Internal server error
-
     delete:
       tags:
       - Banners
@@ -811,7 +897,6 @@ paths:
           description: Banner not found
         '500':
           description: Internal server error
-
     put:
       tags:
       - Banners
@@ -841,7 +926,6 @@ paths:
           description: Banner not found
         '400':
           description: Bad request
-
     patch:
       tags:
       - Banners
@@ -887,7 +971,7 @@ paths:
 tags:
   - name: Amministratore
     description: APIs for administrators
-  - name: Users
+  - name: Persona
     description: APIs for users (people)
   - name: Attività
     description: APIs for users (businesses)
