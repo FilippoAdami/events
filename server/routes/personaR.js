@@ -20,7 +20,7 @@ router.post('/persona/register', async (req, res) => {
       telefono: req.body.telefono,
       dataNascita: req.body.dataNascita,
     })
-    return res.json({persona, message: "utente registrato"})
+    return res.json({ message: "utente registrato", persona })
   } catch (err) {
     return res.json({ status: 'error', error: err })  
   }
@@ -85,7 +85,7 @@ router.put('/persona/:id', getPersona, async (req, res) => {
   }
     try {
       const updatedPersona = await res.persona.save()
-      res.json(updatedPersona)
+      res.json({ updatedPersona, message: "utente modificato"})
     } catch (err) {
       res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
     }

@@ -21,7 +21,7 @@ router.post('/attivita/register', async (req, res) => {
       partitaIVA: req.body.partitaIVA,
       iban: req.body.iban,
     })
-    return res.json({attivita, message: "utente registrato"})
+    return res.json({ message: "utente registrato", attivita })
     } catch (err) {
     return res.json({ status: 'error', error: err })  
   }

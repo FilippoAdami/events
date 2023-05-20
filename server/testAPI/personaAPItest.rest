@@ -3,7 +3,7 @@ POST http://localhost:5000/api/persona/register
 Content-Type: application/json
 
 {
-    "email": "prova@71.it",
+    "email": "prova@81.it",
     "password": "prova",
     "nome": "a",
     "cognome": "a",
