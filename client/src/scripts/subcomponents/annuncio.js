@@ -30,14 +30,13 @@ class Annuncio extends React.Component{
   } */
   render(){
       return(
-          <p id="annuncio">
+          <div id="annuncio" className="inserzione" type="annunci" key={this.state.id}>
               <div>{this.state.title} id {this.state.id}</div>
               <div>{this.state.description}</div>
-              <div>{this.state.date.toLocaleDateString()}</div>
+              <div>{this.state.date}</div>
               <div>{this.state.place}</div>
               <div>{this.state.contact}</div>
-              <button onClick={this.delete}>Delete</button>
-          </p>
+          </div>
       );
   }
 }
@@ -239,37 +238,10 @@ function ModifyAnnuncio() {
   );
 };
 
-async function fetchAnnunci() {
-  try {
-    const response = await axios.get('http://localhost:5000/api/annunci');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching annunci:', error);
-    return [];
-  }
+function fetchAnnunci() {
+  const response = axios.get('http://localhost:5000/api/annunci');
+  return response.data;
 }
 
-async function getAnnunciArray() {
-  try {
-    const response = await fetchAnnunci();
-    return response.map(ad => (
-      <Annuncio
-        key={ad._id}
-        id={ad._id}
-        id_publisher={ad.id_publisher}
-        title={ad.title}
-        description={ad.description}
-        date={new Date(ad.date)}
-        time={ad.time}
-        place={ad.place}
-        contact={ad.contact}
-      />
-    ));
-  } catch (error) {
-    console.error('Error getting annunci array:', error);
-    return [];
-  }
-}
-
-export {AddAnnuncio, ModifyAnnuncio, AnnunciList, DeleteAnnuncio, getAnnunciArray};
-export default Annuncio;
+export {AddAnnuncio, ModifyAnnuncio, AnnunciList, DeleteAnnuncio};
+export default Annuncio; 
