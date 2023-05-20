@@ -76,17 +76,40 @@ async function getPersona(req, res, next) {
 
 //modifica un oggetto persona già esistente
 router.put('/persona/:id', getPersona, async (req, res) => {
-  if (req.body != null) {
-    Object.keys(req.body).forEach(dato => {                               //funzione che permette di sovrascrivere in nuovi dati su quelli vecchi
-      res.persona[dato] = req.body[dato]
-    })
+  if( req.body.email != null) {
+    res.persona.email = req.body.email
   }
-    try {
-      const updatedPersona = await res.persona.save()
-      res.status(200).json({ updatedPersona, message: "utente modificato"})
-    } catch (err) {
-      res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
-    }
+  if( req.body.password != null) {
+    const passwordCryptata = await bcrypt.hash(req.body.password, 10)
+    res.persona.password = passwordCryptata
+  }
+  if( req.body.nome != null) {
+    res.persona.nome = req.body.nome
+  }
+  if( req.body.cognome != null) {
+    res.persona.cognome = req.body.cognome
+  }
+  if( req.body.telefono != null) {
+    res.persona.telefono = req.body.telefono
+  }
+  if( req.body.dataNascita != null) {
+    res.persona.dataNascita = req.body.dataNascita
+  }
+  if( req.body.eventiPubblicati != null) {
+    res.persona.eventiPubblicati = req.body.eventiPubblicati
+  }
+  if( req.body.prenotazioni != null) {
+    res.persona.prenotazioni = req.body.prenotazioni
+  }
+  if( req.body.annunciPubblicati != null) {
+    res.persona.annunciPubblicati = req.body.annunciPubblicati
+  }
+  try {
+    const updatedPersona = await res.persona.save()
+    res.status(200).json({ updatedPersona, message: "utente modificato"})
+  } catch (err) {
+    res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
+  }
 })
 
 //ritorna l'utente con il parametro richiesto
