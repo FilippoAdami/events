@@ -1,31 +1,24 @@
-//test get all
-GET http://localhost:5000/api/users
-
-###
-//test get by id
-GET http://localhost:5000/api/users/645e941a5ab90397bf897236
-
-###
-//test post new
-POST http://localhost:5000/api/users
+//test api registrazione
+POST http://localhost:5000/api/persona/register
 Content-Type: application/json
 
 {
-    "email": "proa@prova.it",
+    "email": "prova11@11.it",
     "password": "prova",
-    "nome": "A",
-    "cognome": "A",
-    "telefono": "1", 
-    "dataNascita": "12/12/1990"
+    "nome": "a",
+    "cognome": "a",
+    "telefono": "a",
+    "dataNascita": "12/12/1999"
 }
 
 ###
-//test post new
-POST http://localhost:5000/api/login
+
+//test api login
+POST http://localhost:5000/api/persona/login
 Content-Type: application/json
 
 {
-    "email": "prova@prova.it",
+    "email": "prova11@11.it",
     "password": "prova"
 } 
 
@@ -41,7 +34,7 @@ GET http://localhost:5000/api/persona/
 
 ###
 //test update existing using id
-PUT http://localhost:5000/api/users/645e941a5ab90397bf897236
+PUT http://localhost:5000/api/persona/
 Content-Type: application/json
 
 {
@@ -56,7 +49,7 @@ Content-Type: application/json
 
 ###
 //test delete exinsting using id
-DELETE http://localhost:5000/api/users/645e941a5ab90397bf897236
+DELETE http://localhost:5000/api/persona/
 
 
 
