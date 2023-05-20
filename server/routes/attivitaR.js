@@ -81,7 +81,7 @@ router.post('/attivita', async (req, res) => {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
-*/
+
 
 router.post('/users/attivita/register', async (req, res) => {
   console.log(req.body)
