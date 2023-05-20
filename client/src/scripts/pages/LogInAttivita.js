@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import {useNavigate } from 'react-router-dom';
 
-function LogIn() {
+function LogInAttivita() {
+
+  const navigate = useNavigate()  
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   async function login(event){
     event.preventDefault()
-    const response = await fetch('http://localhost:5000/api/users/login', {
+    const response = await fetch('http://localhost:5000/api/attivita/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +26,7 @@ function LogIn() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Login Attività</h1>
       <form onSubmit = {login} >
         <input
           value = { email }
@@ -40,8 +44,11 @@ function LogIn() {
         <br />
         <input type = "submit" value = "login" />
       </form>
+      <br/><br/>
+      <h4>Torna al login persona</h4>
+      <button type='button' onClick={() => {navigate("/login")}}> login persona </button>
     </div>
   );
 }
 
-export default LogIn;
+export default LogInAttivita;

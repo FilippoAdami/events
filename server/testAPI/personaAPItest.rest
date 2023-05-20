@@ -1,39 +1,40 @@
+//test api registrazione
+POST http://localhost:5000/api/persona/register
+Content-Type: application/json
+
+{
+    "email": "prova@71.it",
+    "password": "prova",
+    "nome": "a",
+    "cognome": "a",
+    "telefono": "a",
+    "dataNascita": "12/12/1999"
+}
+
+###
+
+//test api login
+POST http://localhost:5000/api/persona/login
+Content-Type: application/json
+
+{
+    "email": "prova@61.it",
+    "password": "prova"
+} 
+
+###
+
 //test get all
-GET http://localhost:5000/api/users
+GET http://localhost:5000/api/persona
 
 ###
+
 //test get by id
-GET http://localhost:5000/api/users/645e941a5ab90397bf897236
-
-###
-//test post new
-POST http://localhost:5000/api/users
-Content-Type: application/json
-
-{
-    "email": "F",
-    "password": "F",
-    "nome": "A",
-    "cognome": "A",
-    "telefono": "A",
-    "eventiPubblicati": [1,1,1],
-    "prenotazioni": [1,1,1],
-    "annunciPubblicati": [1,1,1]
-}
-
-###
-//test post new
-POST http://localhost:5000/api/login
-Content-Type: application/json
-
-{
-    "email": "F",
-    "password": "F"
-}
+GET http://localhost:5000/api/persona/
 
 ###
 //test update existing using id
-PUT http://localhost:5000/api/users/645e941a5ab90397bf897236
+PUT http://localhost:5000/api/persona/
 Content-Type: application/json
 
 {
@@ -42,16 +43,13 @@ Content-Type: application/json
     "nome": "B",
     "cognome": "B",
     "telefono": "B",
-    "eventiPubblicati": [2,2,2],
-    "eventiPubblicati": [2,2,2],
-    "prenotazioni": [2,2,2],
-    "annunciPubblicati": [2,2,2]
+    "dataNascita": "12/12/1990"
 }
 
 
 ###
 //test delete exinsting using id
-DELETE http://localhost:5000/api/users/645e941a5ab90397bf897236
+DELETE http://localhost:5000/api/persona/
 
 
 

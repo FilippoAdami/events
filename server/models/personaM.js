@@ -7,10 +7,10 @@ const personaSchema = new mongoose.Schema({
   nome: { type: String, required: true },
   cognome: { type: String, required: true },
   telefono: { type: String, required: true },
-  dataNascita: { type: Date, required: true },
+  dataNascita: { type: Date },
   eventiPubblicati: [{type: Number}],
   prenotazioni: [{type: Number}],
   annunciPubblicati: [{type: Number}]
-}, { collection: 'users' });
+}, { collection: 'persona' });
   
 module.exports = mongoose.model('Persona', personaSchema);
