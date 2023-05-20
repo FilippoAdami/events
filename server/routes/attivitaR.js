@@ -1,7 +1,64 @@
+require('dotenv').config({path: '../../.env'});
+
 const express = require('express')
 const router = express.Router()
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const Attivita = require('../models/attivitaM')
-const Persona = require('../models/personaM')
+
+
+//api registrazione
+router.post('/attivita/register', async (req, res) => {
+  console.log(req.body)
+  try {
+    const passwordCryptata = await bcrypt.hash(req.body.password, 10)
+    await Attivita.create({
+      email: req.body.email,
+      password: passwordCryptata,
+      nomeAttivita: req.body.nomeAttivita,
+      indirizzo: req.body.indirizzo,
+      telefono: req.body.telefono,
+      partitaIVA: req.body.partitaIVA,
+      iban: req.body.iban,
+    })
+    return res.json({ 
+      attivita: true,
+      message: "utente registrato", 
+      email: req.body.email,
+      password: passwordCryptata,
+      nomeAttivita: req.body.nomeAttivita,
+      indirizzo: req.body.indirizzo,
+      telefono: req.body.telefono,
+      partitaIVA: req.body.partitaIVA,
+      iban: req.body.iban,
+    })
+  } catch (err) {
+    return res.json({ status: 'error', error: err })  
+  }
+})
+
+
+//api login
+router.post('/attivita/login', async (req, res) => {
+  const attivita = await Attivita.findOne({ email: req.body.email })
+  
+  if(attivita == null) {
+    return res.status(400).json({ attivita: false, message: "utente non trovato" })
+  }
+  try {
+    if( await bcrypt.compare(req.body.password, attivita.password)){
+      var payload = { email: attivita.email }
+      var options = { expiresIn: 86400 }                                                      //termina in 24 ore
+      var token = jwt.sign(payload, process.env.SECRET_TOKEN, options);
+      return res.status(200).json({ attivita: true, message: "login effettuato", email: attivita.email, token: token }) 
+    } else {
+      return res.json({ message: "password sbagliata"})
+    }
+  } catch {
+    return res.status(500).json({ message: "dati sbagliati"})
+  }
+})
+
 
 //ritorna tutti gli utenti attività
 router.get('/attivita', async (req, res) => {
@@ -13,7 +70,7 @@ router.get('/attivita', async (req, res) => {
     }
 })
 
-/*
+
 //crea un oggetto attività
 router.post('/attivita', async (req, res) => {
     const attivita = new Attivita(req.body)
@@ -23,42 +80,6 @@ router.post('/attivita', async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
-})
-*/
-
-router.post('/users/attivita/register', async (req, res) => {
-  console.log(req.body)
-  try {
-    await Attivita.create({
-      email: req.body.email,
-      password: req.body.password,
-      nomeAttivita: req.body.nomeAttivita,
-      indirizzo: req.body.indirizzo,
-      telefono: req.body.telefono,
-      partitaIVA: req.body.partitaIVA,
-      iban: req.body.iban,
-    })
-    res.json({ status: 'ok' })
-  } catch (err) {
-    res.json({ status: 'error', error: err })  
-  }
-})
-
-//api login
-router.post('/users/login', async (req, res) => {
-  const persona = await Persona.findOne({ 
-    email: req.body.email,
-    password: req.body.password,
-  })
-  const attivita = await Attivita.findOne({
-    email: req.body.email,
-    password: req.body.password,
-  })
-if(persona || attivita) {
-  return res.status(200).json({ persona: true })
-} else {
-  return res.status(400).json({ persona: false })
-}
 })
 
 
@@ -78,6 +99,7 @@ async function getAttivita(req, res, next) {
     next()
 }
 
+
 //modifica un oggetto attività già esistente
 router.put('/attivita/:id', getAttivita, async (req, res) => {
   if (req.body != null) {
@@ -93,10 +115,12 @@ router.put('/attivita/:id', getAttivita, async (req, res) => {
     }
 })
 
+
 //ritorna l'utente con il parametro richiesto
 router.get('/attivita/:id', getAttivita, (req, res) => {
   res.json(res.attivita)
 })
+
 
 //Rimuove un oggetto attività
 router.delete('/attivita/:id', getAttivita, async (req, res) => {

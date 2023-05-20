@@ -9,7 +9,7 @@ const attivitaSchema = new mongoose.Schema({
   telefono: { type: String, required: true },
   partitaIVA: { type: Number, required: true},
   iban: { type: String, required: true },
-  eventiPubblicati: [{ type: Number }]
-}, { collection: 'users' });
+  eventiPubblicati: [{ type: Number }],
+}, { collection: 'attivita' });
   
 module.exports = mongoose.model('Attivita', attivitaSchema);
