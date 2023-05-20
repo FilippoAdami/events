@@ -20,9 +20,9 @@ router.post('/persona/register', async (req, res) => {
       telefono: req.body.telefono,
       dataNascita: req.body.dataNascita,
     })
-    return res.json({persona, message: "utente registrato"})
-  } catch (err) {
-    return res.json({ status: 'error', error: err })  
+    return res.status(201).json({persona, message: "utente registrato"})
+  } catch (err) { 
+    return res.status(400).json({ status: 'error', error: err })  
   }
 })
 
@@ -40,7 +40,7 @@ router.post('/persona/login', async (req, res) => {
       var token = jwt.sign(payload, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ persona: true, message: "login effettuato", email: persona.email, token: token }) 
     } else {
-      return res.json({ message: "password sbagliata"})
+      return res.status(400).json({ message: "password sbagliata"})
     }
   } catch {
     return res.status(500).json({ message: "dati sbagliati"})
@@ -51,8 +51,8 @@ router.post('/persona/login', async (req, res) => {
 //ritorna tutti gli utenti persona
 router.get('/persona', async (req, res) => {
     try {
-        const persona = await Persona.find()
-        res.json(persona)                             
+        const persona = await Persona.find()                           
+        res.status(200).json(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
@@ -76,29 +76,52 @@ async function getPersona(req, res, next) {
 
 //modifica un oggetto persona già esistente
 router.put('/persona/:id', getPersona, async (req, res) => {
-  if (req.body != null) {
-    Object.keys(req.body).forEach(dato => {                               //funzione che permette di sovrascrivere in nuovi dati su quelli vecchi
-      res.persona[dato] = req.body[dato]
-    })
+  if( req.body.email != null) {
+    res.persona.email = req.body.email
   }
-    try {
-      const updatedPersona = await res.persona.save()
-      res.json(updatedPersona)
-    } catch (err) {
-      res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
-    }
+  if( req.body.password != null) {
+    const passwordCryptata = await bcrypt.hash(req.body.password, 10)
+    res.persona.password = passwordCryptata
+  }
+  if( req.body.nome != null) {
+    res.persona.nome = req.body.nome
+  }
+  if( req.body.cognome != null) {
+    res.persona.cognome = req.body.cognome
+  }
+  if( req.body.telefono != null) {
+    res.persona.telefono = req.body.telefono
+  }
+  if( req.body.dataNascita != null) {
+    res.persona.dataNascita = req.body.dataNascita
+  }
+  if( req.body.eventiPubblicati != null) {
+    res.persona.eventiPubblicati = req.body.eventiPubblicati
+  }
+  if( req.body.prenotazioni != null) {
+    res.persona.prenotazioni = req.body.prenotazioni
+  }
+  if( req.body.annunciPubblicati != null) {
+    res.persona.annunciPubblicati = req.body.annunciPubblicati
+  }
+  try {
+    const updatedPersona = await res.persona.save()
+    res.status(200).json({ updatedPersona, message: "utente modificato"})
+  } catch (err) {
+    res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
+  }
 })
 
 //ritorna l'utente con il parametro richiesto
 router.get('/persona/:id', getPersona, (req, res) => {
-  res.json(res.persona)
+  res.status(200).json(res.persona)
 })
 
 //Rimuove un oggetto persona
 router.delete('/persona/:id', getPersona, async (req, res) => {
     try {
       await res.persona.deleteOne()
-      res.json({ message: 'Utente correttamente rimosso' })
+      res.status(200).json({ message: 'Utente correttamente rimosso' })
     } catch (err) {
       res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }

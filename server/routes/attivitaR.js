@@ -21,9 +21,9 @@ router.post('/attivita/register', async (req, res) => {
       partitaIVA: req.body.partitaIVA,
       iban: req.body.iban,
     })
-    return res.json({attivita, message: "utente registrato"})
+    return res.status(201).json({attivita, message: "utente registrato"})
     } catch (err) {
-    return res.json({ status: 'error', error: err })  
+    return res.status(400).json({ status: 'error', error: err })  
   }
 })
 
@@ -42,7 +42,7 @@ router.post('/attivita/login', async (req, res) => {
       var token = jwt.sign(payload, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ attivita: true, message: "login effettuato", email: attivita.email, token: token }) 
     } else {
-      return res.json({ message: "password sbagliata"})
+      return res.status(400).json({ message: "password sbagliata"})
     }
   } catch {
     return res.status(500).json({ message: "dati sbagliati"})
@@ -80,17 +80,37 @@ async function getAttivita(req, res, next) {
 
 //modifica un oggetto attività già esistente
 router.put('/attivita/:id', getAttivita, async (req, res) => {
-  if (req.body != null) {
-    Object.keys(req.body).forEach(dato => {                               //funzione che permette di sovrascrivere in nuovi dati su quelli vecchi
-      res.attivita[dato] = req.body[dato]
-    })
+  if( req.body.email != null) {
+    res.attivita.email = req.body.email
   }
-    try {
-      const newAttivita = await res.attivita.save()
-      res.json(newAttivita)
-    } catch (err) {
-      res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
-    }
+  if( req.body.password != null) {
+    const passwordCryptata = await bcrypt.hash(req.body.password, 10)
+    res.attivita.password = passwordCryptata
+  }
+  if( req.body.nomeAttivita != null) {
+    res.attivita.nomeAttivita = req.body.nomeAttivita
+  }
+  if( req.body.indirizzo != null) {
+    res.attivita.indirizzo = req.body.indirizzo
+  }
+  if( req.body.telefono != null) {
+    res.attivita.telefono = req.body.telefono
+  }
+  if( req.body.partitaIVA != null) {
+    res.attivita.partitaIVA = req.body.partitaIVA
+  }
+  if( req.body.iban != null) {
+    res.attivita.iban = req.body.iban
+  }
+  if( req.body.eventiPubblicati != null) {
+    res.attivita.eventiPubblicati = req.body.eventiPubblicati
+  }
+  try {
+    const newAttivita = await res.attivita.save()
+    res.json(newAttivita)
+  } catch (err) {
+    res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
+  }
 })
 
 

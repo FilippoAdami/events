@@ -3,8 +3,8 @@ POST http://localhost:5000/api/attivita/register
 Content-Type: application/json
 
 {
-    "email": "prova@prova1.it",
-    "password": "prova",
+    "email": "prova@1.it",
+    "password": "prova1",
     "nomeAttivita": "A",
     "indirizzo": "A",
     "telefono": "A",
@@ -19,8 +19,8 @@ POST http://localhost:5000/api/attivita/login
 Content-Type: application/json
 
 {
-    "email": "prova@prova11.it",
-    "password": "prova"
+    "email": "prova@1.it",
+    "password": "prova1"
 } 
 
 ###
@@ -39,13 +39,13 @@ PUT http://localhost:5000/api/attivita/
 Content-Type: application/json
 
 {
-    "email": "B",
-    "password": "B",
+    "email": "prova@2.it",
+    "password": "prova2",
     "nomeAzienda": "B",
     "indirizzo": "B",
     "telefono": "B",
     "partitaIVA": "2",
-    "IBAN": "B",
+    "iban": "B",
     "eventiPubblicati": [2,2,2]
 }
 
