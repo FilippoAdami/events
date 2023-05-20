@@ -20,7 +20,7 @@ DELETE: deleteAd (../:adID),
 const mongoose = require('mongoose');
 
 const annuncioSchema = new mongoose.Schema({
-    id: { type: Number, required: true },
+    //id: { type: Number, required: true },
     id_publisher: { type: Number, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },

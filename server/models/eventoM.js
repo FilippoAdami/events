@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const Segnalazione = require('../models/segnalazioneM');
-const Persona = require('../models/personaM');
-
+const Segnalazione = require('./segnalazioneM.js');
+const Persona = require('./personaM.js');
 
 const eventoSchema = new mongoose.Schema({
     //id_Evento : {type : Number , required : true},
@@ -19,7 +18,7 @@ const eventoSchema = new mongoose.Schema({
     pubblicatore : {type : String, required: true},
     utentiPrenotati : [{type : mongoose.Schema.Types.ObjectId, ref :"Persona"}] , // conterrà solo gli id degli utenti prenotati
     segnalato : {type : Boolean, required: true},
-    segnalazioni : [Segnalazione.Schema]
+    segnalazioni : [Segnalazione]
 }, {collection : 'eventi'} );
 
 module.exports = mongoose.model('Evento', eventoSchema);

@@ -3,7 +3,6 @@ const router = express.Router();
 const Evento = require('../models/eventoM');
 
 // mostra evento
-
 router.get('/:idEvento/show', async (req,res) => {
 
     const evento = await Evento.find({id_Evento : req.params.Evento});
@@ -77,7 +76,6 @@ router.get('/:idEvento/postiLiberi', async (req,res)=>{
 });
 
 // get coordinate
-
 router.get('/:idEvento/coordinate',async (req, res) => {
     const evento = await Evento.findOne(req.params.idEvento);
     if(!evento)
@@ -92,7 +90,6 @@ router.get('/:idEvento/coordinate',async (req, res) => {
 
 
 // get utenti prenotati
-
 router.get('/:idEvento/utentiPrenotati',(req,res)=>{
 
     const evento = Evento.findOne(req.params.idEvento).populate("Persona",{"nome": any, "email": any,"telefono":any});

@@ -17,11 +17,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/Amministratore'
         '500':
-          description: Internal server error 
-    
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
     post:
-      tags: 
-      - Amministratore
+      tags:
+        - Amministratore
       summary: Create a new amministratori
       description: This endpoint saves in the database a new object amministratore with the parameters send in the body request
       requestBody:
@@ -29,16 +35,22 @@ paths:
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/Amministratore'
+              $ref: '#/components/schemas/Amministratore'
       responses:
         '201':
           description: Created
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/Amministratore'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  id:
+                  message:
                     type: string
                   role:
                     type: string
@@ -435,7 +447,7 @@ paths:
   /annunci:
     post:
       tags:
-      - Annunici
+      - Annunci
       summary: Create a new annuncio
       requestBody:
         required: true
@@ -454,7 +466,7 @@ paths:
           description: Bad request
     get:
       tags:
-      - Annunici
+      - Annunci
       summary: Get all annunci
       responses:
         '200':
@@ -471,7 +483,7 @@ paths:
   /annunci/{id}:
     get:
       tags:
-      - Annunici
+      - Annunci
       summary: Get an annuncio by ID
       parameters:
         - in: path
@@ -494,7 +506,7 @@ paths:
 
     put:
       tags:
-      - Annunici
+      - Annunci
       summary: Update an annuncio by ID
       parameters:
         - in: path
@@ -523,7 +535,7 @@ paths:
 
     delete:
       tags:
-      - Annunici
+      - Annunci
       summary: Delete an annuncio by ID
       parameters:
         - in: path
@@ -547,7 +559,7 @@ paths:
   /annunci/publisher/{publisher_id}:
     get:
       tags:
-      - Annunici
+      - Annunci
       summary: Get annunci by publisher ID
       parameters:
         - in: path
@@ -767,6 +779,20 @@ paths:
         '500':
           description: Internal server error
 
+tags:
+  - name: Amministratore
+    description: APIs for administrators
+  - name: Users
+    description: APIs for users (people)
+  - name: Attività
+    description: APIs for users (businesses)
+  - name: Annunci
+    description: APIs for announcements
+  - name: Banners
+    description: APIs for banners
+  - name : Evento
+    description: APIs for events
+
 components:
   schemas:
     Attivita:
@@ -800,9 +826,6 @@ components:
     Amministratore:
       type: object
       properties:
-        id:
-          type: string
-          required: true
         role:
           type: string
           required: true
@@ -843,9 +866,6 @@ components:
     Annuncio:
       type: object
       properties:
-        id:
-          type: number
-          required: true
         id_publisher:
           type: number
           required: true
@@ -877,9 +897,6 @@ components:
     Evento:
       type: object
       properties:
-        id_Evento:
-          type: number
-          required: true
         titolo:
           type: string
           required: true
