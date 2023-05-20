@@ -21,9 +21,9 @@ router.post('/attivita/register', async (req, res) => {
       partitaIVA: req.body.partitaIVA,
       iban: req.body.iban,
     })
-    return res.json({attivita, message: "utente registrato"})
+    return res.status(201).json({attivita, message: "utente registrato"})
     } catch (err) {
-    return res.json({ status: 'error', error: err })  
+    return res.status(400).json({ status: 'error', error: err })  
   }
 })
 
@@ -42,7 +42,7 @@ router.post('/attivita/login', async (req, res) => {
       var token = jwt.sign(payload, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ attivita: true, message: "login effettuato", email: attivita.email, token: token }) 
     } else {
-      return res.json({ message: "password sbagliata"})
+      return res.status(400).json({ message: "password sbagliata"})
     }
   } catch {
     return res.status(500).json({ message: "dati sbagliati"})

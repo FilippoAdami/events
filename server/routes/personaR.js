@@ -21,8 +21,10 @@ router.post('/persona/register', async (req, res) => {
       dataNascita: req.body.dataNascita,
     })
     return res.json({persona, message: "utente registrato"})
+    return res.status(201).json({persona, message: "utente registrato"})
   } catch (err) {
     return res.json({ status: 'error', error: err })  
+    return res.status(400).json({ status: 'error', error: err })  
   }
 })
 
@@ -41,6 +43,7 @@ router.post('/persona/login', async (req, res) => {
       return res.status(200).json({ persona: true, message: "login effettuato", email: persona.email, token: token }) 
     } else {
       return res.json({ message: "password sbagliata"})
+      return res.status(400).json({ message: "password sbagliata"})
     }
   } catch {
     return res.status(500).json({ message: "dati sbagliati"})
@@ -53,6 +56,7 @@ router.get('/persona', async (req, res) => {
     try {
         const persona = await Persona.find()
         res.json(persona)                             
+        res.status(200).json(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
@@ -92,6 +96,7 @@ router.put('/persona/:id', getPersona, async (req, res) => {
 //ritorna l'utente con il parametro richiesto
 router.get('/persona/:id', getPersona, (req, res) => {
   res.json(res.persona)
+  res.status(200).json(res.persona)
 })
 
 //Rimuove un oggetto persona

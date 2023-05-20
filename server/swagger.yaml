@@ -187,10 +187,9 @@ paths:
 
 
 
-  /api/users:
+  /api/persona:
     get:
       tags:
-      - Users
       summary: Get all users
       description: This endpoint returns the objects users saved in the database.
       responses:
@@ -199,14 +198,15 @@ paths:
           content:
             application/json:
               schema:
-              $ref: '#/components/schemas/Persona'
+                $ref: '#/components/schemas/Persona'
         '500':
           description: Server Error
 
     post:
       tags: 
-      - Users
-      summary: Create a new user
+      - Persona
+      summary: Create a new persona
+      description: This endpoint saves in the database a new object persona with the parameters send in the body request
       requestBody:
         required: true
         content:
@@ -218,67 +218,48 @@ paths:
           description: Created
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  email:
-                    type: string
-                  password:
-                    type: string
-                  nome:
-                    type: string
-                  cognome:
-                    type: string
-                  telefono:
-                    type: string
-                  dataNascita:
-                    type: string
-                  eventiPubblicati:
-                    type: array
-                    items:
-                      type: number
-                  prenotazioni:
-                    type: array
-                    items:
-                      type: number
-                  annunciPubblicati:
-                    type: array
-                    items:
-                      type: number
+             schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Bad request 
 
-  /api/users/{id}:
+  /api/persona/{id}:
     get:
       tags:
-      - Users
-      summary: Get a user by ID
+      - Persona
+      summary: Get a persona by ID
+      description: This endpoint returns the object persona saved in the database with a specific value of ID attribute.
       parameters:
         - in: path
           name: id
           schema:
             type: string
           required: true
-          description: User ID
+          description: Persona ID
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-              $ref: '#/components/schemas/Persona'
+                $ref: '#/components/schemas/Persona'
         '404':
-          description: User not found
+          description: Persona not found
+        '500':
+          description: Server Error
 
     put:
       tags:
-        - Users
-      summary: Update a user by ID
+        - Persona
+      summary: Update a persona by ID
+      description: This endpoint updates the object persona saved in the database with a specific value of ID attribute.
       parameters:
         - in: path
           name: id
           schema:
             type: string
           required: true
-          description: User ID
+          description: Persona ID
       requestBody:
         required: true
         content:
@@ -291,45 +272,23 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  email:
-                    type: string
-                  password:
-                    type: string
-                  nome:
-                    type: string
-                  cognome:
-                    type: string
-                  telefono:
-                    type: string
-                  dataNascita:
-                    type: string
-                  eventiPubblicati:
-                    type: array
-                    items:
-                      type: number
-                  prenotazioni:
-                    type: array
-                    items:
-                      type: number
-                  annunciPubblicati:
-                    type: array
-                    items:
-                      type: number
+                $ref: '#/components/schemas/Amministratore'
         '404':
-          description: User not found
+          description: Persona not found
+        '500':
+          description: Server Error
+
     delete:
       tags:
-      - Users
-      summary: Delete a user by ID
+      - Persona
+      summary: Delete a persona by ID
       parameters:
         - in: path
           name: id
           schema:
             type: string
           required: true
-          description: User ID
+          description: Persona ID
       responses:
         '200':
           description: Success
@@ -342,7 +301,70 @@ paths:
                     type: string
                     description: Success message
         '404':
-          description: User not found
+          description: Persona not found
+        '500':
+          description: Server Error
+
+  /api/persona/register:
+    post:
+      tags: 
+      - Persona
+      summary: Create an account persona
+      description: This endpoint saves in the database a new object persona with the parameters send in the body request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+                
+        '400':
+          description: Bad request
+
+  /api/persona/login: 
+    post:
+      tags: 
+      - Persona
+      summary: Log-in account persona
+      description: This endpoint gives to the user the access to an account 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: 
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  persona:
+                    type: boolean
+                  message:
+                    type: string
+                  email:
+                    type: string
+                  token: 
+                    type: number
+        '400':
+          description: Bad request 
+        '500':
+          description: Server Error
 
 
   /api/attivita:
@@ -350,6 +372,7 @@ paths:
       tags:
       - Attività
       summary: Get all attività
+      description: This endpoint returns the objects attività saved in the database.
       responses:
         '200':
           description: Success
@@ -359,10 +382,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Attivita'
+        '500':
+          description: Server Error
     post:
       tags:
       - Attività
       summary: Create a new attività
+      description: This endpoint saves in the database a new object attività with the parameters send in the body request
       requestBody:
         required: true
         content:
@@ -376,12 +402,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Attivita'
+        '400':
+          description: Bad request 
 
   /api/attivita/{id}:
     get:
       tags:
       - Attività
       summary: Get an attività by ID
+      description: This endpoint returns the object attività saved in the database with a specific value of ID attribute.
       parameters:
         - in: path
           name: id
@@ -396,11 +425,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Attivita'
+        '404':
+          description: Attività not found
+        '500':
+          description: Server Error
+
 
     put:
       tags:
       - Attività
       summary: Update an attività by ID
+      description: This endpoint updates the object attività saved in the database with a specific value of ID attribute.
       parameters:
         - in: path
           name: id
@@ -421,6 +456,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Attivita'
+        '404':
+          description: Attività not found
+        '500':
+          description: Server Error
 
     delete:
       tags:
@@ -443,6 +482,72 @@ paths:
                 properties:
                   message:
                     type: string
+                    description: Success message
+        '404':
+          description: Attività not found
+        '500':
+          description: Server Error
+
+  /api/attivita/register:
+    post:
+      tags: 
+      - Attività
+      summary: Create an account attività
+      description: This endpoint saves in the database a new object attività with the parameters send in the body request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attivita'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+                
+        '400':
+          description: Bad request
+
+  /api/attivita/login: 
+    post:
+      tags: 
+      - Attività
+      summary: Log-in account attività
+      description: This endpoint gives to the user the access to an account 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: 
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  attivita:
+                    type: boolean
+                  message:
+                    type: string
+                  email:
+                    type: string
+                  token: 
+                    type: number
+        '400':
+          description: Bad request 
+        '500':
+          description: Server Error
 
   /annunci:
     post:
@@ -804,7 +909,7 @@ components:
         password:
           type: string
           required: true
-        nomeAzienda:
+        nomeAttivita:
           type: string
           required: true
         indirizzo:
@@ -816,7 +921,7 @@ components:
         partitaIVA:
           type: number
           required: true
-        IBAN:
+        iban:
           type: string
           required: true
         eventiPubblicati:
