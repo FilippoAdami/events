@@ -61,7 +61,6 @@ if(persona || attivita) {
 }
 })
 
-
 //funzione che ritorna l'utente attività con l'id corrispondente, utilizzata nei metodi sottostanti
 async function getAttivita(req, res, next) {
     let attivita

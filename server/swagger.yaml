@@ -5,6 +5,8 @@ info:
 paths:
   /api/amministratori:
     get:
+      tags:
+        - Amministratore
       summary: Get all amministratori
       responses:
         '200':
@@ -13,30 +15,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Amministratore'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
     post:
+      tags:
+        - Amministratore
       summary: Create a new amministratori
       requestBody:
         required: true
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/Amministratore'
+              $ref: '#/components/schemas/Amministratore'
       responses:
         '201':
           description: Created
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/Amministratore'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  id:
+                  message:
                     type: string
-                  role:
-                    type: string
-                    enum:
-                      - super-user
-                      - moderatore
-                      - responsabile_pubblicita
+  
   /api/amministratori/{id}:
     get:
       summary: Get an amministratore by ID
@@ -177,6 +191,8 @@ paths:
                       type: number
   /api/users/{id}:
     get:
+      tags:
+        - Persona
       summary: Get a user by ID
       parameters:
         - in: path
@@ -635,6 +651,20 @@ paths:
         '406':
           description: Not Acceptable
 
+tags:
+  - name: Amministratore
+    description: APIs for administrators
+  - name: Persona
+    description: APIs for users (people)
+  - name: Attivita
+    description: APIs for users (businesses)
+  - name: Annuncio
+    description: APIs for announcements
+  - name: Banner
+    description: APIs for banners
+  - name : Evento
+    description: APIs for events
+
 components:
   schemas:
     Attivita:
@@ -668,9 +698,6 @@ components:
     Amministratore:
       type: object
       properties:
-        id:
-          type: string
-          required: true
         role:
           type: string
           required: true
@@ -711,9 +738,6 @@ components:
     Annuncio:
       type: object
       properties:
-        id:
-          type: number
-          required: true
         id_publisher:
           type: number
           required: true
@@ -745,9 +769,6 @@ components:
     Evento:
       type: object
       properties:
-        id_Evento:
-          type: number
-          required: true
         titolo:
           type: string
           required: true

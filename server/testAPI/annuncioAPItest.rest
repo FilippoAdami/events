@@ -15,7 +15,6 @@ POST http://localhost:5000/api/annunci
 Content-Type: application/json
 
 {
-    "id": 0,
     "id_publisher": 3,
     "title": "Nuovo annuncio",
     "description": "Descrizione del nuovo annuncio",
@@ -30,7 +29,6 @@ PUT http://localhost:5000/api/annunci/645ce497d152cbb4f0a7ad4a
 Content-Type: application/json
 
 {
-    "id": 10,
     "id_publisher": 1,
     "title": "ad aggiornato ancora",
     "description": "This is an updated ad",

@@ -14,7 +14,6 @@ router.get('/users', async (req, res) => {
     }
 })
 
-
 //crea un oggetto persona
 router.post('/users', async (req, res) => {
     const persona = new Persona(req.body)
@@ -62,7 +61,6 @@ router.post('/users/login', async (req, res) => {
   }
 })
 
-
 //funzione che ritorna l'utente persona con l'id corrispondente, utilizzata nei metodi sottostanti
 async function getPersona(req, res, next) {
     let persona
@@ -79,7 +77,6 @@ async function getPersona(req, res, next) {
     next()
 }
 
-
 //modifica un oggetto persona già esistente
 router.put('/users/:id', getPersona, async (req, res) => {
   if (req.body != null) {
@@ -95,12 +92,10 @@ router.put('/users/:id', getPersona, async (req, res) => {
     }
 })
 
-
 //ritorna l'utente con il parametro richiesto
 router.get('/users/:id', getPersona, (req, res) => {
   res.json(res.persona)
 })
-
 
 //Rimuove un oggetto persona
 router.delete('/users/:id', getPersona, async (req, res) => {
@@ -111,6 +106,5 @@ router.delete('/users/:id', getPersona, async (req, res) => {
       res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
-
-  
+ 
 module.exports = router;
