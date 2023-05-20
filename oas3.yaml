@@ -1,0 +1,1207 @@
+openapi: '3.0.0'
+info:
+  title: Events API
+  version: 1.0.1
+paths:
+  /api/amministratori:
+    get:
+      tags: 
+      - Amministratore
+      summary: Get all amministratori
+      description: This endpoint returns all the objects amministratori saved in the database.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amministratore'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    post:
+      tags:
+        - Amministratore
+      summary: Create a new amministratori
+      description: This endpoint saves in the database a new object amministratore with the parameters send in the body request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amministratore'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amministratore'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  role:
+                    type: string
+                    enum:
+                      - super-user
+                      - moderatore
+                      - responsabile_pubblicita
+        '400':
+          description: Bad request 
+  /api/amministratori/{id}:
+    get:
+      tags:
+      - Amministratore
+      summary: Get an amministratore by ID
+      description: This endpoint returns the object amministratore saved in the database with a specific value of ID attribute.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the amministratore
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  role:
+                    type: string
+                    enum:
+                      - super-user
+                      - moderatore
+                      - responsabile_pubblicita
+        '404':
+          description: Amministratore not found 
+        '500':
+          description: Internal server error 
+    delete:
+      tags:
+      - Amministratore
+      summary: Delete an amministratore by ID
+      description: This endpoint eliminates the object amministratore saved in the database with a specific value of ID attribute.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the amministratore
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amministratore'
+        '404':
+          description: Amministratore not found 
+        '500':
+          description: Internal server error 
+    put:
+      tags:
+      - Amministratore
+      summary: Update an amministratore by ID
+      description: This endpoint updates the object amministratore saved in the database with a specific value of ID attribute.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the amministratore
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Amministratore'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  role:
+                    type: string
+                    enum:
+                      - super-user
+        '404':
+          description: Amministratore not found 
+        '500':
+          description: Server Error
+  /api/amministratori/role/{role}:
+    get:
+      tags:
+      - Amministratore
+      summary: Get all amministratori by role
+      description: This endpoint returns the objects amministratore saved in the database with a specific value of role attribute.
+      parameters:
+        - name: role
+          in: path
+          description: Role of the amministratori
+          required: true
+          schema:
+            type: string
+            enum:
+              - super-user
+              - moderatore
+              - responsabile_pubblicita
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amministratore'
+        '500':
+          description: Internal server error 
+
+  /api/persona:
+    get:
+      tags:
+      - Persona
+      summary: Get all users
+      description: This endpoint returns the objects users saved in the database.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '500':
+          description: Server Error
+  /api/persona/{id}:
+    get:
+      tags:
+      - Persona
+      summary: Get a persona by ID
+      description: This endpoint returns the object persona saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Persona ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '404':
+          description: Persona not found
+        '500':
+          description: Server Error
+    put:
+      tags:
+        - Persona
+      summary: Update a persona by ID
+      description: This endpoint updates the object persona saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Persona ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amministratore'
+        '404':
+          description: Persona not found
+        '500':
+          description: Server Error
+    delete:
+      tags:
+      - Persona
+      summary: Delete a persona by ID
+      description: This endpoint deletes the object persona saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Persona ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+        '404':
+          description: Persona not found
+        '500':
+          description: Server Error
+  /api/persona/register:
+    post:
+      tags: 
+      - Persona
+      summary: Create an account persona
+      description: This endpoint saves in the database a new object persona with the parameters send in the body request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+                
+        '400':
+          description: Bad request
+  /api/persona/login: 
+    post:
+      tags: 
+      - Persona
+      summary: Log-in account persona
+      description: This endpoint gives to the user the access to an account 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: 
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  persona:
+                    type: boolean
+                  message:
+                    type: string
+                  email:
+                    type: string
+                  token: 
+                    type: number
+        '400':
+          description: Bad request 
+        '500':
+          description: Server Error
+
+  /api/attivita:
+    get:
+      tags:
+      - Attività
+      summary: Get all attività
+      description: This endpoint returns the objects attività saved in the database.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attivita'
+        '500':
+          description: Server Error
+  /api/attivita/{id}:
+    get:
+      tags:
+      - Attività
+      summary: Get an attività by ID
+      description: This endpoint returns the object attività saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attività ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '404':
+          description: Attività not found
+        '500':
+          description: Server Error
+    put:
+      tags:
+      - Attività
+      summary: Update an attività by ID
+      description: This endpoint updates the object attività saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attività ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attivita'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '404':
+          description: Attività not found
+        '500':
+          description: Server Error
+    delete:
+      tags:
+      - Attività
+      summary: Delete an attività by ID
+      description: This endpoint deletes the object attività saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attività ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+        '404':
+          description: Attività not found
+        '500':
+          description: Server Error
+  /api/attivita/register:
+    post:
+      tags: 
+      - Attività
+      summary: Create an account attività
+      description: This endpoint saves in the database a new object attività with the parameters send in the body request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attivita'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+                
+        '400':
+          description: Bad request
+  /api/attivita/login: 
+    post:
+      tags: 
+      - Attività
+      summary: Log-in account attività
+      description: This endpoint gives to the user the access to an account 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: 
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  attivita:
+                    type: boolean
+                  message:
+                    type: string
+                  email:
+                    type: string
+                  token: 
+                    type: number
+        '400':
+          description: Bad request 
+        '500':
+          description: Server Error
+
+  /api/eventi:
+    post:
+      tags:
+        - Evento
+      summary: Add a new event
+      description: This endpoint posts a new evento in the database
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Evento'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+    get:
+          tags:
+          - Evento
+          summary: Get all events
+          description: This endpoint gets all the eventi from the database
+          responses:
+            '200':
+              description: Success
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Evento'
+            '500':
+              description: Internal server error
+  /api/eventi/:id:
+    get:
+      tags:
+        - Evento
+      summary: Get event by ID
+      description: This endpoint gets a specific evento from the database
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evento'
+        '404':
+          description: Event not found
+    delete:
+      tags:
+        - Evento
+      summary: Delete event by ID
+      description: This endpoint deletes a specific evento form the database
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Event not found
+    put:
+      tags:
+        - Evento
+      summary: Update event by ID
+      description: This endpoint updates a specific evento form the database
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Evento'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Event not found
+  /api/eventi/:id/postiLiberi:
+    get:
+      tags:
+        - Evento
+      summary: Get the number of available seats for an event
+      description: This endpoint gets the updated number of posti liberi of a specific evento
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  postiLiberi:
+                    type: number
+  /api/eventi/:id/coordinate:
+    get:
+      tags:
+        - Evento
+      summary: Get the coordinates of an event
+      description: This endpoint gets the coordinates of a specific evento
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  indirizzo:
+                    type: string
+  /api/eventi/:id/utentiPrenotati:
+    get:
+      tags:
+        - Evento
+      summary: Get users booked for an event
+      description: This endpoint gets the list of utenti prenotati to a specific evento
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Event ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Persona'
+
+  /api/annunci:
+    post:
+      tags:
+      - Annunci
+      summary: Create a new annuncio
+      description: This endpoint posts a new annuncio in the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annuncio'
+      responses:
+        '201':
+          description: Annuncio created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annuncio'
+        '400':
+          description: Bad request
+    get:
+      tags:
+      - Annunci
+      summary: Get all annunci
+      description: This endpoint gets all the annunci from the database
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annuncio'
+        '500':
+          description: Internal server error
+  /api/annunci/{id}:
+    get:
+      tags:
+      - Annunci
+      summary: Get an annuncio by ID
+      description: This endpoint gets a specific annuncio 
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Annuncio ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annuncio'
+        '404':
+          description: Annuncio not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Annunci
+      summary: Update an annuncio by ID
+      description: This endpoint updates a specific annuncio 
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Annuncio ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annuncio'
+      responses:
+        '200':
+          description: Annuncio updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annuncio'
+        '404':
+          description: Annuncio not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Annunci
+      summary: Delete an annuncio by ID
+      description: This endpoint deletes a specific annuncio 
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Annuncio ID
+      responses:
+        '200':
+          description: Annuncio deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annuncio'
+        '404':
+          description: Annuncio not found
+        '500':
+          description: Internal server error
+  /api/annunci/publisher/{publisher_id}:
+    get:
+      tags:
+      - Annunci
+      summary: Get annunci by publisher ID
+      description: This endpoint gets all the annunci published by a specific user (both persona and attività)
+      parameters:
+        - in: path
+          name: publisher_id
+          schema:
+            type: string
+          required: true
+          description: Publisher ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annuncio'
+        '404':
+          description: Publisher not found
+        '500':
+          description: Internal server error
+
+  /api/banners:
+    get:
+      tags:
+      - Banners
+      summary: Get all banners
+      description: This endpoint returns the objects banner saved in the database.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Banner'
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Banners
+      summary: Create a new banner
+      description: This endpoint saves in the database a new object banner with the parameters send in the body request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Banner'
+      responses:
+        '201':
+          description: Banner created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '400':
+          description: Bad request
+  /api/banners?show=true:
+    get:
+      tags:
+      - Banners
+      summary: Get banners with show true
+      description: This endpoint returns the objects banner saved in the database with the attribute show equals to true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Banner'
+        '500':
+          description: Internal server error
+  /api/banners?show=false:
+    get:
+      tags:
+      - Banners
+      summary: Get banners with show false
+      description: This endpoint returns the objects banner saved in the database with the attribute show equals to false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Banner'
+        '500':
+          description: Internal server error
+  /api/banners/{id}:
+    get:
+      tags:
+      - Banners
+      summary: Get a banner by ID
+      description: This endpoint returns the object banner saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Banner ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '404':
+          description: Banner not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Banners
+      summary: Delete a banner by ID
+      description: This endpoint eliminates the object banner saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Banner ID
+      responses:
+        '200':
+          description: Banner deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '404':
+          description: Banner not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Banners
+      summary: Update a banner by ID
+      description: This endpoint updates the object banner saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Banner ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Banner'
+      responses:
+        '200':
+          description: Banner updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '404':
+          description: Banner not found
+        '400':
+          description: Bad request
+    patch:
+      tags:
+      - Banners
+      summary: Update specific attributes of a banner by ID
+      description: This endpoint update a specific attributes of the object banner saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Banner ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                action:
+                  type: string
+                  enum: [up_views, up_clicks, inv_show]
+                  description: |
+                    The action to perform on the banner. Available actions are:
+                    - `up_views`: Increment the views count of the banner by 1.
+                    - `up_clicks`: Increment the clicks count of the banner by 1.
+                    - `inv_show`: Toggle the `show` attribute of the banner.
+      responses:
+        '200':
+          description: Banner attributes updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner'
+        '404':
+          description: Banner not found
+        '400':
+          description: Bad request
+        '406':
+          description: Not Acceptable
+        '500':
+          description: Internal server error
+
+tags:
+  - name: Amministratore
+    description: APIs for administrators
+  - name: Persona
+    description: APIs for users (people)
+  - name: Attività
+    description: APIs for users (businesses)
+  - name: Annunci
+    description: APIs for announcements
+  - name: Banners
+    description: APIs for banners
+  - name : Evento
+    description: APIs for events
+
+components:
+  schemas:
+    Attivita:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+        nomeAttivita:
+          type: string
+          required: true
+        indirizzo:
+          type: string
+          required: true
+        telefono:
+          type: string
+          required: true
+        partitaIVA:
+          type: number
+          required: true
+        iban:
+          type: string
+          required: true
+        eventiPubblicati:
+          type: array
+          items:
+            type: number
+    Amministratore:
+      type: object
+      properties:
+        role:
+          type: string
+          required: true
+          enum: [super-user, moderatore, responsabile_pubblicita]
+    Persona:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+        nome:
+          type: string
+          required: true
+        cognome:
+          type: string
+          required: true
+        telefono:
+          type: string
+          required: true
+        dataNascita:
+          type: string
+          format: date
+        eventiPubblicati:
+          type: array
+          items:
+            type: number
+        prenotazioni:
+          type: array
+          items:
+            type: number
+        annunciPubblicati:
+          type: array
+          items:
+            type: number
+    Annuncio:
+      type: object
+      properties:
+        id_publisher:
+          type: number
+          required: true
+        title:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        date:
+          type: string
+          format: date
+          default: "yyyy-mm-dd"
+        time:
+          type: number
+          required: true
+        place:
+          type: string
+          required: false
+        contact:
+          type: string
+          required: false
+        clicks:
+          type: number
+          default: 0
+        views:
+          type: number
+          default: 0
+    Evento:
+      type: object
+      properties:
+        titolo:
+          type: string
+          required: true
+        data:
+          type: string
+          format: date
+          required: true
+        ora:
+          type: number
+          required: true
+        indirizzo:
+          type: string
+          required: true
+        descrizione:
+          type: string
+          required: false
+        immagini:
+          type: array
+          required: false
+        costo:
+          type: number
+          required: true
+        posti:
+          type: number
+          required: true
+        postiLiberi:
+          type: number
+          required: true
+        visibilita:
+          type: boolean
+          required: true
+        categoria:
+          type: string
+          enum:
+            - social life
+            - sport
+            - studio
+            - svago
+            - viaggi
+            - business/progetti
+            - cultura
+            - arte
+            - cinema
+            - filosofia
+            - altro
+          required: false
+        pubblicatore:
+          type: string
+          required: true
+        utentiPrenotati:
+          type: array
+          items:
+            type: number
+        segnalato:
+          type: boolean
+          required: true
+        segnalazioni:
+          type: array
+          items:
+            $ref: "#/components/schemas/Segnalazione"
+    Banner:
+      type: object
+      properties:
+        id_publisher:
+          type: number
+          required: true
+        title:
+          type: string
+          required: true
+        descrizione:
+          type: string
+          required: true
+        budget:
+          type: number
+          default: 0
+        link:
+          type: string
+          required: true
+        image:
+          type: string
+          required: true
+        clicks:
+          type: number
+          default: 0
+        views:
+          type: number
+          default: 0
+        show:
+          type: boolean
+          default: true
+    Segnalazione:
+      type: object
+      properties:
+        id_segnalazione:
+          type: number
+          required: true
+        id_autore:
+          type: number
+          required: true
+        info:
+          type: string
+      collection: 'segnalazioni'
