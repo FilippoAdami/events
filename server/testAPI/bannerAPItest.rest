@@ -2,11 +2,11 @@ GET http://localhost:5000/api/banners
 
 ###
 // test get show true
-GET http://localhost:5000/api/banners/show_true
+GET http://localhost:5000/api/banners?show=true
 
 ###
 // test get show fasle
-GET http://localhost:5000/api/banners/show_false
+GET http://localhost:5000/api/banners?show=false
 
 ###
 //test get by id
@@ -23,10 +23,7 @@ Content-Type: application/json
     "budget": 4,
     "link": "come non piangere",
     "show" : false,
-    "image": {
-        "data": "<base64-encoded-image-data>",
-        "contentType": "image/jpeg"
-    }
+    "image": "ciao"
     //"views":20
     //"clicks":30
 }

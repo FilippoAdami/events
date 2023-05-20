@@ -1,0 +1,28 @@
+#toggle{
+    height: 5vh;
+    width: 100%;
+    display: flex;
+}
+#eventi{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    padding-right: 30px;
+    align-items: center;
+    background-color: #F2F2F2;
+    border: 1px solid #000000;
+    cursor: pointer;
+}
+
+#annunci{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    padding-left: 30px;
+    align-items: center;
+    background-color: #F2F2F2;
+    border: 1px solid #000000;
+    cursor: pointer;
+}

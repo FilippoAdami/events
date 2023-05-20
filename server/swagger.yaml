@@ -5,16 +5,25 @@ info:
 paths:
   /api/amministratori:
     get:
+      tags: 
+      - Amministratore
       summary: Get all amministratori
+      description: This endpoint returns all the objects amministratori saved in the database.
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Amministratore'
+        '500':
+          description: Internal server error 
+    
     post:
+      tags: 
+      - Amministratore
       summary: Create a new amministratori
+      description: This endpoint saves in the database a new object amministratore with the parameters send in the body request
       requestBody:
         required: true
         content:
@@ -37,9 +46,16 @@ paths:
                       - super-user
                       - moderatore
                       - responsabile_pubblicita
+        '400':
+          description: Bad request 
+          
+
   /api/amministratori/{id}:
     get:
+      tags:
+      - Amministratore
       summary: Get an amministratore by ID
+      description: This endpoint returns the object amministratore saved in the database with a specific value of ID attribute.
       parameters:
         - name: id
           in: path
@@ -49,7 +65,7 @@ paths:
             type: string
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
@@ -63,8 +79,16 @@ paths:
                       - super-user
                       - moderatore
                       - responsabile_pubblicita
+        '404':
+          description: Amministratore not found 
+        '500':
+          description: Internal server error 
+
     delete:
+      tags:
+      - Amministratore
       summary: Delete an amministratore by ID
+      description: This endpoint eliminates the object amministratore saved in the database with a specific value of ID attribute.
       parameters:
         - name: id
           in: path
@@ -74,13 +98,21 @@ paths:
             type: string
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Amministratore'
+        '404':
+          description: Amministratore not found 
+        '500':
+          description: Internal server error 
+
     put:
+      tags:
+      - Amministratore
       summary: Update an amministratore by ID
+      description: This endpoint updates the object amministratore saved in the database with a specific value of ID attribute.
       parameters:
         - name: id
           in: path
@@ -96,7 +128,7 @@ paths:
                 $ref: '#/components/schemas/Amministratore'
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
@@ -108,9 +140,18 @@ paths:
                     type: string
                     enum:
                       - super-user
+        '404':
+          description: Amministratore not found 
+        '500':
+          description: Server Error
+
+  
   /api/amministratori/role/{role}:
     get:
+      tags:
+      - Amministratore
       summary: Get all amministratori by role
+      description: This endpoint returns the objects amministratore saved in the database with a specific value of role attribute.
       parameters:
         - name: role
           in: path
@@ -118,24 +159,41 @@ paths:
           required: true
           schema:
             type: string
+            enum:
+              - super-user
+              - moderatore
+              - responsabile_pubblicita
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Amministratore'
+        '500':
+          description: Internal server error 
+
+
+
   /api/users:
     get:
+      tags:
+      - Users
       summary: Get all users
+      description: This endpoint returns the objects users saved in the database.
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
               $ref: '#/components/schemas/Persona'
+        '500':
+          description: Server Error
+
     post:
+      tags: 
+      - Users
       summary: Create a new user
       requestBody:
         required: true
@@ -175,8 +233,11 @@ paths:
                     type: array
                     items:
                       type: number
+
   /api/users/{id}:
     get:
+      tags:
+      - Users
       summary: Get a user by ID
       parameters:
         - in: path
@@ -187,14 +248,17 @@ paths:
           description: User ID
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
               $ref: '#/components/schemas/Persona'
         '404':
           description: User not found
+
     put:
+      tags:
+        - Users
       summary: Update a user by ID
       parameters:
         - in: path
@@ -211,7 +275,7 @@ paths:
               $ref: '#/components/schemas/Persona'
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
@@ -244,6 +308,8 @@ paths:
         '404':
           description: User not found
     delete:
+      tags:
+      - Users
       summary: Delete a user by ID
       parameters:
         - in: path
@@ -254,7 +320,7 @@ paths:
           description: User ID
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
@@ -265,12 +331,16 @@ paths:
                     description: Success message
         '404':
           description: User not found
+
+
   /api/attivita:
     get:
+      tags:
+      - Attività
       summary: Get all attività
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
@@ -278,6 +348,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Attivita'
     post:
+      tags:
+      - Attività
       summary: Create a new attività
       requestBody:
         required: true
@@ -292,8 +364,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Attivita'
+
   /api/attivita/{id}:
     get:
+      tags:
+      - Attività
       summary: Get an attività by ID
       parameters:
         - in: path
@@ -304,12 +379,15 @@ paths:
           description: Attività ID
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Attivita'
+
     put:
+      tags:
+      - Attività
       summary: Update an attività by ID
       parameters:
         - in: path
@@ -326,12 +404,15 @@ paths:
               $ref: '#/components/schemas/Attivita'
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Attivita'
+
     delete:
+      tags:
+      - Attività
       summary: Delete an attività by ID
       parameters:
         - in: path
@@ -342,7 +423,7 @@ paths:
           description: Attività ID
       responses:
         '200':
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
@@ -350,8 +431,11 @@ paths:
                 properties:
                   message:
                     type: string
+
   /annunci:
     post:
+      tags:
+      - Annunici
       summary: Create a new annuncio
       requestBody:
         required: true
@@ -369,6 +453,8 @@ paths:
         '400':
           description: Bad request
     get:
+      tags:
+      - Annunici
       summary: Get all annunci
       responses:
         '200':
@@ -381,8 +467,11 @@ paths:
                   $ref: '#/components/schemas/Annuncio'
         '500':
           description: Internal server error
+
   /annunci/{id}:
     get:
+      tags:
+      - Annunici
       summary: Get an annuncio by ID
       parameters:
         - in: path
@@ -402,7 +491,10 @@ paths:
           description: Annuncio not found
         '500':
           description: Internal server error
+
     put:
+      tags:
+      - Annunici
       summary: Update an annuncio by ID
       parameters:
         - in: path
@@ -428,7 +520,10 @@ paths:
           description: Annuncio not found
         '500':
           description: Internal server error
+
     delete:
+      tags:
+      - Annunici
       summary: Delete an annuncio by ID
       parameters:
         - in: path
@@ -448,8 +543,11 @@ paths:
           description: Annuncio not found
         '500':
           description: Internal server error
+
   /annunci/publisher/{publisher_id}:
     get:
+      tags:
+      - Annunici
       summary: Get annunci by publisher ID
       parameters:
         - in: path
@@ -471,9 +569,14 @@ paths:
           description: Publisher not found
         '500':
           description: Internal server error
-  /banners:
+
+
+  /api/banners:
     get:
+      tags:
+      - Banners
       summary: Get all banners
+      description: This endpoint returns the objects banner saved in the database.
       responses:
         '200':
           description: Success
@@ -485,8 +588,12 @@ paths:
                   $ref: '#/components/schemas/Banner'
         '500':
           description: Internal server error
+
     post:
+      tags:
+      - Banners
       summary: Create a new banner
+      description: This endpoint saves in the database a new object banner with the parameters send in the body request
       requestBody:
         required: true
         content:
@@ -502,9 +609,13 @@ paths:
                 $ref: '#/components/schemas/Banner'
         '400':
           description: Bad request
-  /banners/show_true:
+
+  /api/banners?show=true:
     get:
+      tags:
+      - Banners
       summary: Get banners with show true
+      description: This endpoint returns the objects banner saved in the database with the attribute show equals to true
       responses:
         '200':
           description: Success
@@ -516,9 +627,13 @@ paths:
                   $ref: '#/components/schemas/Banner'
         '500':
           description: Internal server error
-  /banners/show_false:
+
+  /api/banners?show=false:
     get:
+      tags:
+      - Banners
       summary: Get banners with show false
+      description: This endpoint returns the objects banner saved in the database with the attribute show equals to false
       responses:
         '200':
           description: Success
@@ -530,9 +645,13 @@ paths:
                   $ref: '#/components/schemas/Banner'
         '500':
           description: Internal server error
-  /banners/{id}:
+
+  /api/banners/{id}:
     get:
+      tags:
+      - Banners
       summary: Get a banner by ID
+      description: This endpoint returns the object banner saved in the database with a specific value of ID attribute.
       parameters:
         - in: path
           name: id
@@ -551,8 +670,12 @@ paths:
           description: Banner not found
         '500':
           description: Internal server error
+
     delete:
+      tags:
+      - Banners
       summary: Delete a banner by ID
+      description: This endpoint eliminates the object banner saved in the database with a specific value of ID attribute.
       parameters:
         - in: path
           name: id
@@ -571,8 +694,12 @@ paths:
           description: Banner not found
         '500':
           description: Internal server error
+
     put:
+      tags:
+      - Banners
       summary: Update a banner by ID
+      description: This endpoint updates the object banner saved in the database with a specific value of ID attribute.
       parameters:
         - in: path
           name: id
@@ -597,9 +724,12 @@ paths:
           description: Banner not found
         '400':
           description: Bad request
-  /banners/{id}/update:
+
     patch:
+      tags:
+      - Banners
       summary: Update specific attributes of a banner by ID
+      description: This endpoint update a specific attributes of the object banner saved in the database with a specific value of ID attribute.
       parameters:
         - in: path
           name: id
@@ -634,8 +764,8 @@ paths:
           description: Bad request
         '406':
           description: Not Acceptable
-
-
+        '500':
+          description: Internal server error
 
 components:
   schemas:
@@ -827,6 +957,9 @@ components:
           type: number
           default: 0
         link:
+          type: string
+          required: true
+        image:
           type: string
           required: true
         clicks:

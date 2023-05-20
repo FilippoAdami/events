@@ -1,6 +1,57 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Annuncio, { getAnnunciArray } from "../subcomponents/annuncio";
+class Annuncio extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+        id: props.id,
+        id_publisher: props.id_publisher,
+        title: props.title,
+        description: props.description,
+        date: props.date,
+        time: props.time,
+        place: props.place,
+        contact: props.contact,
+    };
+  }
+  /*
+  delete = this.deleteF.bind(this);
+
+  deleteF(){
+    axios
+      .delete(`http://localhost:5000/api/annunci/${this.state.id}`)
+      .then((response) => {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } */
+  render(){
+      return(
+          <div id="annuncio" className="inserzione" type="annunci" key={this.state.id}>
+              <div>{this.state.title} id {this.state.id}</div>
+              <div>{this.state.description}</div>
+              <div>{this.state.date}</div>
+              <div>{this.state.place}</div>
+              <div>{this.state.contact}</div>
+          </div>
+      );
+  }
+}
+
+function DeleteAnnuncio(id){
+  axios
+    .delete(`http://localhost:5000/api/annunci/${id}`)
+    .then((response) => {
+      console.log(response);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 function AddAnnuncio() {
   const [title, setTitle] = useState("");
@@ -72,6 +123,34 @@ function AddAnnuncio() {
         <br />
         <button type="submit">Submit</button>
       </form>
+    </div>
+  );
+};
+
+function AnnunciList() {
+  const [ads, setAds] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/annunci").then((response) => {
+      setAds(response.data);
+    });
+  }, []);
+
+  return (
+    <div>
+      {ads.map((ad) => (
+        <Annuncio
+          key={ad._id}
+          id={ad._id}
+          id_publisher={ad.id_publisher}
+          title={ad.title}
+          description={ad.description}
+          date={new Date(ad.date)}
+          time={ad.time}
+          place={ad.place}
+          contact={ad.contact}
+        />
+      ))}
     </div>
   );
 };
@@ -159,43 +238,10 @@ function ModifyAnnuncio() {
   );
 };
 
-function Datas(){
-  const date = new Date();
-  return (
-    <div>
-     <AnnunciList />
-    </div>
-  );
+function fetchAnnunci() {
+  const response = axios.get('http://localhost:5000/api/annunci');
+  return response.data;
 }
 
-function AnnunciList() {
-  const [ads, setAds] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/annunci").then((response) => {
-      setAds(response.data);
-    });
-
-  }, []);
-
-  return (
-    <div>
-      {ads.map((ad) => (
-        <Annuncio
-          key={ad._id}
-          id={ad._id}
-          id_publisher={ad.id_publisher}
-          title={ad.title}
-          description={ad.description}
-          date={ad.date}
-          time={ad.time}
-          place={ad.place}
-          contact={ad.contact}
-        />
-      ))}
-    </div>
-  );
-};
-
-export {AddAnnuncio, ModifyAnnuncio, AnnunciList};
-export default Datas;
+export {AddAnnuncio, ModifyAnnuncio, AnnunciList, DeleteAnnuncio};
+export default Annuncio; 

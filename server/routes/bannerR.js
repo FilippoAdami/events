@@ -8,7 +8,7 @@ const fs = require('fs')
 router.get('/banners', async (req, res) => {
     try {
         const banner = await Banner.find()
-        res.json(banner)                             
+        res.status(200).json(banner)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
@@ -18,21 +18,21 @@ router.get('/banners', async (req, res) => {
 router.get('/banners?show=true', async (req, res) => {
     try {
         const banner = await Banner.find(
-            { show : "true" }                               //filtro, solo i banner con attributo show true
-        )                                
-        res.json(banner)                             
+            {show:true} 
+        )                                             //filtro, solo i banner con attributo show true                                
+        res.status(200).json(banner)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
 
 //ritorna tutti i banner con show false
-router.get('/banners?show=true', async (req, res) => {
+router.get('/banners?show=false', async (req, res) => {
     try {
         const banner = await Banner.find(
-            { show : "false" }                               //filtro, solo i banner con attributo show false
-        )                                
-        res.json(banner)                             
+            {show:false}                          //filtro, solo i banner con attributo show false
+        )                                  
+        res.status(200).json(banner)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
@@ -84,7 +84,7 @@ async function getBanner(req, res, next) {
 
 //ritorna il banner con il parametro richiesto
 router.get('/banners/:id', getBanner, (req, res) => {
-    res.json(res.banner)
+    res.status(200).json(res.banner)
 })
 
 //Rimuove un oggetto banner

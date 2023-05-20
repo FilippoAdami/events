@@ -4,7 +4,8 @@ const Evento = require('../models/eventoM');
 
 // mostra evento
 
-router.get('/:idEvento/show', async (req,res) => {    
+router.get('/:idEvento/show', async (req,res) => {
+
     const evento = await Evento.find({id_Evento : req.params.Evento});
     if(!evento)
     {
@@ -18,7 +19,24 @@ router.get('/:idEvento/show', async (req,res) => {
 
 // aggiungi evento
 router.post("/addEvento", async (req,res)=> {
-    const newEvento = new Evento(req.body);
+    const newEvento = new Evento
+    ({
+        titolo : req.body.titolo,
+        data : req.body.data,
+        ora: req.body.ora,
+        indirizzo : req.body.indirizzo,
+        descrizione : req.body.descrizione,
+        immagini : req.body.immagini,    // non sono sicuro di questo
+        costo: req.body.costo,
+        posti : req.body.posti,
+        postiLiberi : req.body.posti,
+        visibilita : req.body.visibilita,
+        categoria : req.body.categoria,
+        pubblicatore : req.body.pubblicatore,
+        utentiPreonotati : [],
+        segnalato : false,
+        segnalazioni : []
+    });
     await newEvento.save();
     res.status(201).send("event created and save thx xoxo");
 });
@@ -37,7 +55,7 @@ router.put('/:idEvento/change',async (req,res) =>
         const evento = await Evento.findOneAndUpdate({id_Evento :  req.params.idEvento},req.body);
         if(!evento)
         {
-            res.status(404).send("no evetn found with the given id");
+            res.status(404).send("no event found with the given id");
         }
         else
         {
@@ -77,7 +95,7 @@ router.get('/:idEvento/coordinate',async (req, res) => {
 
 router.get('/:idEvento/utentiPrenotati',(req,res)=>{
 
-    //const evento = Evento.findOne(req.params.idEvento).populate("Persona",{"nome", "email","telefono"});
+    const evento = Evento.findOne(req.params.idEvento).populate("Persona",{"nome": any, "email": any,"telefono":any});
 
     if(evento.populated("Persona"))
     {

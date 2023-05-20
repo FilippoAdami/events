@@ -1,0 +1,54 @@
+//set properties of the container of the whole page
+#container {
+    display: flex;
+    flex-wrap: wrap;
+}
+//set properties of the container of the InfiniteScroll grid
+#inserzioni{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+//set properties of inserzioni
+.inserzione{
+    width: 25%; /* Initially, both boxes occupy 25% of the window width */
+    height: 50vh; 
+    text-align: center;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #000000;
+}
+//set properties of eventi, annunci and banners
+[type='eventi']{
+    background-color: aqua;
+}
+[type='annunci']{
+    background-color: rgb(106, 206, 59);
+}
+[type='banner']{
+    background-color: rgb(77, 42, 142);
+}
+//when the window width becomes smaller than 70em, 3 boxes will be displayed for each row
+@media (max-width: 70em) {
+    .inserzione{
+        width: 33.3333%; /* each box will be large 33.3333 */
+    }
+}
+//when the window width becomes smaller than 55em, 2 boxes will be displayed for each row
+@media (max-width: 55em) {
+    .inserzione{
+        width: 50%; /* each box will be large 50% */
+    }
+}
+//when the window width becomes smaller than 35em, 1 box will be displayed for each row
+@media (max-width: 35em) {
+    .inserzione{
+        width: 100%; /* each box will be large 100% */
+    }
+}
+//set properties of the loading div
+#loading{
+    width: 100vw;
+    height: auto;
+    text-align: center;
+}

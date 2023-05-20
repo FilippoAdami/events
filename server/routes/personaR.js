@@ -58,24 +58,60 @@ router.post('/persona/login', async (req, res) => {
 
 
 //ritorna tutti gli utenti persona
-router.get('/persona', async (req, res) => {
-  try {
-      const persona = await Persona.find()
-      res.json(persona)                             
-  } catch (err) {
-      res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
-  }
+router.get('/users', async (req, res) => {
+    try {
+        const persona = await Persona.find()
+        res.json(persona)                             
+    } catch (err) {
+        res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
+    }
 })
 
 
 //crea un oggetto persona
-router.post('/persona', async (req, res) => {
-  const persona = new Persona(req.body)
+router.post('/users', async (req, res) => {
+    const persona = new Persona(req.body)
+    try {
+        const newPersona = await persona.save()
+        res.status(201).json(newPersona)                      //201: oggetto creato correttamente
+    } catch (err) {
+        res.status(400).json({ message: err.message })       //400: errore da parte del cliente
+    }
+})
+
+//11000
+//api registrazione
+router.post('/users/persona/register', async (req, res) => {
+  console.log(req.body)
   try {
-      const newPersona = await persona.save()
-      res.status(201).json(newPersona)                      //201: oggetto creato correttamente
+    await Persona.create({
+      email: req.body.email,
+      password: req.body.password,
+      nome: req.body.nome,
+      cognome: req.body.cognome,
+      telefono: req.body.telefono,
+      dataNascita: req.body.dataNascita,
+    })
+    res.json({ status: 'ok' })
   } catch (err) {
-      res.status(400).json({ message: err.message })       //400: errore da parte del cliente
+    res.json({ status: 'error', error: err })  
+  }
+})
+
+//api login
+router.post('/users/login', async (req, res) => {
+    const persona = await Persona.findOne({ 
+      email: req.body.email,
+      password: req.body.password,
+    })
+    const attivita = await Attivita.findOne({
+      email: req.body.email,
+      password: req.body.password,
+    })
+  if(persona || attivita) {
+    return res.status(200).json({ persona: true })
+  } else {
+    return res.status(400).json({ persona: false })
   }
 })
 
@@ -98,7 +134,7 @@ async function getPersona(req, res, next) {
 
 
 //modifica un oggetto persona già esistente
-router.put('/persona/:id', getPersona, async (req, res) => {
+router.put('/users/:id', getPersona, async (req, res) => {
   if (req.body != null) {
     Object.keys(req.body).forEach(dato => {                               //funzione che permette di sovrascrivere in nuovi dati su quelli vecchi
       res.persona[dato] = req.body[dato]
@@ -114,13 +150,13 @@ router.put('/persona/:id', getPersona, async (req, res) => {
 
 
 //ritorna l'utente con il parametro richiesto
-router.get('/persona/:id', getPersona, (req, res) => {
+router.get('/users/:id', getPersona, (req, res) => {
   res.json(res.persona)
 })
 
 
 //Rimuove un oggetto persona
-router.delete('/persona/:id', getPersona, async (req, res) => {
+router.delete('/users/:id', getPersona, async (req, res) => {
     try {
       await res.persona.deleteOne()
       res.json({ message: 'Utente correttamente rimosso' })

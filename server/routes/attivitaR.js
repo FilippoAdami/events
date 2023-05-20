@@ -81,6 +81,42 @@ router.post('/attivita', async (req, res) => {
         res.status(400).json({ message: err.message })       //400: errore da parte del cliente
     }
 })
+*/
+
+router.post('/users/attivita/register', async (req, res) => {
+  console.log(req.body)
+  try {
+    await Attivita.create({
+      email: req.body.email,
+      password: req.body.password,
+      nomeAttivita: req.body.nomeAttivita,
+      indirizzo: req.body.indirizzo,
+      telefono: req.body.telefono,
+      partitaIVA: req.body.partitaIVA,
+      iban: req.body.iban,
+    })
+    res.json({ status: 'ok' })
+  } catch (err) {
+    res.json({ status: 'error', error: err })  
+  }
+})
+
+//api login
+router.post('/users/login', async (req, res) => {
+  const persona = await Persona.findOne({ 
+    email: req.body.email,
+    password: req.body.password,
+  })
+  const attivita = await Attivita.findOne({
+    email: req.body.email,
+    password: req.body.password,
+  })
+if(persona || attivita) {
+  return res.status(200).json({ persona: true })
+} else {
+  return res.status(400).json({ persona: false })
+}
+})
 
 
 //funzione che ritorna l'utente attività con l'id corrispondente, utilizzata nei metodi sottostanti
