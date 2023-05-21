@@ -1,6 +1,8 @@
+//pagina che può essere utilizzata per testare pezzi di codice, verrà poi cancellato tutto e qui saranno visibili le statisiche della web-app
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Annuncio, { getAnnunciArray } from "../subcomponents/annuncio";
+import Annuncio from "../subcomponents/annuncio";
+import Evento from "../subcomponents/evento";
 
 function AddAnnuncio() {
   const [title, setTitle] = useState("");
@@ -75,7 +77,6 @@ function AddAnnuncio() {
     </div>
   );
 };
-
 function ModifyAnnuncio() {
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
@@ -158,16 +159,6 @@ function ModifyAnnuncio() {
     </form>
   );
 };
-
-function Datas(){
-  const date = new Date();
-  return (
-    <div>
-     <AnnunciList />
-    </div>
-  );
-}
-
 function AnnunciList() {
   const [ads, setAds] = useState([]);
 
@@ -196,6 +187,18 @@ function AnnunciList() {
     </div>
   );
 };
+
+
+
+
+function Datas(){
+  const date = new Date();
+  return (
+    <div>
+     <AnnunciList />
+    </div>
+  );
+}
 
 export {AddAnnuncio, ModifyAnnuncio, AnnunciList};
 export default Datas;

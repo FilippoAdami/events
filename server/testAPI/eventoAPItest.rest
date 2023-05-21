@@ -1,0 +1,79 @@
+// Get all events
+GET http://localhost:5000/api/eventi
+
+###
+
+// Get event by ID
+GET http://localhost:5000/api/eventi/6469d40788175e21c5bf230d
+
+###
+
+// Get events by publisher ID
+GET http://localhost:5000/api/eventi/publisher/idhere
+
+###
+
+//add a new event
+POST http://localhost:5000/api/eventi
+Content-Type: application/json
+
+{
+  "titolo": "Nuovo evento 7",
+  "data": "2023-05-20",
+  "ora": 2,
+  "indirizzo": "Trento",
+  "descrizione": "Descrizione del nuovo evento 2",
+  "immagini": ["image1.jpg", "image2.jpg"],
+  "costo": 10,
+  "posti": 100,
+  "postiLiberi": 100,
+  "visibilita": true,
+  "categoria": "altro",
+  "pubblicatore": "646893e72d12675abc29f74e",
+  "utentiPrenotati": ["646893e72d12675abc29f74e", "646898f2f99185e229992f72"],
+  "segnalato": false,
+  "segnalazioni": []
+}
+
+
+###
+
+// Update existing event by ID
+PUT http://localhost:5000/api/eventi/6469d22c284c25f0309e735c
+Content-Type: application/json
+
+{
+    "titolo": "Evento aggiornato",
+    "data": "2023-05-21",
+    "ora": 2,
+    "indirizzo": "New Trento",
+    "descrizione": "This is an updated event",
+    "immagini": ["image3.jpg"],
+    "costo": 15,
+    "posti": 200,
+    "postiLiberi": 150,
+    "visibilita": true,
+    "categoria": "svago",
+    "pubblicatore": "idhere",
+    "utentiPrenotati": [],
+    "segnalato": false,
+    "segnalazioni": []
+}
+
+###
+
+// Delete existing event by ID
+DELETE http://localhost:5000/api/eventi/6469d22c284c25f0309e735c
+
+###
+
+// Test: Get postiLiberi
+GET http://localhost:5000/api/eventi/6469d40788175e21c5bf230d/postiLiberi
+
+###
+// Test: Get coordinate
+GET http://localhost:5000/api/eventi/6469d40788175e21c5bf230d/coordinate
+
+###
+// Test: Get utentiPrenotati
+GET http://localhost:5000/api/eventi/6469d40788175e21c5bf230d/utentiPrenotati

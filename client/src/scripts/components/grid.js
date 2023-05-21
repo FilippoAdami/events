@@ -1,6 +1,6 @@
 import Annuncio, {annunciodAnnuncio, ModifyAnnuncio, AnnunciList, DeleteAnnuncio } from '../subcomponents/annuncio.js'
 import Banner from '../subcomponents/banner.js'
-import Event from '../subcomponents/event.js'
+import Event from '../subcomponents/evento.js'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 

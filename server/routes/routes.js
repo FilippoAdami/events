@@ -13,7 +13,7 @@ const amministratoriR = require('./amministratoriR');
 
 // Set up routes
 router.use('/api', annunciR);
-//router.use('/api', eventoR);
+router.use('/api', eventoR);
 router.use('/api', personaR);
 router.use('/api', attivitaR);
 router.use('/api', bannerR);

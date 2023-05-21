@@ -37,7 +37,7 @@ router.get('/annunci/:id', async (req, res) => {
   }
 });
 
-// API to GET an annuncio given its id_publisher
+// API to GET all the annunci published by a specific publisher
 router.get('/annunci/publisher/:publisher_id', async (req, res) => {
   try {
     const annunci = await Annuncio.find(req.params.id_publisher);
