@@ -6,7 +6,7 @@ const attivitaSchema = new mongoose.Schema({
   password: { type: String, required: true },
   nomeAttivita: { type: String, required: true },
   indirizzo: { type: String, required: true },
-  telefono: { type: String, required: true },
+  telefono: { type: Number, required: true },
   partitaIVA: { type: Number, required: true},
   iban: { type: String, required: true },
   eventiPubblicati: [{ type: Number }],

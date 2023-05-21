@@ -7,7 +7,7 @@ Content-Type: application/json
     "password": "prova1",
     "nome": "a",
     "cognome": "a",
-    "telefono": "a",
+    "telefono": "1",
     "dataNascita": "12/12/1999"
 }
 
@@ -42,7 +42,7 @@ Content-Type: application/json
     "password": "prova@2",
     "nome": "B",
     "cognome": "B",
-    "telefono": "B",
+    "telefono": "2",
     "dataNascita": "12/12/1990"
 }
 

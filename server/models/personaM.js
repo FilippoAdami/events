@@ -6,7 +6,7 @@ const personaSchema = new mongoose.Schema({
   password: { type: String, required: true },
   nome: { type: String, required: true },
   cognome: { type: String, required: true },
-  telefono: { type: String, required: true },
+  telefono: { type: Number, required: true },
   dataNascita: { type: Date },
   eventiPubblicati: [{type: Number}],
   prenotazioni: [{type: Number}],
