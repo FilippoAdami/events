@@ -7,7 +7,7 @@ Content-Type: application/json
     "password": "prova1",
     "nomeAttivita": "A",
     "indirizzo": "A",
-    "telefono": "A",
+    "telefono": "1",
     "partitaIVA": "1",
     "iban": "A"
 }
@@ -43,7 +43,7 @@ Content-Type: application/json
     "password": "prova2",
     "nomeAzienda": "B",
     "indirizzo": "B",
-    "telefono": "B",
+    "telefono": "2",
     "partitaIVA": "2",
     "iban": "B",
     "eventiPubblicati": [2,2,2]
