@@ -492,148 +492,156 @@ paths:
           description: Server Error
 
   /api/eventi:
-    post:
-      tags:
-        - Evento
-      summary: Add a new event
-      description: This endpoint posts a new evento in the database
-
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Evento'
-      responses:
-        '201':
-          description: Created
-        '400':
-          description: Bad Request
-    get:
-          tags:
+      post:
+        tags:
           - Evento
-          summary: Get all events
-          description: This endpoint gets all the eventi from the database
-          responses:
-            '200':
-              description: Success
-              content:
-                application/json:
-                  schema:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Evento'
-            '500':
-              description: Internal server error
-  /api/eventi/:id:
-    get:
-      tags:
-        - Evento
-      summary: Get event by ID
-      description: This endpoint gets a specific evento from the database
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
+        summary: Add a new event
+        description: This endpoint posts a new evento in the database
+        requestBody:
           required: true
-          description: Event ID
-      responses:
-        '200':
-          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Evento'
-        '404':
-          description: Event not found
-    delete:
-      tags:
-        - Evento
-      summary: Delete event by ID
-      description: This endpoint deletes a specific evento form the database
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-          description: Event ID
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Event not found
-    put:
-      tags:
-        - Evento
-      summary: Update event by ID
-      description: This endpoint updates a specific evento form the database
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-          description: Event ID
-      requestBody:
-        required: true
-        content:
-          application/json:
+        responses:
+          '201':
+            description: Created
+          '400':
+            description: Bad Request
+      get:
+        tags:
+          - Evento
+        summary: Get all events
+        description: This endpoint gets all the eventi from the database
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Evento'
+          '500':
+            description: Internal server error
+  /api/eventi/{id}:
+      get:
+        tags:
+          - Evento
+        summary: Get event by ID
+        description: This endpoint gets a specific evento from the database
+        parameters:
+          - in: path
+            name: id
             schema:
-              $ref: '#/components/schemas/Evento'
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Event not found
-  /api/eventi/:id/postiLiberi:
-    get:
-      tags:
-        - Evento
-      summary: Get the number of available seats for an event
-      description: This endpoint gets the updated number of posti liberi of a specific evento
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
+              type: string
+            required: true
+            description: Event ID
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Evento'
+          '404':
+            description: Event not found
+      delete:
+        tags:
+          - Evento
+        summary: Delete event by ID
+        description: This endpoint deletes a specific evento from the database
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: string
+            required: true
+            description: Event ID
+        responses:
+          '204':
+            description: No Content
+          '404':
+            description: Event not found
+      put:
+        tags:
+          - Evento
+        summary: Update event by ID
+        description: This endpoint updates a specific evento from the database
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: string
+            required: true
+            description: Event ID
+        requestBody:
           required: true
-          description: Event ID
-      responses:
-        '200':
-          description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  postiLiberi:
-                    type: number
-  /api/eventi/:id/coordinate:
-    get:
-      tags:
-        - Evento
-      summary: Get the coordinates of an event
-      description: This endpoint gets the coordinates of a specific evento
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-          description: Event ID
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  indirizzo:
-                    type: string
-  /api/eventi/:id/utentiPrenotati:
+                $ref: '#/components/schemas/Evento'
+        responses:
+          '204':
+            description: No Content
+          '404':
+            description: Event not found
+  /api/eventi/{id}/postiLiberi:
+      get:
+        tags:
+          - Evento
+        summary: Get the number of available seats for an event
+        description: This endpoint gets the updated number of posti liberi of a specific evento
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: string
+            required: true
+            description: Event ID
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    postiLiberi:
+                      type: number
+          '404':
+            description: Event not found
+          '500':
+            description: Internal server error
+              
+  /api/eventi/{id}/coordinate:
+      get:
+        tags:
+          - Evento
+        summary: Get the coordinates of an event
+        description: This endpoint gets the coordinates of a specific evento
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: string
+            required: true
+            description: Event ID
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    indirizzo:
+                      type: string
+          '404':
+            description: Event not found
+          '500':
+            description: Internal server error
+  /api/eventi/{id}/utentiPrenotati:
     get:
       tags:
         - Evento
@@ -655,6 +663,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Persona'
+        '404':
+          description: Event not found
+        '500':
+          description: Internal server error
 
   /api/annunci:
     post:
