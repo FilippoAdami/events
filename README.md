@@ -8,3 +8,6 @@ Then open a terminal in the client folder (right clic on the client folder and t
 Oppure andare nella root del progetto e runnare npm start, aprirà 3 terminal esterni (uno per il server, uno per sass e uno per react) e infine si aprirà il sito su una pagina a parte.
 
 Per vedere la documentazione delle APIs far partire il server con 'npm run server' dalla cartella server e poi andare a 'http://localhost:5000/api-docs/#/'
+
+## for professors
+To see the website open a terminal on the root folder and run "npm run view", this will first start a new cmd which will run the express server and another cmd that will run the react client server. It will automatically open a new window on the default browser at localhost:3000 with the site running.

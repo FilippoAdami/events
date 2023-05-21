@@ -2,7 +2,7 @@ import Annuncio, {annunciodAnnuncio, ModifyAnnuncio, AnnunciList, DeleteAnnuncio
 import Banner from '../subcomponents/banner.js'
 import Evento from '../subcomponents/evento.js'
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { all } from 'axios';
 
 //file variable that contains the type of inserzioni that will be displayed
 const tipoInserzioni = {
@@ -12,14 +12,17 @@ const tipoInserzioni = {
 };
 
 const Grid = ({ selectedOption }) => {
-  const divsNumberIncrement = 32;
+  const divsNumberIncrement = 8;
   const bannerFrequency = 5;
   const [firstLoad, setFirstLoad] = useState(0);
   const [loadAnnunci, annunciLoaded] = useState(0);
   const [loadEventi, eventiLoaded] = useState(0);
+  const [loadBanners, bannersLoaded] = useState(0);
+  const [loadAll, allLoaded] = useState(0);
   const [divs, setDivs] = useState([]);
   const [divNumber, setDivNumber] = useState(0);
   let loading = false;
+
 
   const [annunci, setAnnunci] = useState([]);
   const [eventi, setEventi] = useState([]);
@@ -113,29 +116,41 @@ const Grid = ({ selectedOption }) => {
   //useEffect to see when the annunci are effectively changed
   useEffect(() => {
     if(loadAnnunci===0) { annunciLoaded(1); return; }
-    console.log('annunci loaded');
+    allLoaded((prevLoadAll) => prevLoadAll + 1);
+    console.log('annunci loaded ' + loadAll);
     console.log(JSON.stringify(annunci[0]));
   }, [annunci]);
   //useEffect to see when the eventi are effectively changed
   useEffect(() => {
     if(loadEventi===0) { eventiLoaded(1); return; }
-    console.log('eventi loaded');
+    allLoaded((prevLoadAll) => prevLoadAll + 1);
+    console.log('eventi loaded ' + loadAll);
     console.log(JSON.stringify(eventi[0]));
   }, [eventi]);
   //useEffect to see when the banners are effectively changed
   useEffect(() => {
-    console.log('banners loaded');
+    if(loadBanners===0) { bannersLoaded(1); return; }
+    allLoaded((prevLoadAll) => prevLoadAll + 1);
+    console.log('banners loaded ' + loadAll);
     console.log(JSON.stringify(banners[0]));
   }, [banners]);
-
+  //useEffect to see when all the data are effectively loaded
+  useEffect(() => {
+    if(loadAll===3) {
+      console.log('all loaded');
+      generateDivs();
+    }
+  }, [loadAll]);
 
   //useEffect to see when the selectedOption changes
   useEffect(() => {
     if(firstLoad===0) {
       setFirstLoad(1);
+      console.log('first load');
       return;
     }
     setDivNumber(0);
+    console.log('divNumber set to 0 for selectedOption change');
     setDivs([]);
     console.log('selectedOption changed to ' + selectedOption);
   }, [selectedOption]);
@@ -153,6 +168,7 @@ const Grid = ({ selectedOption }) => {
     const { clientHeight, scrollHeight, scrollTop } = document.documentElement; //variables initialization
     //checks if the user has reached the bottom of the page and if the loading is not in progress
     if (clientHeight + scrollTop >= scrollHeight-5 && loading===false && clientHeight + scrollTop > window.innerHeight+10) {
+      //checks if it's showing the annunci or the eventi
       generateDivs();
       console.log('scrolling');
     }
@@ -171,37 +187,37 @@ const Grid = ({ selectedOption }) => {
     loading = true;
 
     //variables initialization
+    let pool = [];
     let newDivs = [];
-    let content = selectedOption;
-    let contentBackup = content; //backup of the content variable to restore the content after the banner
+    let increment = divsNumberIncrement;
 
-    //for cycle that generates the divs
-    for (let i = 0; i < divsNumberIncrement; i++) {
-      //checks if it's time for a banner to appear
-      let type = (divNumber+i+1)%bannerFrequency;
-      if(type===0) { content = 'banner'; }
-      else if (type!==0 && content === 'banner'){content = contentBackup;}
-      
-    let index = divNumber + i;
-    let Component = '';
-    //checks if the div will contain an annuncio or stay empty
-    if (index < annunci.length) {
-      Component = annunci[index];
+    if(selectedOption==='annunci'){
+      if(annunci.length<(divNumber+divsNumberIncrement)){increment = annunci.length-divNumber;}
+        pool = annunci.slice(divNumber, divNumber+increment);
     }
-      newDivs.push(<>{Component}</>);  //div generation 
+    else if(selectedOption==='eventi'){
+      if(eventi.length<(divNumber+divsNumberIncrement)){increment = eventi.length-divNumber;}
+        pool = eventi.slice(divNumber, divNumber+increment);
+    }
+    //for cycle that generates the divs
+    for (let i = 0; i < increment; i++) {
+      //checks if it's time for a banner to appear
+      if((divNumber+i+1)%bannerFrequency === 0){
+        newDivs.push( <> {banners[(divNumber+i+1)/bannerFrequency -1]} </> );
+      }
+      
+      newDivs.push(<>{pool[i]}</>);  //div generation 
     }
     //console.log('divs generated: \n'+JSON.stringify(newDivs[0]));
     //updates the divs, the divNumber and the loading variables
     setDivs((prevDivs) => [...prevDivs, ...newDivs]);
-    setDivNumber((prevDivNumber) => prevDivNumber + divsNumberIncrement);
+    setDivNumber((prevDivNumber) => prevDivNumber + increment); 
     loading = false;
   };
 
   return (
     <div id='container'>
-      {selectedOption === 'annunci' && <>{annunci}</>}
-      {selectedOption === 'eventi' && <>{eventi}</>}
-      {selectedOption === 'misto' && <>{banners}</>}
+      {divs}
     </div>
   );
 };
