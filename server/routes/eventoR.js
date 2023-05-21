@@ -40,29 +40,16 @@ router.get('/eventi/publisher/:publisher_id', async (req, res) => {
     }
 });
 
-// aggiungi evento
-router.post("/eventi", async (req,res)=> {
-    const newEvento = new Evento
-    ({
-        titolo : req.body.titolo,
-        data : req.body.data,
-        ora: req.body.ora,
-        indirizzo : req.body.indirizzo,
-        descrizione : req.body.descrizione,
-        immagini : req.body.immagini,    // non sono sicuro di questo
-        costo: req.body.costo,
-        posti : req.body.posti,
-        postiLiberi : req.body.posti,
-        visibilita : req.body.visibilita,
-        categoria : req.body.categoria,
-        pubblicatore : req.body.pubblicatore,
-        utentiPreonotati : [],
-        segnalato : false,
-        segnalazioni : []
-    });
-    await newEvento.save();
-    res.status(201).send("event created and saved");
-});
+// API to post a new evento
+router.post('/eventi', async (req, res) => {
+    try {
+      const evento = new Evento(req.body);
+      await evento.save();
+      res.status(201).send(evento);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  });
 
 // API to DELETE an evento given its id
 router.delete('/eventi/:id', async (req, res) => {
@@ -76,7 +63,7 @@ router.delete('/eventi/:id', async (req, res) => {
       console.log(error);
       res.status(500).send('Server error');
     }
-  }); 
+}); 
 
 // API to update an evento given its id
 router.put('/eventi/:id', async (req, res) => {
@@ -105,7 +92,7 @@ router.get('/eventi/:id/postiLiberi', async (req, res) => {
     } catch (error) {
       res.status(500).send(error.message);
     }
-  });
+});
   
 // Get coordinate of a scpecific evento
 router.get('/eventi/:id/coordinate', async (req, res) => {

@@ -188,9 +188,6 @@ function AnnunciList() {
   );
 };
 
-
-
-
 function Datas(){
   const date = new Date();
   return (
