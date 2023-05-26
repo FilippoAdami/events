@@ -25,12 +25,18 @@ function SignUpPersona() {
     })
 
     const data = await response.json()
+    if(data.persona){
+      alert('registrazione effettuata')
+      window.location.href = '/login'
+    } else {
+      alert('errore registrazione')
+    }
     console.log(data)
   }
 
   return (
     <div>
-      <h1>Sign up Persona</h1>
+      <h1>Registrazione Persona</h1>
       <form onSubmit = {register} >
         <input
           value = { email }

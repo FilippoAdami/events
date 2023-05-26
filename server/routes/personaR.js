@@ -26,6 +26,7 @@ router.post('/persona/register', async (req, res) => {
   }
 })
 
+/*
 //api login
 router.post('/persona/login', async (req, res) => {
   const persona = await Persona.findOne({ email: req.body.email })
@@ -45,11 +46,11 @@ router.post('/persona/login', async (req, res) => {
   } catch {
     return res.status(500).json({ message: "dati sbagliati"})
   }
-})
+})*/
 
 
 //ritorna tutti gli utenti persona
-router.get('/persona', async (req, res) => {
+router.get('/utenti/persona', async (req, res) => {
     try {
         const persona = await Persona.find()                           
         res.status(200).json(persona)                             

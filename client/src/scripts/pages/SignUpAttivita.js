@@ -26,12 +26,18 @@ function SignUpAttivita() {
     })
 
     const data = await response.json()
+    if(data.attivita){
+      alert('registrazione effettuata')
+      window.location.href = '/login'
+    } else {
+      alert('errore registrazione')
+    }
     console.log(data)
   }
 
   return (
     <div>
-      <h1>Sign up Attività</h1>
+      <h1>Registrazione Attività</h1>
       <form onSubmit = {register} >
         <input
           value = { email }

@@ -27,7 +27,7 @@ router.post('/attivita/register', async (req, res) => {
   }
 })
 
-
+/*
 //api login
 router.post('/attivita/login', async (req, res) => {
   const attivita = await Attivita.findOne({ email: req.body.email })
@@ -47,7 +47,7 @@ router.post('/attivita/login', async (req, res) => {
   } catch {
     return res.status(500).json({ message: "dati sbagliati"})
   }
-})
+})*/
 
 
 //ritorna tutti gli utenti attività
