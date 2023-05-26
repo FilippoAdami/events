@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Cookies from 'js-cookie'; 
+
 
 function LogIn() {
 
@@ -18,13 +20,14 @@ function LogIn() {
     })
 
     const data = await response.json()
+  
     if(data.utente){
       alert('login effettuato')
+      Cookies.set("token",data.token)
       window.location.href = '/'
     } else {
       alert('errore login')
     }
-    console.log(data)
   }
 
   return (

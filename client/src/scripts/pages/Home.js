@@ -5,7 +5,12 @@ import Grid from '../components/grid';
 import Map from '../components/map';
 import Toggle from '../components/toggle.js';
 
+import Cookies from 'js-cookie'; 
+
 function Home() {
+
+  console.log(Cookies.get("token"))  // Riga per stampare in fase di testing il token 
+
   const [selectedOption, setSelectedOption] = useState('annunci'); //variable that indicates whether to display events or ads
 
   const handleToggle = (option) => {
