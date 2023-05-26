@@ -8,6 +8,7 @@ import SignUpPersona from './pages/SignUpPersona.js';
 import ResPubbHome from './pages/ResPubbHome.js';
 import SignUpAttivita from './pages/SignUpAttivita.js';
 
+import Cookies from 'js-cookie';
 
 
 function App() {
