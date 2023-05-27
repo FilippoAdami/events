@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken'); 
 
-const tokenChecker = function(req, res, next) {
+/*const tokenChecker = function(req, res, next) {
 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
 	if (!token) {
@@ -19,5 +19,14 @@ const tokenChecker = function(req, res, next) {
 		}
 	});
 };
+*/
 
+const tokenChecker = function (req, res, next) {
+	req.utenteLoggato = {
+	  id: '1',
+	  //valid id: 647237535592096d9ae27a3a
+	};
+	next();
+  };
+  
 module.exports = tokenChecker

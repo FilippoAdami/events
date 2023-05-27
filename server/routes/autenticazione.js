@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
     try {
         if( await bcrypt.compare(req.body.password, utente.password)){
             var payload = { email: utente.email }
-            var options = { expiresIn: 86400 }                                                      //termina in 24 ore
+            var options = { expiresIn: 86400 }            //termina in 24 ore
             var token = jwt.sign(payload, process.env.SECRET_TOKEN, options);
             return res.status(200).json({ utente: true, message: "login effettuato", email: utente.email, ruolo: utente.ruolo, token: token }) 
         } else {

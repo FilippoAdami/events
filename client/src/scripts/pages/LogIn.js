@@ -23,8 +23,20 @@ function LogIn() {
   
     if(data.utente){
       alert('login effettuato')
-      Cookies.set("token",data.token)
+      Cookies.set('token', data.token, {
+        expires: 1, // Set the expiration of the cookie to 7 days
+        path: '/', // Cookie accessible from all paths on the domain
+      });
+      Cookies.set('email', data.email, {
+        expires: 1,
+        path: '/',
+      });
+      Cookies.set('ruolo', data.ruolo, {
+        expires: 1,
+        path: '/',
+      });
       window.location.href = '/'
+      alert('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') )
     } else {
       alert('errore login')
     }

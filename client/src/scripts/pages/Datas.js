@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Annuncio from "../subcomponents/annuncio";
 import Evento from "../subcomponents/evento";
+import Cookies from "js-cookie";
 
 function AddAnnuncio() {
   const [title, setTitle] = useState("");
@@ -21,8 +22,18 @@ function AddAnnuncio() {
       place: place,
       contact: contact
     };
+
+    const token = Cookies.get('token');
+
+    //console.log(token);
+    //console.log(data);
+
     axios
-      .post("http://localhost:5000/api/annunci", data)
+      .post("http://localhost:5000/api/annunci", data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then((response) => {
         console.log(response);
         setTitle("");
@@ -192,7 +203,7 @@ function Datas(){
   const date = new Date();
   return (
     <div>
-     <AnnunciList />
+     <AddAnnuncio />
     </div>
   );
 }
