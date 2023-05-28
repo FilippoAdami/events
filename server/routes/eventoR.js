@@ -26,6 +26,8 @@ router.get('/eventi/:id', async (req, res) => {
     }
 });
 
+// INSERISCI GET 25 per inviare alla griglia un po di eventi alla volta
+
 // API to GET all the eventi published by a specific publisher
 router.get('/eventi/publisher/:publisher_id', async (req, res) => {
     try {
@@ -41,6 +43,7 @@ router.get('/eventi/publisher/:publisher_id', async (req, res) => {
 });
 
 // API to post a new evento
+// AGGIUNGI CONTROLLO LOGIN + INSERIMENTO DATO ID PUBLISHER
 router.post('/eventi', async (req, res) => {
     try {
       const evento = new Evento(req.body);

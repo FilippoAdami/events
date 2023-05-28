@@ -2,6 +2,20 @@ import React, { useState } from 'react';
 import "../../style/pages/postEvento.scss"
 
 
+function convertToBase64(file){                 //converte l'immagine passata come paramentro in Stringa
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader()
+    fileReader.readAsDataURL(file)
+    fileReader.onload = () => {
+      resolve(fileReader.result)
+    }
+    fileReader.onerror = (error) => {
+      reject(error)
+    }
+  })
+}
+
+
 function PostEvento() {
 
   
@@ -10,6 +24,7 @@ function PostEvento() {
   const [ora, setOra] = useState('');
   const [indirizzo, setIndirizzo] = useState('');
   const [descrizione, setDescrizione] = useState('');
+  const [immagini, setImmagini] = useState(['','','']);
   const [costo, setCosto] = useState('');
   const [posti, setPosti] = useState('');
   const [postiLiberi, setpostiLiberi] = useState(0);
@@ -27,7 +42,7 @@ function PostEvento() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        titolo, data, ora, indirizzo, descrizione, costo, posti, postiLiberi, visibilita, categoria, pubblicatore, segnalato
+        titolo, data, ora, indirizzo, descrizione, immagini, costo, posti, postiLiberi, visibilita, categoria, pubblicatore, segnalato
       })
     })
 
@@ -65,6 +80,13 @@ function PostEvento() {
 
           <label>Descrizione</label>
           <textarea  onChange={ (e) => setDescrizione(e.target.value)} />
+
+          <label>Immagine1</label>
+          <input type="file" name="image" accept=".jpeg, .png, .jpg" onChange={async(e) => {
+            const file =e.target.files[0];
+            const base64 = await convertToBase64(file);
+            setImmagini(base64,'','');
+          }}/>
 
           <label>Costo</label>
           <input  type = "number" onChange={ (e) => setCosto(e.target.value)} />
