@@ -1,6 +1,10 @@
+
+const mapSetter = require("../controllers/MapController.js");
+const Evento = require('../models/eventoM');
 const express = require('express');
 const router = express.Router();
-const Evento = require('../models/eventoM');
+
+
 
 //get all eventi
 router.get('/eventi', async (req, res) => {
@@ -101,7 +105,13 @@ router.get('/eventi/:id/coordinate', async (req, res) => {
       if (!evento) {
         return res.status(404).send("No event found with the given ID");
       }
+      else{
+        console.log(evento.indirizzo.toString());
+        mapSetter(evento.indirizzo.toString());
+      }
+
       res.send(evento.indirizzo.toString());
+      
     } catch (error) {
       res.status(500).send(error.message);
     }
