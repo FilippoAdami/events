@@ -23,7 +23,7 @@ const jwt = require('jsonwebtoken');
 
 const tokenChecker = function (req, res, next) {
 	req.utenteLoggato = {
-	  id: '1',
+	  id: '647237535592096d9ae27a3a',
 	  //valid id: 647237535592096d9ae27a3a
 	};
 	next();

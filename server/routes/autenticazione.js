@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
             var payload = { email: utente.email }
             var options = { expiresIn: 86400 }            //termina in 24 ore
             var token = jwt.sign(payload, process.env.SECRET_TOKEN, options);
-            return res.status(200).json({ utente: true, message: "login effettuato", email: utente.email, ruolo: utente.ruolo, token: token }) 
+            return res.status(200).json({ utente: true, message: "login effettuato", email: utente.email, ruolo: utente.ruolo, token: token, id: utente._id }) 
         } else {
             return res.status(400).json({ utente: false, message: "password sbagliata"})
         }

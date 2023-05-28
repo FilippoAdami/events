@@ -3,7 +3,7 @@ GET http://localhost:5000/api/annunci
 
 ###
 //test get by id
-GET http://localhost:5000/api/annunci/645cf3bbeeaea6d8560220f6
+GET http://localhost:5000/api/annunci/6473dfd0e56e539ab7c7aaf5
 
 ###
 //test get by publisher_id
@@ -29,7 +29,7 @@ PUT http://localhost:5000/api/annunci/645cf4ceeeaea6d856022104
 Content-Type: application/json
 
 {
-    "id_publisher": 1,
+    "id_publisher": "1",
     "title": "ad aggiornato ancora 2",
     "description": "This is an updated ad",
     "time": 10,
@@ -38,5 +38,19 @@ Content-Type: application/json
 }
 
 ###
+
+//test update existing using id
+PATCH http://localhost:5000/api/annunci/645cf4ceeeaea6d856022104
+Content-Type: application/json
+
+{
+    "title": "ad aggiornato ancora 3",
+    "description": "This is an updated ad",
+    "time": 10,
+    "place": "New Trento",
+    "contact": "test@test.com"
+}
+
+###
 //test delete existing using id
-DELETE http://localhost:5000/api/annunci/645cf453eeaea6d856022100
+DELETE http://localhost:5000/api/annunci/647274bdaf7db2e4cf1f35c9dcdc

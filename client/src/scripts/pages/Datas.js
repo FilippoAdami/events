@@ -25,9 +25,6 @@ function AddAnnuncio() {
 
     const token = Cookies.get('token');
 
-    //console.log(token);
-    //console.log(data);
-
     axios
       .post("http://localhost:5000/api/annunci", data, {
         headers: {
@@ -40,8 +37,7 @@ function AddAnnuncio() {
         setDescription("");
         setPlace("");
         setContact("");
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.log(error);
       });
   };
@@ -88,48 +84,46 @@ function AddAnnuncio() {
     </div>
   );
 };
+
 function ModifyAnnuncio() {
-  const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [place, setPlace] = useState("");
+  const [time, setTime] = useState("");
   const [contact, setContact] = useState("");
+  const id = '647274bdaf7db2e4cf1f35c9dcdc';
 
   const modifyA = (event) => {
     event.preventDefault();
     const data = {
-      id_publisher: 1,
       title: title,
       description: description,
-      time: 1,
+      time: time,
       place: place,
       contact: contact
     };
+    const token = Cookies.get('token');
+    
     axios
-      .put(`http://localhost:5000/api/annunci/${id}`, data)
-      .then((response) => {
+      .patch(`http://localhost:5000/api/annunci/`+id+'', data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((response) => {
         console.log(response);
-        setId("");
         setTitle("");
         setDescription("");
         setPlace("");
+        setTime("");
         setContact("");
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.log(error);
       });
   };
 
   return (
     <form onSubmit={modifyA}>
-      <label>
-        ID:
-        <input
-          type="text"
-          value={id}
-          onChange={(event) => setId(event.target.value)}
-        />
-      </label>
+      <div>ID: 647274bdaf7db2e4cf1f35c9dcdc </div>
       <br />
       <label>
         Title:
@@ -158,6 +152,15 @@ function ModifyAnnuncio() {
       </label>
       <br />
       <label>
+        Time:
+        <input
+          type="text"
+          value={time}
+          onChange={(event) => setTime(event.target.value)}
+        />
+      </label>
+      <br />
+      <label>
         Contact:
         <input
           type="text"
@@ -170,43 +173,85 @@ function ModifyAnnuncio() {
     </form>
   );
 };
-function AnnunciList() {
+
+function DeleteAnnuncio() {
+  const id = '6473dfd0e56e539ab7c7aaf5';
+  const token = Cookies.get('token');
+
+  const deleteA = (event) => {
+    event.preventDefault();
+    axios.delete('http://localhost:5000/api/annunci/'+id+'', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);
+    });   
+  };
+
+  return (
+    <form onSubmit={deleteA}>
+      <div>ID: 6473dfd0e56e539ab7c7aaf5 </div>
+      <br />
+      <button type="submit">Delete Ad</button>
+    </form>
+  );
+}
+
+function AnnunciPubblicatiList() {
   const [ads, setAds] = useState([]);
+  const token = Cookies.get('token');
+  const id = Cookies.get('id');
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/annunci").then((response) => {
-      setAds(response.data);
+    axios.get('http://localhost:5000/api/annunci/publisher/'+id+'', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      setAds(response.data.map((annuncio) => (
+        <Annuncio
+          key={annuncio._id}
+          id={annuncio._id}
+          id_publisher={annuncio.id_publisher}
+          title={annuncio.title}
+          description={annuncio.description}
+          date={annuncio.date}
+          time={annuncio.time}
+          place={annuncio.place}
+          contact={annuncio.contact}
+        />
+      )));
+    }).catch((error) => {
+      console.log(error);
     });
 
   }, []);
 
   return (
     <div>
-      {ads.map((ad) => (
-        <Annuncio
-          key={ad._id}
-          id={ad._id}
-          id_publisher={ad.id_publisher}
-          title={ad.title}
-          description={ad.description}
-          date={ad.date}
-          time={ad.time}
-          place={ad.place}
-          contact={ad.contact}
-        />
-      ))}
+      <h1>Annunci Pubblicati</h1>
+      <div>{ads}</div>
     </div>
   );
 };
+
+
 
 function Datas(){
   const date = new Date();
   return (
     <div>
-     <AddAnnuncio />
+      <AddAnnuncio />
+      <ModifyAnnuncio />
+      <DeleteAnnuncio />
+      <AnnunciPubblicatiList />
     </div>
   );
 }
 
-export {AddAnnuncio, ModifyAnnuncio, AnnunciList};
+export {AddAnnuncio, ModifyAnnuncio, AnnunciPubblicatiList};
 export default Datas;

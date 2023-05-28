@@ -35,8 +35,12 @@ function LogIn() {
         expires: 1,
         path: '/',
       });
+      Cookies.set('id', data.id, {
+        expires: 1,
+        path: '/',
+      });
       window.location.href = '/'
-      alert('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') )
+      alert('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
     } else {
       alert('errore login')
     }
