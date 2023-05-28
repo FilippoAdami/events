@@ -37,7 +37,7 @@ function SignUpPersona() {
   return (
     <div>
       <h1>Registrazione Persona</h1>
-      <form onSubmit = {register} >
+      <form onSubmit = {register}>
         <input
           value = { email }
           onChange={ (e) => setEmail(e.target.value)}
