@@ -14,7 +14,7 @@ router.post('/annunci', tokenChecker, async (req, res) => {
     await annuncio.save();
     res.status(201).send(annuncio);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(JSON.stringify(error.message));
   }
 });
 
@@ -31,13 +31,15 @@ router.get('/annunci', async (req, res) => {
 // API to GET an annuncio given its id (doesn't require authentication)
 router.get('/annunci/:id', async (req, res) => {
   try {
+    console.log(req.params.id);
     const annuncio = await Annuncio.findById(req.params.id);
+    //console.log(annuncio);
     if (!annuncio) {
       return res.status(404).send('Annuncio not found');
     }
     res.json(annuncio);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res.status(500).send('Server error');
   }
 });
@@ -47,13 +49,14 @@ async function getAnnuncio(req, res, next) {
   let annuncio
   try {
     annuncio = await Annuncio.findById(req.params.id)
+    console.log(annuncio);
     if (annuncio == null) {
-      return res.status(404).json({ message: 'Annuncio non trovato' })
+      return res.status(404).send('Annuncio non trovato')
     }
   } catch (err) {
-    return res.status(500).json({ message: 'erroere al server in getAnnuncio' })
+    console.log(err.message);
+    return res.status(500).send('errore al server in getAnnuncio')
   }
-
   res.annuncio = annuncio
   next()
 }
@@ -66,19 +69,17 @@ router.get('/annunci/publisher/:publisher_id', tokenChecker, async (req, res) =>
 
     // Check if the publisher_id matches the ID of the logged-in user
     if (publisherId !== utenteLoggato.id) {
+      console.log(utenteLoggato.id + ' ' + publisherId  );
       return res.status(403).send('Unauthorized access' );
+      
     }
 
     const annunci = await Annuncio.find({ id_publisher: publisherId });
 
-    if (!annunci) {
-      return res.status(404).send('Publisher not found');
-    }
-
     res.json(annunci);
   } catch (error) {
-    console.log(error);
-    res.status(500).send(error);
+    //console.log(error.message);
+    res.status(500).send(error.message);
   }
 });
 
@@ -89,48 +90,19 @@ router.delete('/annunci/:id', getAnnuncio, tokenChecker, async (req, res) => {
     const annuncio = res.annuncio;
     // Check if the publisher_id matches the ID of the logged-in user
     if (annuncio.id_publisher !== utenteLoggato.id) {
-      return res.status(403).send('Unauthorized access:' + utenteLoggato.id + ' ' + annuncio.id_publisher);
+      return res.status(403).send('Unauthorized access');
     }
+    console.log(annuncio);
 
     annuncio.deleteOne();
 
     res.send('Annuncio deleted successfully');
   } catch (error) {
-    res.status(500).send('Server error in deleteAnnuncio');
+    console.log(error.message);
+    res.status(500).send('errore al server in delete annuncio');
   }
 });
  
-/*
-// API to update an annuncio given its id (updated with tokenChecker)
-router.put('/annunci/:id', getAnnuncio, tokenChecker, async (req, res) => {
-  try {
-    const utenteLoggato = req.utenteLoggato;
-    const annuncio = res.annuncio;
-
-    // Check if the publisher_id matches the ID of the logged-in user
-    if (annuncio.id_publisher !== utenteLoggato.id) {
-      return res.status(403).send('Unauthorized access');
-    }
-
-    // Remove the id_publisher from the request body so that it doesn't change
-    delete req.body.id_publisher;
-
-    const annuncioAggiornato = await Annuncio.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-
-    if (!annuncioAggiornato) {
-      return res.status(404).send('Annuncio not found');
-    }
-
-    res.json(annuncioAggiornato);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Server error');
-  }
-});
-*/
-
 // API to update an annuncio given its id (updated with tokenChecker)
 router.patch('/annunci/:id', getAnnuncio, tokenChecker, async (req, res) => {
   try {
@@ -158,5 +130,4 @@ router.patch('/annunci/:id', getAnnuncio, tokenChecker, async (req, res) => {
 });
 
 module.exports = router;
-
   

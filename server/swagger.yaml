@@ -728,8 +728,8 @@ paths:
         '404':
           description: Annuncio not found
         '500':
-          description: Internal server error
-    put:
+          description: Server error
+    patch:
       tags:
       - Annunci
       summary: Update an annuncio by ID
@@ -754,10 +754,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Annuncio'
+        '403':
+          description: Unauthorized access
         '404':
           description: Annuncio not found
         '500':
-          description: Internal server error
+          description: Server error
     delete:
       tags:
       - Annunci
@@ -777,10 +779,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Annuncio'
+        '403':
+          description: Unauthorized access
         '404':
           description: Annuncio not found
         '500':
-          description: Internal server error
+          description: errore al server in delete annuncio
   /api/annunci/publisher/{publisher_id}:
     get:
       tags:
@@ -803,8 +807,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Annuncio'
-        '404':
-          description: Publisher not found
+        '403': 
+          description: Unauthorized access
         '500':
           description: Internal server error
 

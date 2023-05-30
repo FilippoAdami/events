@@ -22,7 +22,7 @@ function LogIn() {
     const data = await response.json()
   
     if(data.utente){
-      alert('login effettuato')
+      console.log('login effettuato');
       Cookies.set('token', data.token, {
         expires: 1, // Set the expiration of the cookie to 7 days
         path: '/', // Cookie accessible from all paths on the domain
@@ -40,9 +40,9 @@ function LogIn() {
         path: '/',
       });
       window.location.href = '/'
-      alert('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
+      console.log('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
     } else {
-      alert('errore login')
+      console.log('errore login')
     }
   }
 
