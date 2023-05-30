@@ -1,8 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const Evento = require('../models/eventoM');
+const tokenChecker = require('../controllers/tokenChecker.js');
 
-//get all eventi
+
+//API to post a new evento (updated with tokenChecker)
+router.post('/eventi', tokenChecker, async (req, res) => {
+  try {
+
+    const eventoData = req.body;
+    const utenteLoggato = req.utenteLoggato;
+    eventoData.id_publisher = utenteLoggato.id;
+
+    const evento = new Evento(eventoData);
+    await evento.save();
+    res.status(201).send(evento);
+  } catch (error) {
+    res.status(400).send(JSON.stringify(error.message));
+  }
+});
+
+
+//Get all eventi (doesn't require authentication)
 router.get('/eventi', async (req, res) => {
     try {
       const eventi = await Evento.find();
@@ -12,7 +31,8 @@ router.get('/eventi', async (req, res) => {
     }
 });
 
-// mostra specifico evento
+
+// API to GET an evento given its id (doesn't require authentication)
 router.get('/eventi/:id', async (req, res) => {
     try {
     const evento = await Evento.findById(req.params.id);
@@ -26,102 +46,135 @@ router.get('/eventi/:id', async (req, res) => {
     }
 });
 
-// INSERISCI GET 25 per inviare alla griglia un po di eventi alla volta
 
-// API to GET all the eventi published by a specific publisher
-router.get('/eventi/publisher/:publisher_id', async (req, res) => {
+
+//function to get the infos of a specific event given its id
+async function getEvento(req, res, next) {
+  let evento
+  try {
+    evento = await Evento.findById(req.params.id)
+    if (evento == null) {
+      return res.status(404).send('Evento non trovato')
+    }
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send('errore al server in getEvento')
+  }
+  res.evento = evento
+  next()
+}
+
+
+// API to GET all the eventi published by a specific publisher (updated with tokenChecker)
+router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => {
     try {
-      const evento = await Evento.find(req.params.pubblicatore);
-      if (!evento) {
-        return res.status(404).send('Publisher not found');
+
+      const publisherId = req.params.publisher_id;
+      const utenteLoggato = req.utenteLoggato;
+
+      // Check if the publisher_id matches the ID of the logged-in user
+      if (publisherId !== utenteLoggato.id) {
+        console.log(utenteLoggato.id + ' ' + publisherId  );
+        return res.status(403).send('Unauthorized access' ); 
       }
-      res.json(evento);
+
+      const eventi = await Evento.find({ id_publisher: publisherId });
+
+      res.json(eventi);
     } catch (error) {
-      console.log(error);
       res.status(500).send(error);
     }
 });
 
-// API to post a new evento
-// AGGIUNGI CONTROLLO LOGIN + INSERIMENTO DATO ID PUBLISHER
-router.post('/eventi', async (req, res) => {
-    try {
-      const evento = new Evento(req.body);
-      await evento.save();
-      res.status(201).send(evento);
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  });
 
 // API to DELETE an evento given its id
-router.delete('/eventi/:id', async (req, res) => {
+router.delete('/eventi/:id',getEvento, tokenChecker, async (req, res) => {
     try {
-      const eventoEliminato = await Evento.findByIdAndRemove(req.params.id);
-      if (!eventoEliminato) {
-        return res.status(404).send('evento not found');
+
+      const utenteLoggato = req.utenteLoggato;
+      const evento = res.evento;
+
+      // Check if the publisher_id matches the ID of the logged-in user
+      if (annuncio.id_publisher !== utenteLoggato.id) {
+        return res.status(403).send('Unauthorized access');
       }
-      res.json(eventoEliminato);
-    }catch (error) {
-      console.log(error);
-      res.status(500).send('Server error');
+
+      evento.deleteOne();
+
+      res.send('Evento deleted successfully');
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send('errore al server in delete evento');
     }
 }); 
 
 // API to update an evento given its id
-router.put('/eventi/:id', async (req, res) => {
+router.put('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
     try {
-      const eventoAggiornato = await Evento.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-      });
-      if (!eventoAggiornato) {
-        return res.status(404).send('evento not found');
+
+      const utenteLoggato = req.utenteLoggato;
+      const evento = res.evento;
+
+      // Check if the publisher_id matches the ID of the logged-in user
+      if (evento.id_publisher !== utenteLoggato.id) {
+        return res.status(403).send('Unauthorized access');
       }
+
+      // Extract the fields from the request body
+      const { id, id_publisher, ...updatedFields } = req.body;
+
+      // Update the remaining fields of the annuncio
+      Object.assign(evento, updatedFields);
+
+      const eventoAggiornato = await evento.save();
+
       res.json(eventoAggiornato);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send('Server error');
-    }
+      } catch (error) {
+        console.log(error);
+        res.status(500).send('Server error');
+      }
 });
 
 // Get postiLiberi of a specific evento
-router.get('/eventi/:id/postiLiberi', async (req, res) => {
+router.get('/eventi/:id/postiLiberi',  getEvento,  async (req, res) => {
     try {
-      const evento = await Evento.findOne({ _id: req.params.id });
-      if (!evento) {
-        return res.status(404).send("No event found with the given ID");
-      }
+
+      const evento = res.evento;
       res.send(evento.postiLiberi.toString());
+
     } catch (error) {
       res.status(500).send(error.message);
     }
 });
   
 // Get coordinate of a scpecific evento
-router.get('/eventi/:id/coordinate', async (req, res) => {
+router.get('/eventi/:id/coordinate', getEvento, async (req, res) => {
     try {
-      const evento = await Evento.findOne({ _id: req.params.id });
-      if (!evento) {
-        return res.status(404).send("No event found with the given ID");
-      }
+      const evento = res.evento;
       res.send(evento.indirizzo.toString());
+
     } catch (error) {
       res.status(500).send(error.message);
     }
 });  
  
 // Get utentiPrenotati infos to a specific evento
-router.get('/eventi/:id/utentiPrenotati', async (req, res) => {
+router.get('/eventi/:id/utentiPrenotati', getEvento, tokenChecker, async (req, res) => {
     try {
-      const evento = await Evento.findById(req.params.id).populate('utentiPrenotati', 'nome cognome email');
-      if (!evento) {
-        return res.status(404).send('No event found with the given ID');
+      const evento = res.evento;
+      const utenteLoggato = req.utenteLoggato;
+   
+      // Check if the publisher_id matches the ID of the logged-in user
+      if (evento.id_publisher !== utenteLoggato.id) {
+        return res.status(403).send('Unauthorized access');
       }
+
       const utentiPrenotati = evento.utentiPrenotati.map(persona => ({
         nome: persona.nome,
         cognome: persona.cognome,
         email: persona.email
       }));
+
       res.status(200).json(utentiPrenotati);
     } catch (error) {
       res.status(500).send(error.message);
