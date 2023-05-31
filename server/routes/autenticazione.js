@@ -8,8 +8,6 @@ const Persona = require('../models/personaM')
 const Attivita = require('../models/attivitaM')
 const tokenChecker = require('../controllers/tokenChecker');
 
-//const Attivita = require('../models/attivitaM')
-
 
 //api login
 router.post('/login', async (req, res) => {
@@ -50,6 +48,19 @@ router.get('/verifica', tokenChecker, (req, res) => {
 
 //logout
 router.get('/logout', tokenChecker, async (req, res) => {
+    const persona = await Persona.findOne({ _id: req.userVerificato.id, ruolo: "persona" })
+    const attivita = await Attivita.findOne({ _id: req.userVerificato.id, ruolo: "attivita" })
+    
+    if(persona == null && attivita == null) {
+      return res.status(400).json({ auth: false, message: "utente non trovato" })
+    }
+    if(persona){
+        var utente = persona
+    } else if(attivita){
+        var utente = attivita
+    } else{
+        return res.status(500).json({ message: "dati sbagliati"})
+    }
     try {
         res.status(200).json({ utente })
       } catch (err) {

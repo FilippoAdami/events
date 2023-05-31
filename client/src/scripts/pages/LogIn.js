@@ -7,6 +7,7 @@ function LogIn() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [statoLogin, setStatoLogin] = useState(false)
 
   const login = (event) => {
     event.preventDefault()
@@ -18,6 +19,7 @@ function LogIn() {
         console.log("login fallito")
       } else {
         localStorage.setItem("token", response.data.token)
+        setStatoLogin(true)
         //alert("login effettuato")
         console.log("login corretto")
       }
@@ -41,6 +43,7 @@ function LogIn() {
       }
     }).then((response) =>{
       localStorage.removeItem("token")
+      setStatoLogin(false)
       console.log(response)
     })
   }
@@ -51,11 +54,7 @@ function LogIn() {
         "x-access-token": localStorage.getItem("token"),
       }
     }).then((response) =>{
-      if(!response.data.auth){
-        //alert("utente non autenticato")
-      } else {
-        //alert("utente eliminato")
-      }
+      setStatoLogin(false)
       console.log(response)
     })
   }
@@ -83,11 +82,11 @@ function LogIn() {
         
       </form>
       <br />
-        <input type = "submit" onClick={verifica} value = "verifica" />
-        <br />
-        <input type = "submit" onClick={elimina} value = "elimina account" />
-        <br />
-        <input type = "submit" onClick={logout} value = "logout" />
+      <input type = "submit" onClick={verifica} value = "verifica" />
+      <br />
+      {statoLogin && <input type = "submit" onClick={elimina} value = "elimina account" />}
+      <br />
+      {statoLogin && <input type = "submit" onClick={logout} value = "logout" />}
     </div>
   );
 }
