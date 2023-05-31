@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Axios from 'axios';
 import Cookies from 'js-cookie'; 
 
 
@@ -7,27 +8,56 @@ function LogIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  async function login(event){
+  const login = (event) => {
     event.preventDefault()
-    const response = await fetch('http://localhost:5000/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email, password, 
-      })
+    Axios.post("http://localhost:5000/api/login", {
+      email, password,
+    }).then((response) => {
+      if(!response.data.auth) {
+        //alert("errore login")
+        console.log("login fallito")
+      } else {
+        localStorage.setItem("token", response.data.token)
+        //alert("login effettuato")
+        console.log("login corretto")
+      }
     })
+  }
 
-    const data = await response.json()
-  
-    if(data.utente){
-      alert('login effettuato')
-      Cookies.set("token",data.token)
-      window.location.href = '/'
-    } else {
-      alert('errore login')
-    }
+  const verifica = () => {
+    Axios.get("http://localhost:5000/api/verifica", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      }
+    }).then((response) =>{    
+      console.log(response)
+    })
+  }
+
+  const logout = () => {
+    Axios.get("http://localhost:5000/api/logout", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      }
+    }).then((response) =>{
+      localStorage.removeItem("token")
+      console.log(response)
+    })
+  }
+
+  const elimina = () => {
+    Axios.delete("http://localhost:5000/api/elimina", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      }
+    }).then((response) =>{
+      if(!response.data.auth){
+        //alert("utente non autenticato")
+      } else {
+        //alert("utente eliminato")
+      }
+      console.log(response)
+    })
   }
 
   return (
@@ -49,7 +79,15 @@ function LogIn() {
         />
         <br />
         <input type = "submit" value = "login" />
+        
+        
       </form>
+      <br />
+        <input type = "submit" onClick={verifica} value = "verifica" />
+        <br />
+        <input type = "submit" onClick={elimina} value = "elimina account" />
+        <br />
+        <input type = "submit" onClick={logout} value = "logout" />
     </div>
   );
 }
