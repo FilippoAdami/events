@@ -7,10 +7,9 @@ const tokenChecker = require('../controllers/tokenChecker.js');
 //API to post a new evento (updated with tokenChecker)
 router.post('/eventi', tokenChecker, async (req, res) => {
   try {
-
     const eventoData = req.body;
     const utenteLoggato = req.utenteLoggato;
-    eventoData.id_publisher = utenteLoggato.id;
+    eventoData.pubblicatore = utenteLoggato.id;
 
     const evento = new Evento(eventoData);
     await evento.save();
@@ -78,7 +77,7 @@ router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => 
         return res.status(403).send('Unauthorized access' ); 
       }
 
-      const eventi = await Evento.find({ id_publisher: publisherId });
+      const eventi = await Evento.find({ pubblicatore: publisherId });
 
       res.json(eventi);
     } catch (error) {
@@ -95,7 +94,7 @@ router.delete('/eventi/:id',getEvento, tokenChecker, async (req, res) => {
       const evento = res.evento;
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (annuncio.id_publisher !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato.id) {
         return res.status(403).send('Unauthorized access');
       }
 
@@ -116,12 +115,12 @@ router.put('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
       const evento = res.evento;
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.id_publisher !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato.id) {
         return res.status(403).send('Unauthorized access');
       }
 
       // Extract the fields from the request body
-      const { id, id_publisher, ...updatedFields } = req.body;
+      const { id, pubblicatore, ...updatedFields } = req.body;
 
       // Update the remaining fields of the annuncio
       Object.assign(evento, updatedFields);
@@ -165,7 +164,7 @@ router.get('/eventi/:id/utentiPrenotati', getEvento, tokenChecker, async (req, r
       const utenteLoggato = req.utenteLoggato;
    
       // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.id_publisher !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato.id) {
         return res.status(403).send('Unauthorized access');
       }
 
