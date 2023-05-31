@@ -11,11 +11,43 @@ router.post('/eventi', tokenChecker, async (req, res) => {
     const utenteLoggato = req.utenteLoggato;
     eventoData.pubblicatore = utenteLoggato.id;
 
-    const evento = new Evento(eventoData);
-    await evento.save();
-    res.status(201).send(evento);
+    eventoData.postiLiberi = eventoData.posti;
+    eventoData.segnalato=false;
+
+    // se non è definita una tipologia viene settata di defoult su altro
+    if(!eventoData.categoria){
+      eventoData.categoria = "altro"
+    }
+
+    //Controllo la richiesta che non manchi di alcuni attributi necessari: titolo, data, ora, indirizzo, costo, posti, visibilità
+    if(!eventoData.titolo){
+      let errore ={ errormessage: "Titolo assente"}
+      res.status(400).send(errore);
+    }else if(!eventoData.data){
+      let errore ={ errormessage: "Data assente"}
+      res.status(400).send(errore);
+    }else if(!eventoData.ora){
+      let errore ={ errormessage: "Ora assente"}
+      res.status(400).send(errore);
+    }else if(!eventoData.indirizzo){
+      let errore ={ errormessage: "Indirizzo assente"}
+      res.status(400).send(errore);
+    }else if(!eventoData.costo){
+      let errore ={ errormessage: "Costo assente"}
+      res.status(400).send(errore);
+    }else if(!eventoData.posti){
+      let errore ={ errormessage: "Posti assente"}
+      res.status(400).send(errore);
+    }else if(!eventoData.visibilita){
+      let errore ={ errormessage: "Visibilita assente"}
+      res.status(400).send(errore);
+    }else {
+      const evento = new Evento(eventoData);
+      await evento.save();
+      res.status(201).send(evento);
+    }
   } catch (error) {
-    res.status(400).send(JSON.stringify(error.message));
+    res.status(500).send(JSON.stringify(error.message));
   }
 });
 
@@ -36,7 +68,7 @@ router.get('/eventi/:id', async (req, res) => {
     try {
     const evento = await Evento.findById(req.params.id);
     if (!evento) {
-        return res.status(404).send('Evento not found');
+        return res.status(404).send({errormessag: 'Evento not found'});
     }
     res.json(evento);
     } catch (error) {
