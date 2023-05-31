@@ -2,8 +2,9 @@
     height: 5vh;
     width: 100%;
     display: flex;
+    cursor: pointer;
 }
-#eventi{
+#first{
     width: 50%;
     height: 100%;
     display: flex;
@@ -12,10 +13,8 @@
     align-items: center;
     background-color: #F2F2F2;
     border: 1px solid #000000;
-    cursor: pointer;
 }
-
-#annunci{
+#second{
     width: 50%;
     height: 100%;
     display: flex;
@@ -24,5 +23,4 @@
     align-items: center;
     background-color: #F2F2F2;
     border: 1px solid #000000;
-    cursor: pointer;
 }

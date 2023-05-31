@@ -6,6 +6,7 @@ function Menu() {
     <div id="menu">
         <Link to="/signup"><button id="registrazione">Sign Up</button></Link>
         <Link to="/login"><button id="login">Log In</button></Link>
+        <Link to="/profile"><button id="profile">Profile</button></Link>
     </div>
   );
 }

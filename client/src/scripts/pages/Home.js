@@ -3,8 +3,6 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import Grid from '../components/grid';
 import Toggle from '../components/toggle.js';
-
-
 import Cookies from 'js-cookie'; 
 
 function Home() {
@@ -19,13 +17,13 @@ function Home() {
       return;
     }
     setSelectedOption(option);
-    console.log('selectedOption toggled to ' + option);
+    //console.log('selectedOption toggled to ' + option);
   };
 
   return (
     <>
       <Header />
-      <Toggle onToggle={handleToggle}/>
+      <Toggle onToggle={handleToggle} type='e_a'/>
       <Grid selectedOption={selectedOption}/>
     </>
   );
