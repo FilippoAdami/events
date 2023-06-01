@@ -618,8 +618,8 @@ paths:
       get:
         tags:
           - Evento
-        summary: Get the coordinates of an event
-        description: This endpoint gets the coordinates of a specific evento
+        summary: Get the title and coordinates of an event
+        description: This endpoint gets the title and coordinates of a specific evento
         parameters:
           - in: path
             name: id
