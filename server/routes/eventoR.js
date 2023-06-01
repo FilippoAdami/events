@@ -107,10 +107,10 @@ router.get('/eventi/:id/coordinate', async (req, res) => {
         return res.status(404).send("No event found with the given ID");
       }
       else{
-        const response = evento.indirizzo.toString();
-        const position = await mapSetter(response);
-        //console.log(position);
-        res.status(200).json(position);
+        const response = {titolo : evento.titolo.toString(), indirizzo : evento.indirizzo.toString()};
+        const position = await mapSetter(response.indirizzo);
+        console.log(response);
+        res.status(200).json({titolo : response.titolo , position : position});
       }
     } catch (error) {
       res.status(500).send(error.message);

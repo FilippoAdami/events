@@ -29,11 +29,11 @@
 
     <script>
 
-    const id = "6469dba080558181cd8968f5";
+    const id = "6469e719edbf5af71c5bf5fa";
     const geoCo = {key : "05cff32b8c434e58b51d595380624f74"};
     const position = {lat : 40.712728 ,lng : -74.006015, zoom :13};
-    const popup = {quote :  "<b>Ci si ubriaca QUI<b/>"};
     const tileURL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+    const popup = {quote : "placeholder"};
 
     //console.log("check 1");
     //http://localhost:3000/api/eventi/${id}/coordinate
@@ -44,16 +44,19 @@
       if (!response.ok) {
         console.log("errore nell'operazione di fetch");
       }
-      const position = response.json();
-      console.log(position);
-      return position;
+      const responseJson = response.json();
+      return responseJson;
+
     })
-    .then((position)=>{
-      const {lat,lng,zoom} = position;
-      console.log(lng);
-      document.getElementById("lng").innerText= lng;
-      document.getElementById("lat").innerText= lat;
-      document.getElementById("zoom").innerText= zoom;
+    .then((dataJson)=>{
+      console.log(dataJson);
+      const {titolo,position} = dataJson;
+      popup.quote = titolo;
+      console.log(position);
+      document.getElementById("titolo").innerText = popup.quote;
+      document.getElementById("lng").innerText= position.lng;
+      document.getElementById("lat").innerText= position.lat;
+      document.getElementById("zoom").innerText= position.zoom;
 
       return position;
     })
@@ -85,8 +88,9 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <h1>this is index.html</h1>
+    <h1>EVENT'S LOCATION</h1>
     <div id = "map"></div>
+    <h1 id = "titolo"></h1>
     <div id = "lat"></div>
     <div id = "lng"></div>
     <div id = "zoom"></div>
