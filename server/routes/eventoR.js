@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Evento = require('../models/eventoM');
+const Persona = require('../models/personaM')
 const tokenChecker = require('../controllers/tokenChecker.js');
 
 
@@ -73,7 +74,7 @@ router.get('/eventi/:id', async (req, res) => {
     res.json(evento);
     } catch (error) {
     console.log(error);
-    res.status(500).send('Server error');
+    res.status(500).send(error.message);
     }
 });
 
@@ -113,7 +114,7 @@ router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => 
 
       res.json(eventi);
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send(error.message);
     }
 });
 
@@ -140,7 +141,7 @@ router.delete('/eventi/:id',getEvento, tokenChecker, async (req, res) => {
 }); 
 
 // API to update an evento given its id
-router.put('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
+router.patch('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
     try {
 
       const utenteLoggato = req.utenteLoggato;
@@ -154,7 +155,7 @@ router.put('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
       // Extract the fields from the request body
       const { id, pubblicatore, ...updatedFields } = req.body;
 
-      // Update the remaining fields of the annuncio
+      // Update the remaining fields of the evento
       Object.assign(evento, updatedFields);
 
       const eventoAggiornato = await evento.save();
@@ -162,54 +163,63 @@ router.put('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
       res.json(eventoAggiornato);
       } catch (error) {
         console.log(error);
-        res.status(500).send('Server error');
+        res.status(500).send(error.message);
       }
 });
 
 // Get postiLiberi of a specific evento
 router.get('/eventi/:id/postiLiberi',  getEvento,  async (req, res) => {
-    try {
-
-      const evento = res.evento;
-      res.send(evento.postiLiberi.toString());
-
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
+   
+    const evento = res.evento;
+    res.status(200).send(evento.postiLiberi.toString());
+    
 });
   
 // Get coordinate of a scpecific evento
 router.get('/eventi/:id/coordinate', getEvento, async (req, res) => {
-    try {
-      const evento = res.evento;
-      res.send(evento.indirizzo.toString());
+    
+    const evento = res.evento;
+    res.send(evento.indirizzo.toString());
 
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
+    
 });  
  
 // Get utentiPrenotati infos to a specific evento
 router.get('/eventi/:id/utentiPrenotati', getEvento, tokenChecker, async (req, res) => {
-    try {
-      const evento = res.evento;
-      const utenteLoggato = req.utenteLoggato;
-   
-      // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.pubblicatore !== utenteLoggato.id) {
-        return res.status(403).send('Unauthorized access');
-      }
 
-      const utentiPrenotati = evento.utentiPrenotati.map(persona => ({
-        nome: persona.nome,
-        cognome: persona.cognome,
-        email: persona.email
-      }));
+  const evento = res.evento;
+  const utenteLoggato = req.utenteLoggato;
 
-      res.status(200).json(utentiPrenotati);
-    } catch (error) {
-      res.status(500).send(error.message);
+  // Check if the publisher_id matches the ID of the logged-in user
+  if (evento.pubblicatore !== utenteLoggato.id) {
+    return res.status(403).send('Unauthorized access');
+  }
+
+  const utentiPrenotati = evento.utentiPrenotati
+  var datiUtentiPrenotati = [];
+
+  utentiPrenotati.forEach(idUtente => {
+
+    console.log('UTENTE'+ idUtente)
+
+    var utente = Persona.findById(idUtente.toString());
+    console.log(utente)
+
+    let datiUtente = {
+      nome: utente.nome,
+      cognome: utente.cognome,
+      email: utente.email
     }
+
+    datiUtentiPrenotati.push(datiUtente);
+     
+  });
+
+  console.log("DATI")
+  console.log(datiUtentiPrenotati)
+  res.status(200).send(datiUtentiPrenotati);
+
+  
 });
  
 

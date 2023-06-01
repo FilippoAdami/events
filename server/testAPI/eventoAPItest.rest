@@ -63,7 +63,8 @@ Content-Type: application/json
 ###
 
 // Delete existing event by ID 
-DELETE http://localhost:5000/api/eventi/6477ace1bdff45cc0d8a94a5
+DELETE http://localhost:5000/api/eventi/000d0000aafe0fd0000f0000
+
 
 ###
 

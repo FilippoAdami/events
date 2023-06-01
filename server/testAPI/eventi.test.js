@@ -365,7 +365,7 @@ describe('GET /api/eventi/:id', () => {
   test('should return 500 if an error occurs in findById operation', async () => {
     // Mock the 'findById' method of the 'Evento' model to throw an error
     jest.spyOn(Evento, 'findById').mockImplementationOnce(() => {
-      throw new Error('Test error');
+      throw new Error('Server Error');
     });
 
     const response = await request(app).get('/api/eventi/some-id');
@@ -373,7 +373,359 @@ describe('GET /api/eventi/:id', () => {
     // Assert that the response status is 500 (Internal Server Error)
     expect(response.status).toBe(500);
     expect(response.text).toBe('Server error');
-
-    // ... perform other assertions ...
   });
 });
+
+
+
+
+
+
+
+
+
+
+// Test suite for the GET '/api/annunci/publisher/:publisher_id' path
+describe('GET /api/eventi/publisher/:publisher_id', () => {
+  test('should return all eventi published by a specific publisher', async () => {
+    const publisherId = '647237535592096d9ae27a3a'; 
+    const response = await request(app).get(`/api/eventi/publisher/${publisherId}`);
+    expect(response.status).toBe(200);
+    response.body.forEach(evento => {
+      expect(evento.pubblicatore).toBe(publisherId);
+    });
+    expect(response.body).toEqual(expect.arrayContaining([])); 
+  },20000);
+
+  test('should return 403 if unauthorized access', async () => {
+    const publisherId = '1';
+    
+    const response = await request(app).get(`/api/eventi/publisher/${publisherId}`);
+    expect(response.status).toBe(403);
+    expect(response.text).toBe('Unauthorized access');
+  });
+
+  test('should return 500 if an error occurs', async () => {
+    // Mock the find method to throw an error
+    jest.spyOn(Evento, 'find').mockImplementationOnce(() => {
+      throw new Error('Test error');
+    });
+
+    const publisherId = '647237535592096d9ae27a3a'; 
+    const response = await request(app).get(`/api/eventi/publisher/${publisherId}`);
+    expect(response.status).toBe(500);
+    expect(response.error.text).toBe('Test error');
+  });
+});
+
+
+
+
+
+
+
+
+
+
+// Test suite for the DELETE '/api/annunci/:id' path
+describe('DELETE /api/eventi/:id', () => {
+  test('should delete an evento given its id', async () => {
+    
+    // Create a sample evento
+    let eventoTest = new Evento({
+      titolo: "Test",
+      data:"1995-12-17T03:24:00.000Z",
+      ora:"2",
+      indirizzo:"via del Test",
+      descrizione:"Test descrizione",
+      immagini:["Test Imagine 1"],
+      costo:10,
+      posti:10,
+      postiLiberi:10,
+      pubblicatore:"647237535592096d9ae27a3a",
+      visibilita:true,
+      categoria:"sport",
+      segnalato:false,
+      segnalazioni: [],
+      utentiPrenotati: []
+    })
+
+    await eventoTest.save();
+
+    const response = await request(app).delete(`/api/eventi/${eventoTest._id}`);
+    expect(response.status).toBe(200);
+    expect(response.text).toBe('Evento deleted successfully');
+  });
+
+
+  test('should return 403 if unauthorized access', async () => {
+    
+    // Create a sample evento
+    let eventoTest = new Evento({
+      titolo: "Test",
+      data:"1995-12-17T03:24:00.000Z",
+      ora:"2",
+      indirizzo:"via del Test",
+      descrizione:"Test descrizione",
+      immagini:["Test Imagine 1"],
+      costo:10,
+      posti:10,
+      postiLiberi:10,
+      pubblicatore:"1",
+      visibilita:true,
+      categoria:"sport",
+      segnalato:false,
+      segnalazioni: [],
+      utentiPrenotati: []
+    })
+
+    await eventoTest.save();
+
+    const response = await request(app).delete(`/api/eventi/${eventoTest._id}`);
+    expect(response.status).toBe(403);
+    expect(response.text).toContain('Unauthorized access');
+  });
+
+  test('should return 404 if the annuncio deas not exist', async () => {
+    const response = await request(app).delete(`/api/eventi/645cf5721dd165875a1417f0`);
+    expect(response.status).toBe(404);
+    expect(response.text).toContain('Evento non trovato');
+  });
+
+  test('should return 500 if an error occurs in the server', async () => {
+    // Mock the deleteOne method to throw an error
+    jest.spyOn(Annuncio.prototype, 'deleteOne').mockImplementationOnce(() => {
+      throw new Error('Test error');
+    });
+
+    const annuncioId = '6477a01052f366cbe3c5bcfa'; // Replace with the evento ID valid you want to delete
+    const response = await request(app).delete(`/api/eventi/${annuncioId}`);
+    
+    expect(response.status).toBe(500);
+    expect(response.text).toBe('errore al server in delete annuncio');
+  });
+});
+
+
+
+
+
+
+
+
+
+
+// Test suite for the PATCH '/api/annunci/:id' path
+describe('PATCH /eventi/:id', () => {
+  test('should update an annuncio successfully', async () => {
+    // Create a sample annuncio
+    
+    let eventoTest = new Evento({
+      titolo: "Test",
+      data:"1995-12-17T03:24:00.000Z",
+      ora:"2",
+      indirizzo:"via del Test",
+      descrizione:"Test descrizione",
+      immagini:["Test Imagine 1"],
+      costo:10,
+      posti:10,
+      postiLiberi:10,
+      pubblicatore:"647237535592096d9ae27a3a",
+      visibilita:true,
+      categoria:"sport",
+      segnalato:false,
+      segnalazioni: [],
+      utentiPrenotati: []
+    })
+    await eventoTest.save();
+
+    const response = await request(app).patch(`/api/eventi/${eventoTest._id}`).send({ titolo: 'Updated title'});
+
+    await eventoTest.deleteOne(); // cancella l'evento di test
+
+    expect(response.status).toBe(200);
+    // Assert the response body
+    expect(response.body).toEqual({
+      __v: 0,
+      _id: eventoTest._id.toString(),
+      titolo: "Updated title",
+      data: eventoTest.data.toISOString(),
+      ora:"2",
+      indirizzo:"via del Test",
+      descrizione:"Test descrizione",
+      immagini:["Test Imagine 1"],
+      costo:10,
+      posti:10,
+      postiLiberi:10,
+      pubblicatore:"647237535592096d9ae27a3a",
+      visibilita:true,
+      categoria:"sport",
+      segnalato:false,
+      segnalazioni: [],
+      utentiPrenotati: []
+    });
+  });
+
+  test('should return 403 if unauthorized access', async () => {
+    // Create a sample evento
+    
+    let eventoTest = new Evento({
+      titolo: "Test",
+      data:"1995-12-17T03:24:00.000Z",
+      ora:"2",
+      indirizzo:"via del Test",
+      descrizione:"Test descrizione",
+      immagini:["Test Imagine 1"],
+      costo:10,
+      posti:10,
+      postiLiberi:10,
+      pubblicatore:"1",
+      visibilita:true,
+      categoria:"sport",
+      segnalato:false,
+      segnalazioni: [],
+      utentiPrenotati: []
+    })
+    await eventoTest.save();
+
+    const response = await request(app).patch(`/api/eventi/${eventoTest._id}`).send({ titolo: 'Updated title'});
+
+    await eventoTest.deleteOne(); // cancella l'evento di test
+
+    expect(response.status).toBe(403);
+    expect(response.text).toContain('Unauthorized access');
+  });
+
+  test('should return 500 if an error occurs during the update', async () => {
+    // Mock the save method to throw an error
+    jest.spyOn(Evento.prototype, 'save').mockImplementationOnce(() => {
+      throw new Error('Test error');
+    });
+
+    const eventoId = '64779ee4c771b21370e401f8'; // Replace with the evento ID you want to update
+    const response = await request(app).patch(`/api/eventi/${eventoId}`);
+    
+    expect(response.status).toBe(500);
+    expect(response.text).toBe('Test error');
+  });
+
+  
+});
+
+
+
+
+
+
+
+
+// GEt posti Liberi
+describe('GET/eventi/:id/postiLiberi', () => {
+
+  test('should return the value of postiLiberi of the event specify by ID', async () =>{
+
+    const eventoId = '64779ee4c771b21370e401f8'; // Replace with a valid evento ID 
+    const evento = await request(app).get('/api/eventi/${eventoId}')
+    const response = await request(app).get(`/api/eventi/${eventoId}/postiLiberi`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.postiLiberi).toBe(evento.postiLiberi);
+  })
+
+  test('should return 500 if an error occurs during the search', async () => {
+    // Mock the save method to throw an error
+    jest.spyOn(Evento, 'findById').mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    const eventoId = '64779ee4c771b21370e401f8'; // Replace with the evento ID you want to update
+    const response = await request(app).get(`/api/eventi/${eventoId}/postiLiberi`);
+    
+    expect(response.status).toBe(500);
+    expect(response.text).toBe('errore al server in getEvento');
+  });
+
+})
+
+
+
+
+
+
+
+
+
+
+
+// GEt posti coordinate
+describe('GET/eventi/:id/coordinate', () => {
+
+  test('should return the value of indirizzo of the event specify by ID', async () =>{
+
+    const eventoId = '64779ee4c771b21370e401f8'; // Replace with a valid evento ID 
+    const evento = await request(app).get('/api/eventi/${eventoId}')
+    const response = await request(app).get(`/api/eventi/${eventoId}/coordinate`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.indirizzo).toBe(evento.indirizzo);
+  })
+
+  test('should return 500 if an error occurs during the search', async () => {
+    // Mock the save method to throw an error
+    jest.spyOn(Evento, 'findById').mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    const eventoId = '64779ee4c771b21370e401f8'; // Replace with the evento ID you want to update
+    const response = await request(app).get(`/api/eventi/${eventoId}/coordinate`);
+    
+    expect(response.status).toBe(500);
+    expect(response.text).toBe('errore al server in getEvento');
+  });
+
+})
+
+
+
+
+
+
+
+
+
+// GEt utentiPrenotati NON VA 
+describe('GET/eventi/:id/utentiPrenotati', () => {
+
+  test('should return the value of Persone register for the event specify by ID', async () =>{
+
+    let eventoTest = new Evento({
+      titolo: "Test",
+      data:"1995-12-17T03:24:00.000Z",
+      ora:"2",
+      indirizzo:"via del Test",
+      descrizione:"Test descrizione",
+      immagini:["Test Imagine 1"],
+      costo:10,
+      posti:10,
+      postiLiberi:10,
+      pubblicatore:"647237535592096d9ae27a3a",
+      visibilita:true,
+      categoria:"sport",
+      segnalato:false,
+      segnalazioni: [],
+      utentiPrenotati: ['646f87714f83d44d8466988e','6470bed55bb7fe91de44b606']
+    })
+    await eventoTest.save();
+
+    const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`);
+    //console.log('BODY')
+    //console.log(response.body)
+   
+
+    expect(response.status).toBe(200);
+    expect(response.body.indirizzo).toBe(eventoTest.indirizzo);
+
+    await eventoTest.deleteOne();
+  })
+
+})
