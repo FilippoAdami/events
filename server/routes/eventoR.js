@@ -10,6 +10,7 @@ const router = express.Router();
 router.get('/eventi', async (req, res) => {
     try {
       const eventi = await Evento.find();
+      console.log("retrieving events");
       res.json(eventi);
     } catch (err) {
       res.status(500).json({ message: err.message });
@@ -98,7 +99,7 @@ router.get('/eventi/:id/postiLiberi', async (req, res) => {
     }
 });
   
-// Get coordinate of a scpecific evento
+// Get coordinate of a specific evento
 router.get('/eventi/:id/coordinate', async (req, res) => {
     try {
       const evento = await Evento.findOne({ _id: req.params.id });
@@ -106,17 +107,16 @@ router.get('/eventi/:id/coordinate', async (req, res) => {
         return res.status(404).send("No event found with the given ID");
       }
       else{
-        console.log(evento.indirizzo.toString());
-        mapSetter(evento.indirizzo.toString());
+        const response = evento.indirizzo.toString();
+        const position = await mapSetter(response);
+        //console.log(position);
+        res.status(200).json(position);
       }
-
-      res.send(evento.indirizzo.toString());
-      
     } catch (error) {
       res.status(500).send(error.message);
     }
 });  
- 
+
 // Get utentiPrenotati infos to a specific evento
 router.get('/eventi/:id/utentiPrenotati', async (req, res) => {
     try {
@@ -134,6 +134,6 @@ router.get('/eventi/:id/utentiPrenotati', async (req, res) => {
       res.status(500).send(error.message);
     }
 });
- 
+
 
 module.exports = router;

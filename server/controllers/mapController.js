@@ -30,6 +30,8 @@ const mapSetter = async function (place)
 
     console.log("position.lat : " + position.lat +" position lng : " + position.lng );
 
+    return await(position) ;
+
     // Creazione zona mappa e filling cone le tiles LATO FRONTEND
     
     //const map = L.map('map').setView([position.lat,position.lng], position.zoom);
