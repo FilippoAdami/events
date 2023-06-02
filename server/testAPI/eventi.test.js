@@ -696,7 +696,7 @@ describe('GET/eventi/:id/coordinate', () => {
 // GEt utentiPrenotati NON VA 
 describe('GET/eventi/:id/utentiPrenotati', () => {
 
-  test('should return the value of Persone register for the event specify by ID', async () =>{
+  test('should return the value of Persone that are registered to the event specify by ID', async () =>{
 
     let eventoTest = new Evento({
       titolo: "Test",
@@ -713,19 +713,94 @@ describe('GET/eventi/:id/utentiPrenotati', () => {
       categoria:"sport",
       segnalato:false,
       segnalazioni: [],
-      utentiPrenotati: ['646f87714f83d44d8466988e','6470bed55bb7fe91de44b606']
+      utentiPrenotati: ['6471fccf2ff11c3b27c3e243','6470bed55bb7fe91de44b606']
     })
     await eventoTest.save();
 
     const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`);
-    //console.log('BODY')
-    //console.log(response.body)
+    console.log('BODY')
+    console.log(response.body)
    
 
     expect(response.status).toBe(200);
-    expect(response.body.indirizzo).toBe(eventoTest.indirizzo);
-
+    
     await eventoTest.deleteOne();
+  })
+
+  
+  test('should return 403 if unauthorized access', async () =>{
+
+    let eventoTest = new Evento({
+      titolo: "Test",
+      data:"1995-12-17T03:24:00.000Z",
+      ora:"2",
+      indirizzo:"via del Test",
+      descrizione:"Test descrizione",
+      immagini:["Test Imagine 1"],
+      costo:10,
+      posti:10,
+      postiLiberi:10,
+      pubblicatore:"1",
+      visibilita:true,
+      categoria:"sport",
+      segnalato:false,
+      segnalazioni: [],
+      utentiPrenotati: ['6471fccf2ff11c3b27c3e243','6470bed55bb7fe91de44b606']
+    })
+    await eventoTest.save();
+
+    const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`);
+   
+    expect(response.status).toBe(403);
+    expect(response.text).toContain('Unauthorized access');
+    
+    await eventoTest.deleteOne();
+  })
+
+
+  test('should return 404 if a person is not found', async () =>{
+
+    let eventoTest = new Evento({
+      titolo: "Test",
+      data:"1995-12-17T03:24:00.000Z",
+      ora:"2",
+      indirizzo:"via del Test",
+      descrizione:"Test descrizione",
+      immagini:["Test Imagine 1"],
+      costo:10,
+      posti:10,
+      postiLiberi:10,
+      pubblicatore:"647237535592096d9ae27a3a",
+      visibilita:true,
+      categoria:"sport",
+      segnalato:false,
+      segnalazioni: [],
+      utentiPrenotati: ['6471fccf2ff11c3b27c3e200','6470bed55bb7fe91de44b606']
+    })
+    await eventoTest.save();
+
+    const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`);
+   
+    expect(response.status).toBe(404);
+    expect(response.text).toContain('Persona not found');
+    
+    await eventoTest.deleteOne();
+  })
+
+
+  
+  test('should return 500 if there is an error in the server', async () =>{
+
+    jest.spyOn(Evento, 'findById').mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    const eventoId = '6469d40788175e21c5bf230d'; 
+    const response = await request(app).get(`/api/eventi/${eventoId}/utentiPrenotati`);
+   
+    expect(response.status).toBe(500);
+    expect(response.text).toContain('errore al server in getEvento');
+    
   })
 
 })

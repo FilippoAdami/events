@@ -56,7 +56,7 @@ router.post('/eventi', tokenChecker, async (req, res) => {
 router.get('/eventi', async (req, res) => {
     try {
       const eventi = await Evento.find();
-      res.json(eventi);
+      res.status(200).json(eventi);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -107,7 +107,7 @@ router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => 
 
       const eventi = await Evento.find({ pubblicatore: publisherId });
 
-      res.json(eventi);
+      res.status(200).json(eventi);
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -194,7 +194,7 @@ router.get('/eventi/:id/utentiPrenotati',getEvento , tokenChecker, async (req, r
     // Fetch the related Persona objects using the IDs in the 'utentiPrenotati' field
     for (const personaId of evento.utentiPrenotati) {
       const persona = await Persona.findById(personaId.toString());
-      //console.log(persona);
+      console.log(persona);
       if(!persona){
         return res.status(404).send('Persona not found');
       }
@@ -209,7 +209,7 @@ router.get('/eventi/:id/utentiPrenotati',getEvento , tokenChecker, async (req, r
 
     res.status(200).json(utentiPrenotati);
   } catch (error) {
-    res.status(500).send('Server error');
+    res.status(500).send(error.message);
   }
 });
 
