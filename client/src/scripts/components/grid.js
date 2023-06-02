@@ -4,12 +4,17 @@ import Evento from '../subcomponents/evento.js'
 import React, { useState, useEffect } from 'react';
 import axios, { all } from 'axios';
 
-//file variable that contains the type of inserzioni that will be displayed
-const tipoInserzioni = {
-  EVENTI: 'eventi',
-  ANNUNCI: 'annunci',
-  MISTO: 'misto',
+const tipoProfilo = {
+  PERSONA: 'persona',
+  AZIENDA: 'azienda',
+  ADMIN: 'admin'
 };
+const tipoAdmin = {
+  SUPERUSER : 'superuser',
+  MODERATORE: 'moderatore',
+  RESP_PUBB: 'resp_pubb'
+}
+
 
 const Grid = ({ selectedOption }) => {
   const divsNumberIncrement = 8;
@@ -26,6 +31,8 @@ const Grid = ({ selectedOption }) => {
 
   const [annunci, setAnnunci] = useState([]);
   const [eventi, setEventi] = useState([]);
+  const [pubblicazioni, setPubblicazioni] = useState([]);
+  const [iscrizioni, setIscrizioni] = useState([]);
   const [banners, setBanners] = useState([]);
 
   //useEffect to load the annunci & the eventi & the banners from the database
@@ -146,13 +153,13 @@ const Grid = ({ selectedOption }) => {
   useEffect(() => {
     if(firstLoad===0) {
       setFirstLoad(1);
-      console.log('first load');
+      //console.log('first load');
       return;
     }
     setDivNumber(0);
-    console.log('divNumber set to 0 for selectedOption change');
+    //console.log('divNumber set to 0 for selectedOption change');
     setDivs([]);
-    console.log('selectedOption changed to ' + selectedOption);
+    //console.log('selectedOption changed to ' + selectedOption);
   }, [selectedOption]);
 
   //useEffect to see when the divNumber changes
@@ -160,7 +167,7 @@ const Grid = ({ selectedOption }) => {
     if (divNumber === 0 && divs.length === 0 && firstLoad !== 0) {
       generateDivs();
     }
-    console.log('divNumber changed to ' + divNumber);
+    //console.log('divNumber changed to ' + divNumber);
   }, [divNumber]);
 
   //function to handle the scroll event
@@ -170,7 +177,7 @@ const Grid = ({ selectedOption }) => {
     if (clientHeight + scrollTop >= scrollHeight-5 && loading===false && clientHeight + scrollTop > window.innerHeight+10) {
       //checks if it's showing the annunci or the eventi
       generateDivs();
-      console.log('scrolling');
+      //console.log('scrolling');
     }
   };
  //useEffect to ad the scroll to end of page event listener
@@ -190,14 +197,22 @@ const Grid = ({ selectedOption }) => {
     let pool = [];
     let newDivs = [];
     let increment = divsNumberIncrement;
-
+    //checks if it's showing the annunci
     if(selectedOption==='annunci'){
       if(annunci.length<(divNumber+divsNumberIncrement)){increment = annunci.length-divNumber;}
         pool = annunci.slice(divNumber, divNumber+increment);
-    }
+    }//checks if it's showing the eventi
     else if(selectedOption==='eventi'){
       if(eventi.length<(divNumber+divsNumberIncrement)){increment = eventi.length-divNumber;}
         pool = eventi.slice(divNumber, divNumber+increment);
+    }//checks if it's showing the iscrizioni
+    else if(selectedOption==='iscrizioni'){
+      if(iscrizioni.length<(divNumber+divsNumberIncrement)){increment = iscrizioni.length-divNumber;}
+        pool = iscrizioni.slice(divNumber, divNumber+increment);
+    }//checks if it's showing the pubblicazioni
+    else if(selectedOption==='pubblicazioni'){
+      if(pubblicazioni.length<(divNumber+divsNumberIncrement)){increment = pubblicazioni.length-divNumber;}
+        pool = pubblicazioni.slice(divNumber, divNumber+increment);
     }
     //for cycle that generates the divs
     for (let i = 0; i < increment; i++) {
