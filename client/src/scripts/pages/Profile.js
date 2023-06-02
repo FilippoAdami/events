@@ -5,6 +5,21 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import Grid from '../components/grid';
 import Toggle from '../components/toggle.js';
+import { BrowserRouter as Route, Link } from 'react-router-dom';
+
+const isLoggedIn = () => {
+  const token = Cookies.get('token'); // Get the user's authentication token from Cookies
+  const id = Cookies.get('id');
+  if (!token) {
+    return Promise.reject(new Error('User is not logged in')); // Return a rejected promise if the user is not logged in
+  } else {
+    return axios.get('http://localhost:5000/api/persona/'+id+'', { // Otherwise, send a GET request to the /api/users/me endpoint
+      headers: {
+        'x-access-token': token // Set the x-access-token header
+      }
+    });
+  }
+};
 
 const isLoggedIn = () => {
   const token = Cookies.get('token'); // Get the user's authentication token from Cookies
@@ -23,7 +38,7 @@ const isLoggedIn = () => {
 function Profile() {
   const [selectedOption, setSelectedOption] = useState('iscrizioni'); //variable that indicates whether to display events or ads
 
-  //useEffect to see if the user is actually logged in using the tokenChecker and axios
+   //useEffect to see if the user is actually logged in using the tokenChecker and axios
 
   
 
@@ -37,7 +52,7 @@ function Profile() {
   };
 
   return (
-    <>
+    < >
       <Header />
       <Toggle onToggle={handleToggle} type='p_i'/>
       <Grid selectedOption={selectedOption} />

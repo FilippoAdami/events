@@ -3,6 +3,7 @@ import Banner from '../subcomponents/banner.js'
 import Evento from '../subcomponents/evento.js'
 import React, { useState, useEffect } from 'react';
 import axios, { all } from 'axios';
+import Cookies from 'js-cookie';
 
 const tipoProfilo = {
   PERSONA: 'persona',
@@ -146,6 +147,7 @@ const Grid = ({ selectedOption }) => {
     if(loadAll===3) {
       console.log('all loaded');
       generateDivs();
+      console.log('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
     }
   }, [loadAll]);
 
