@@ -143,7 +143,7 @@ describe('GET /api/annunci/publisher/:publisher_id', () => {
     const response = await request(app).get(`/api/annunci/publisher/${publisherId}`);
     expect(response.status).toBe(200);
     expect(response.body).toEqual(expect.arrayContaining([])); 
-    console.log(response.body);
+    //console.log(response.body);
   });
 
   test('should return 403 if unauthorized access', async () => {
@@ -163,7 +163,7 @@ describe('GET /api/annunci/publisher/:publisher_id', () => {
     const publisherId = '647237535592096d9ae27a3a'; // Replace with the publisher ID you want to test
     const response = await request(app).get(`/api/annunci/publisher/${publisherId}`);
     expect(response.status).toBe(500);
-    console.log(response.text);
+    //console.log(response.text);
     expect(response.error.text).toBe('Test error');
   });
 });

@@ -31,7 +31,7 @@ router.get('/annunci', async (req, res) => {
 // API to GET an annuncio given its id (doesn't require authentication)
 router.get('/annunci/:id', async (req, res) => {
   try {
-    console.log(req.params.id);
+    //console.log(req.params.id);
     const annuncio = await Annuncio.findById(req.params.id);
     //console.log(annuncio);
     if (!annuncio) {
@@ -39,7 +39,7 @@ router.get('/annunci/:id', async (req, res) => {
     }
     res.json(annuncio);
   } catch (error) {
-    console.log(error.message);
+    //console.log(error.message);
     res.status(500).send('Server error');
   }
 });
@@ -49,12 +49,12 @@ async function getAnnuncio(req, res, next) {
   let annuncio
   try {
     annuncio = await Annuncio.findById(req.params.id)
-    console.log(annuncio);
+    //console.log(annuncio);
     if (annuncio == null) {
       return res.status(404).send('Annuncio non trovato')
     }
   } catch (err) {
-    console.log(err.message);
+    //console.log(err.message);
     return res.status(500).send('errore al server in getAnnuncio')
   }
   res.annuncio = annuncio
@@ -69,7 +69,7 @@ router.get('/annunci/publisher/:publisher_id', tokenChecker, async (req, res) =>
 
     // Check if the publisher_id matches the ID of the logged-in user
     if (publisherId !== utenteLoggato.id) {
-      console.log(utenteLoggato.id + ' ' + publisherId  );
+      //console.log(utenteLoggato.id + ' ' + publisherId  );
       return res.status(403).send('Unauthorized access' );
       
     }
@@ -92,13 +92,13 @@ router.delete('/annunci/:id', getAnnuncio, tokenChecker, async (req, res) => {
     if (annuncio.id_publisher !== utenteLoggato.id) {
       return res.status(403).send('Unauthorized access');
     }
-    console.log(annuncio);
+    //console.log(annuncio);
 
     annuncio.deleteOne();
 
     res.send('Annuncio deleted successfully');
   } catch (error) {
-    console.log(error.message);
+    //console.log(error.message);
     res.status(500).send('errore al server in delete annuncio');
   }
 });
@@ -124,7 +124,7 @@ router.patch('/annunci/:id', getAnnuncio, tokenChecker, async (req, res) => {
 
     res.json(annuncioAggiornato);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.status(500).send('Server error');
   }
 });

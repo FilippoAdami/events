@@ -1,19 +1,6 @@
-const { mockRequest, mockResponse } = require('jest-mock-req-res');
 const request = require('supertest');
 const app = require('../server');
 const Evento = require('../models/eventoM');
-const mongoose = require('mongoose');
-const {getEvento} = require('../routes/eventoR');
-
-
-
-
-
-
-
-
-
-
 
 // Test GET '/api/eventi' 
 describe('GET /api/eventi', () => {
@@ -42,16 +29,6 @@ describe('GET /api/eventi', () => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
 // Test POST '/api/eventi'
 describe('POST /api/eventi', () => {
     // Test to check if a new annuncio is created successfully
@@ -72,7 +49,7 @@ describe('POST /api/eventi', () => {
 
         // Send a POST request to the '/api/eventi' endpoint
         const response = await await request(app).post('/api/eventi').send(eventoTest);
-        console.log(response.body)
+        //console.log(response.body)
         // Assert that the response status is 201 (Created)
         expect(response.status).toBe(201);
         expect(response.body.postiLiberi).toBe(response.body.postiLiberi);
@@ -95,7 +72,7 @@ describe('POST /api/eventi', () => {
 
       // Send a POST request to the '/api/eventi' endpoint
       const response = await request(app).post('/api/eventi').send(eventoTest);
-      console.log(response.body)
+      //console.log(response.body)
       // Assert that the response status is 201 (Created)
       expect(response.status).toBe(201);
       expect(response.body.postiLiberi).toBe(response.body.postiLiberi);
@@ -285,19 +262,9 @@ describe('POST /api/eventi', () => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
 // Test suite for the GET '/api/evento/:id' 
 describe('GET /api/eventi/:id', () => {
-  test('should return the banner if it exists', async () => {
+  test('should return the evento if it exists', async () => {
     // Create a sample evento
     const date = new Date('1995-12-17T03:24:00.000Z');
     const eventoTest = new Evento({
@@ -350,10 +317,10 @@ describe('GET /api/eventi/:id', () => {
   });
 
   //Testing evento not found 
-  test('should return 404 if the annuncio is not found', async () => {
+  test('should return 404 if the evento is not found', async () => {
     
     // Create an valid ObjectId not used
-    const validObjectId = '000d0000aafe0fd0000f0000';
+    const validObjectId = '000d0000aafe0fd0000f0009';
     const response = await request(app).get('/api/eventi/'+validObjectId+'');
 
     // Assert that the response status is 404 (Not Found)
@@ -372,20 +339,11 @@ describe('GET /api/eventi/:id', () => {
 
     // Assert that the response status is 500 (Internal Server Error)
     expect(response.status).toBe(500);
-    expect(response.text).toBe('Server error');
+    expect(response.text).toBe('Server Error');
   });
 });
 
-
-
-
-
-
-
-
-
-
-// Test suite for the GET '/api/annunci/publisher/:publisher_id' path
+// Test suite for the GET '/api/eventi/publisher/:publisher_id' path
 describe('GET /api/eventi/publisher/:publisher_id', () => {
   test('should return all eventi published by a specific publisher', async () => {
     const publisherId = '647237535592096d9ae27a3a'; 
@@ -418,16 +376,7 @@ describe('GET /api/eventi/publisher/:publisher_id', () => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-// Test suite for the DELETE '/api/annunci/:id' path
+// Test suite for the DELETE '/api/eventi/:id' path
 describe('DELETE /api/eventi/:id', () => {
   test('should delete an evento given its id', async () => {
     
@@ -486,7 +435,7 @@ describe('DELETE /api/eventi/:id', () => {
     expect(response.text).toContain('Unauthorized access');
   });
 
-  test('should return 404 if the annuncio deas not exist', async () => {
+  test('should return 404 if the evento deas not exist', async () => {
     const response = await request(app).delete(`/api/eventi/645cf5721dd165875a1417f0`);
     expect(response.status).toBe(404);
     expect(response.text).toContain('Evento non trovato');
@@ -494,28 +443,19 @@ describe('DELETE /api/eventi/:id', () => {
 
   test('should return 500 if an error occurs in the server', async () => {
     // Mock the deleteOne method to throw an error
-    jest.spyOn(Annuncio.prototype, 'deleteOne').mockImplementationOnce(() => {
+    jest.spyOn(Evento.prototype, 'deleteOne').mockImplementationOnce(() => {
       throw new Error('Test error');
     });
 
-    const annuncioId = '6477a01052f366cbe3c5bcfa'; // Replace with the evento ID valid you want to delete
-    const response = await request(app).delete(`/api/eventi/${annuncioId}`);
+    const eventoId = '647777acddfdfe452d709812'; // Replace with the evento ID valid you want to delete
+    const response = await request(app).delete(`/api/eventi/${eventoId}`);
     
     expect(response.status).toBe(500);
-    expect(response.text).toBe('errore al server in delete annuncio');
+    expect(response.text).toBe('errore al server in delete evento');
   });
 });
 
-
-
-
-
-
-
-
-
-
-// Test suite for the PATCH '/api/annunci/:id' path
+// Test suite for the PATCH '/api/eventi/:id' path
 describe('PATCH /eventi/:id', () => {
   test('should update an annuncio successfully', async () => {
     // Create a sample annuncio
@@ -612,14 +552,7 @@ describe('PATCH /eventi/:id', () => {
   
 });
 
-
-
-
-
-
-
-
-// GEt posti Liberi
+// Get posti Liberi
 describe('GET/eventi/:id/postiLiberi', () => {
 
   test('should return the value of postiLiberi of the event specify by ID', async () =>{
@@ -647,17 +580,7 @@ describe('GET/eventi/:id/postiLiberi', () => {
 
 })
 
-
-
-
-
-
-
-
-
-
-
-// GEt posti coordinate
+// Get posti coordinate
 describe('GET/eventi/:id/coordinate', () => {
 
   test('should return the value of indirizzo of the event specify by ID', async () =>{
@@ -685,15 +608,7 @@ describe('GET/eventi/:id/coordinate', () => {
 
 })
 
-
-
-
-
-
-
-
-
-// GEt utentiPrenotati NON VA 
+// Get utentiPrenotati 
 describe('GET/eventi/:id/utentiPrenotati', () => {
 
   test('should return the value of Persone that are registered to the event specify by ID', async () =>{
@@ -718,8 +633,8 @@ describe('GET/eventi/:id/utentiPrenotati', () => {
     await eventoTest.save();
 
     const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`);
-    console.log('BODY')
-    console.log(response.body)
+    //console.log('BODY')
+    //console.log(response.body)
    
 
     expect(response.status).toBe(200);

@@ -4,7 +4,7 @@ GET http://localhost:5000/api/eventi
 ###
 
 // Get event by ID
-GET http://localhost:5000/api/eventi/647777acddfdfe452d709812
+GET http://localhost:5000/api/eventi/000d0000aafe0fd0000f0000
 
 ###
 

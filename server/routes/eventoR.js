@@ -71,7 +71,7 @@ router.get('/eventi/:id', async (req, res) => {
     }
     res.json(evento);
     } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.status(500).send(error.message);
     }
 });
@@ -85,7 +85,7 @@ async function getEvento(req, res, next) {
       return res.status(404).send('Evento non trovato')
     }
   } catch (err) {
-    console.log(err.message);
+    //console.log(err.message);
     return res.status(500).send('errore al server in getEvento')
   }
   res.evento = evento
@@ -101,7 +101,7 @@ router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => 
 
       // Check if the publisher_id matches the ID of the logged-in user
       if (publisherId !== utenteLoggato.id) {
-        console.log(utenteLoggato.id + ' ' + publisherId  );
+        //console.log(utenteLoggato.id + ' ' + publisherId  );
         return res.status(403).send('Unauthorized access' ); 
       }
 
@@ -129,7 +129,7 @@ router.delete('/eventi/:id',getEvento, tokenChecker, async (req, res) => {
 
       res.send('Evento deleted successfully');
     } catch (error) {
-      console.log(error.message);
+      //console.log(error.message);
       res.status(500).send('errore al server in delete evento');
     }
 }); 
@@ -156,7 +156,7 @@ router.patch('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
 
       res.json(eventoAggiornato);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send(error.message);
       }
 });
@@ -194,7 +194,7 @@ router.get('/eventi/:id/utentiPrenotati',getEvento , tokenChecker, async (req, r
     // Fetch the related Persona objects using the IDs in the 'utentiPrenotati' field
     for (const personaId of evento.utentiPrenotati) {
       const persona = await Persona.findById(personaId.toString());
-      console.log(persona);
+      //console.log(persona);
       if(!persona){
         return res.status(404).send('Persona not found');
       }
