@@ -52,7 +52,6 @@ router.post('/eventi', tokenChecker, async (req, res) => {
   }
 });
 
-
 //Get all eventi (doesn't require authentication)
 router.get('/eventi', async (req, res) => {
     try {
@@ -62,7 +61,6 @@ router.get('/eventi', async (req, res) => {
       res.status(500).json({ message: err.message });
     }
 });
-
 
 // API to GET an evento given its id (doesn't require authentication)
 router.get('/eventi/:id', async (req, res) => {
@@ -77,8 +75,6 @@ router.get('/eventi/:id', async (req, res) => {
     res.status(500).send(error.message);
     }
 });
-
-
 
 //function to get the infos of a specific event given its id
 async function getEvento(req, res, next) {
@@ -95,7 +91,6 @@ async function getEvento(req, res, next) {
   res.evento = evento
   next()
 }
-
 
 // API to GET all the eventi published by a specific publisher (updated with tokenChecker)
 router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => {
@@ -117,7 +112,6 @@ router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => 
       res.status(500).send(error.message);
     }
 });
-
 
 // API to DELETE an evento given its id
 router.delete('/eventi/:id',getEvento, tokenChecker, async (req, res) => {
@@ -182,45 +176,41 @@ router.get('/eventi/:id/coordinate', getEvento, async (req, res) => {
     res.send(evento.indirizzo.toString());
 
     
-});  
- 
-// Get utentiPrenotati infos to a specific evento
-router.get('/eventi/:id/utentiPrenotati', getEvento, tokenChecker, async (req, res) => {
+});   
 
-  const evento = res.evento;
-  const utenteLoggato = req.utenteLoggato;
+router.get('/eventi/:id/utentiPrenotati',getEvento , tokenChecker, async (req, res) => {
+  try {
+    const utenteLoggato = req.utenteLoggato;
+      const evento = res.evento;
+      //console.log(evento);
 
-  // Check if the publisher_id matches the ID of the logged-in user
-  if (evento.pubblicatore !== utenteLoggato.id) {
-    return res.status(403).send('Unauthorized access');
-  }
+      // Check if the publisher_id matches the ID of the logged-in user
+      if (evento.pubblicatore !== utenteLoggato.id) {
+        return res.status(403).send('Unauthorized access');
+      }
 
-  const utentiPrenotati = evento.utentiPrenotati
-  var datiUtentiPrenotati = [];
+    const utentiPrenotati = [];
 
-  utentiPrenotati.forEach(idUtente => {
-
-    console.log('UTENTE'+ idUtente)
-
-    var utente = Persona.findById(idUtente.toString());
-    console.log(utente)
-
-    let datiUtente = {
-      nome: utente.nome,
-      cognome: utente.cognome,
-      email: utente.email
+    // Fetch the related Persona objects using the IDs in the 'utentiPrenotati' field
+    for (const personaId of evento.utentiPrenotati) {
+      const persona = await Persona.findById(personaId.toString());
+      //console.log(persona);
+      if(!persona){
+        return res.status(404).send('Persona not found');
+      }
+      else {
+        utentiPrenotati.push({
+          nome: persona.nome,
+          cognome: persona.cognome,
+          email: persona.email,
+        });
+      }
     }
 
-    datiUtentiPrenotati.push(datiUtente);
-     
-  });
-
-  console.log("DATI")
-  console.log(datiUtentiPrenotati)
-  res.status(200).send(datiUtentiPrenotati);
-
-  
+    res.status(200).json(utentiPrenotati);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
 });
- 
 
 module.exports = router;

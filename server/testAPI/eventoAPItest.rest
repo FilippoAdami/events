@@ -64,8 +64,6 @@ Content-Type: application/json
 
 // Delete existing event by ID 
 DELETE http://localhost:5000/api/eventi/000d0000aafe0fd0000f0000
-
-
 ###
 
 // Test: Get postiLiberi
@@ -77,4 +75,4 @@ GET http://localhost:5000/api/eventi/647777acddfdfe452d709812/coordinate
 
 ###
 // Test: Get utentiPrenotati
-GET http://localhost:5000/api/eventi/647777acddfdfe452d709812/utentiPrenotati
+GET http://localhost:5000/api/eventi/64777848ddfdfe452d70981c/utentiPrenotati
