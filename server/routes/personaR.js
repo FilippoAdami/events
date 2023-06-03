@@ -5,6 +5,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Persona = require('../models/personaM')
+const tokenChecker = require('../controllers/tokenChecker')
 
 
 //api registrazione
@@ -50,7 +51,7 @@ router.post('/persona/login', async (req, res) => {
 
 
 //ritorna tutti gli utenti persona
-router.get('/utenti/persona', async (req, res) => {
+router.get('/persona', async (req, res) => {
     try {
         const persona = await Persona.find()                           
         res.status(200).json(persona)                             

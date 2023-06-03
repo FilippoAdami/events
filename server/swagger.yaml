@@ -689,7 +689,34 @@ paths:
           description: Evento not found or Persona not found 
         '500':
           description: Server error
-
+  /eventi/utente/{utente_id}:
+      get:
+        tags:
+          - Evento
+        summary: Get eventi prenotati by utente
+        description: Retrieves the eventi to which a specific utente is subscribed. Requires authentication via token.
+        parameters:
+          - name: utente_id
+            in: path
+            description: ID of the utente
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Successful response
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Evento'
+          '403':
+            description: Unauthorized access
+          '404':
+            description: Utente not found
+          '500':
+            description: Internal server error
   /api/eventi/publisher/{publisher_id}:
     get:
       tags:

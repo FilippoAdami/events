@@ -16,7 +16,7 @@ const eventoSchema = new mongoose.Schema({
     visibilita : {type : Boolean , required: true},
     categoria : {type : String , required: false , enum : ['social-life','sport','studio','svago','viaggi','business/progetti','cultura','arte','cinema','filosofia','altro']},
     pubblicatore : {type : String, required: true},
-    utentiPrenotati : [{type : mongoose.Schema.Types.ObjectId, ref :"Persona"}] , // conterrà solo gli id degli utenti prenotati
+    utentiPrenotati : [{type : mongoose.Schema.Types.ObjectId, ref :Persona}] , // conterrà solo gli id degli utenti prenotati
     segnalato : {type : Boolean, required: true},
     segnalazioni : [Segnalazione]
 }, {collection : 'eventi'} );
