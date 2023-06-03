@@ -35,7 +35,7 @@ GET http://localhost:5000/api/persona
 ###
 
 //test get by id
-GET http://localhost:5000/api/persona/646898f2f99185e229992f72
+GET http://localhost:5000/api/persona/647237535592096d9ae27a3a
 
 ###
 //test update existing using id

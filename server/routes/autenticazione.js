@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Persona = require('../models/personaM')
 const Attivita = require('../models/attivitaM')
+const tokenChecker = require('../controllers/tokenChecker')
 
 //api login
 router.post('/login', async (req, res) => {
@@ -35,5 +36,11 @@ router.post('/login', async (req, res) => {
         return res.status(500).json({ message: "dati sbagliati"})
     }
 })
+
+//api login check
+router.get('/check-login', tokenChecker, (req, res) => {
+    // TokenChecker middleware has already validated the token, so the user is logged in
+    res.sendStatus(200);
+});
 
 module.exports = router;

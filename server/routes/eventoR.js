@@ -4,7 +4,6 @@ const Evento = require('../models/eventoM');
 const Persona = require('../models/personaM')
 const tokenChecker = require('../controllers/tokenChecker.js');
 
-
 //API to post a new evento (updated with tokenChecker)
 router.post('/eventi', tokenChecker, async (req, res) => {
   try {
