@@ -29,5 +29,8 @@
         "swagger-ui-express": "^4.6.3",
         "web-vitals": "^3.3.2",
         "yamljs": "^0.3.0"
+    },
+    "devDependencies": {
+        "jest": "^27.5.1"
     }
 }
