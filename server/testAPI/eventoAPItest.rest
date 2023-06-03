@@ -76,3 +76,8 @@ GET http://localhost:5000/api/eventi/647777acddfdfe452d709812/coordinate
 ###
 // Test: Get utentiPrenotati
 GET http://localhost:5000/api/eventi/64777848ddfdfe452d70981c/utentiPrenotati
+
+###
+
+// Test: Get eventi a cui è iscritto un utente
+GET http://localhost:5000/api/eventi/utente/647237535592096d9ae27a3a

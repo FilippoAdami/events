@@ -177,6 +177,7 @@ router.get('/eventi/:id/coordinate', getEvento, async (req, res) => {
     
 });   
 
+// Get utenti prenotati of a specific evento
 router.get('/eventi/:id/utentiPrenotati',getEvento , tokenChecker, async (req, res) => {
   try {
     const utenteLoggato = req.utenteLoggato;
@@ -211,5 +212,40 @@ router.get('/eventi/:id/utentiPrenotati',getEvento , tokenChecker, async (req, r
     res.status(500).send(error.message);
   }
 });
+
+// Get eventi prenotati by a specific utente
+router.get('/eventi/utente/:utente_id', tokenChecker, async (req, res) => {
+  try {
+    const utenteLoggato = req.utenteLoggato;
+    const utenteId = req.params.utente_id;
+
+    const utente = await Persona.findById(utenteId);
+    if (!utente) {
+      return res.status(404).send('Utente not found');
+    }
+
+    // Check if the utente_id matches the ID of the logged-in user
+    if (utenteId !== utenteLoggato.id) {
+      return res.status(403).send('Unauthorized access');
+    }
+
+    // Fetch the related Evento objects using the IDs in the 'eventiPrenotati' field
+    const eventiPrenotati = [];
+    const prenotazioni = utente.prenotazioni;
+
+    for (const elemento of prenotazioni) {
+      const evento = await Evento.findById(elemento);
+      if (evento) {
+        eventiPrenotati.push(evento);
+      }
+    }
+
+    // Return the final array of eventiPrenotati
+    res.status(200).json(eventiPrenotati);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
 
 module.exports = router;

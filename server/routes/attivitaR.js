@@ -53,7 +53,7 @@ router.post('/attivita/login', async (req, res) => {
 //ritorna tutti gli utenti attività
 router.get('/attivita', async (req, res) => {
     try {
-        const attivita = await Attivita.find()
+        const attivita = await Attivita.find({ruolo: "attivita"})
         res.json(attivita)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database

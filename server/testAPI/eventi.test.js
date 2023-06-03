@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../server');
 const Evento = require('../models/eventoM');
+const Persona = require('../models/personaM')
 
 // Test GET '/api/eventi' 
 describe('GET /api/eventi', () => {
@@ -586,7 +587,7 @@ describe('GET/eventi/:id/coordinate', () => {
   test('should return the value of indirizzo of the event specify by ID', async () =>{
 
     const eventoId = '64779ee4c771b21370e401f8'; // Replace with a valid evento ID 
-    const evento = await request(app).get('/api/eventi/${eventoId}')
+    const evento = await request(app).get('/api/eventi/'+eventoId+'')
     const response = await request(app).get(`/api/eventi/${eventoId}/coordinate`);
 
     expect(response.status).toBe(200);
@@ -719,3 +720,61 @@ describe('GET/eventi/:id/utentiPrenotati', () => {
   })
 
 })
+
+// Get utentiPrenotati
+describe('GET /eventi/utente/:utente_id', () => {
+  it('should return eventi prenotati for a specific utente', async () => {
+    // Test setup
+    const utenteId = '647237535592096d9ae27a3a'; // Replace with a valid utente ID
+
+    // Perform the request
+    const response = await request(app).get('/api/eventi/utente/'+utenteId+'');
+
+    // Perform assertions
+    expect(response.status).toBe(200);
+    expect(response.body).toBeInstanceOf(Array);
+    // Add more assertions as needed to validate the response body or structure
+  });
+
+  it('should return 403 if unauthorized', async () => {
+    // Test setup
+    const utenteId = '64727ffe18301cb1f9737062'; // Replace with a valid utente ID
+
+    // Perform the request
+    const response = await request(app)
+      .get(`/api/eventi/utente/${utenteId}`)
+
+    // Perform assertions
+    expect(response.status).toBe(403);
+    // Add more assertions as needed
+  });
+
+  it('should return 404 if utente not found', async () => {
+    // Test setup
+    const utenteId = '647237535592096d9ae27a3b'; // Replace with a non-existent utente ID
+
+    // Perform the request
+    const response = await request(app)
+      .get(`/api/eventi/utente/${utenteId}`)
+
+    // Perform assertions
+    expect(response.status).toBe(404);
+    // Add more assertions as needed
+  });
+
+  it('should return 500 if there is an error', async () => {
+
+    jest.spyOn(Persona, 'findById').mockImplementationOnce(() => {
+      throw new Error();
+    });
+    // Test setup
+    const utenteId = '64727ffe18301cb1f9737062'; // Replace with a valid utente ID
+
+    // Perform the request
+    const response = await request(app)
+      .get(`/api/eventi/utente/${utenteId}`)
+
+    // Perform assertions
+    expect(response.status).toBe(500);
+  });
+});

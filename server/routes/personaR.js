@@ -5,6 +5,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Persona = require('../models/personaM')
+const tokenChecker = require('../controllers/tokenChecker')
 
 
 //api registrazione
@@ -61,7 +62,7 @@ router.get('/users', async (req, res) => {
 //ritorna tutti gli utenti persona
 router.get('/persona', async (req, res) => {
     try {
-        const persona = await Persona.find({ ruolo: 'persona' });                           
+        const persona = await Persona.find()                           
         res.status(200).json(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
