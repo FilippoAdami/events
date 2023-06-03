@@ -24,7 +24,12 @@ Content-Type: application/json
 
 ###
 
-//test get all
+//test get all users
+GET http://localhost:5000/api/users
+
+###
+
+//test get all persona
 GET http://localhost:5000/api/persona
 
 ###
