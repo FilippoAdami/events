@@ -5,6 +5,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Persona = require('../models/personaM')
+const tokenChecker = require('../controllers/tokenChecker')
 
 
 //api registrazione
@@ -122,9 +123,9 @@ router.put('/persona/:id', getPersona, async (req, res) => {
   }
 })
 
-//ritorna l'utente con il parametro richiesto
+//API to get a single persona by its id
 router.get('/persona/:id', getPersona, (req, res) => {
-  res.status(200).json(res.persona)
+  res.json(res.persona)
 })
 
 //Rimuove un oggetto persona

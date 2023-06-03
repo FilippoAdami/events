@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Evento = require('./eventoM.js');
 
 const personaSchema = new mongoose.Schema({
   //id: {type: Number, required: true},
@@ -10,7 +11,7 @@ const personaSchema = new mongoose.Schema({
   telefono: { type: Number, required: true },
   dataNascita: { type: Date },
   eventiPubblicati: [{type: Number}],
-  prenotazioni: [{type: Number}],
+  prenotazioni: [{type : mongoose.Schema.Types.ObjectId, ref :Evento}],
   annunciPubblicati: [{type: Number}]
 }, { collection: 'utenti' });
   

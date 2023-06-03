@@ -22,11 +22,27 @@ function LogIn() {
     const data = await response.json()
   
     if(data.utente){
-      alert('login effettuato')
-      Cookies.set("token",data.token)
+      console.log('login effettuato');
+      Cookies.set('token', data.token, {
+        expires: 1, // Set the expiration of the cookie to 7 days
+        path: '/', // Cookie accessible from all paths on the domain
+      });
+      Cookies.set('email', data.email, {
+        expires: 1,
+        path: '/',
+      });
+      Cookies.set('ruolo', data.ruolo, {
+        expires: 1,
+        path: '/',
+      });
+      Cookies.set('id', data.id, {
+        expires: 1,
+        path: '/',
+      });
       window.location.href = '/'
+      console.log('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
     } else {
-      alert('errore login')
+      console.log('errore login')
     }
   }
 
