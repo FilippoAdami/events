@@ -23,11 +23,11 @@ const Toggle = ({onToggle, type}) => {
     if (type === 'e_a') {
       setFirst(tipoInserzioni.EVENTI);
       setSecond(tipoInserzioni.ANNUNCI);
-      setSelectedButton(tipoInserzioni.ANNUNCI); // Set the initial selected button
+      setSelectedButton(tipoInserzioni.EVENTI); // Set the initial selected button
     } else if (type === 'p_i') {
       setFirst(tipoInserzioni.PUBBLICAZIONI);
       setSecond(tipoInserzioni.ISCRIZIONI);
-      setSelectedButton(tipoInserzioni.ISCRIZIONI); // Set the initial selected button
+      setSelectedButton(tipoInserzioni.PUBBLICAZIONI); // Set the initial selected button
 
     }
   }, [type]);
