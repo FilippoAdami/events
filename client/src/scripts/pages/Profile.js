@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios, { all } from 'axios';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import Header from '../components/header';
 import Footer from '../components/footer';
@@ -67,8 +67,8 @@ function Profile() {
               key={evento._id}
               id={evento._id}
               pubblicatore={evento.pubblicatore}
-              title={evento.titolo}
-              description={evento.descrizione}
+              titolo={evento.titolo}
+              descrizione={evento.descrizione}
               data={evento.data}
               ora={evento.ora}
               indirizzo={evento.indirizzo}
@@ -94,8 +94,8 @@ function Profile() {
               key={evento._id}
               id={evento._id}
               pubblicatore={evento.pubblicatore}
-              title={evento.titolo}
-              description={evento.descrizione}
+              titolo={evento.titolo}
+              descrizione={evento.descrizione}
               data={evento.data}
               ora={evento.ora}
               indirizzo={evento.indirizzo}
@@ -111,7 +111,7 @@ function Profile() {
             />
           ));
           setIscrizioni(fetchedEventiI);
-          //console.log('Eventi iscritto fetched in Profile: \n'+ JSON.stringify(fetchedEventiI[0]));
+          console.log('Eventi iscritto fetched in Profile: \n'+ JSON.stringify(fetchedEventiI[0]));
         });
 
       } catch (error) {

@@ -22,7 +22,6 @@ const Grid = ({ selectedOption, first, second, loadMore }) => {
   const [loadfirst, firstLoaded] = useState(0);
   const [loadBanners, bannersLoaded] = useState(0);
   const [loadAll, allLoaded] = useState(0);
-  const [loadNuber, setLoadNumer] = useState(0);
   const [divs, setDivs] = useState([]);
   let loading = false;
 
@@ -120,7 +119,7 @@ const Grid = ({ selectedOption, first, second, loadMore }) => {
     //variables initialization
     let pool = [];
     let newDivs = [];
-    let increment = divsNumberIncrement;
+    //let increment = divsNumberIncrement;
     //checks if it's showing the second
     if(selectedOption==='annunci' || selectedOption ==='iscrizioni'){
       pool = second;

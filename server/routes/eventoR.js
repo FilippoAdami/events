@@ -66,7 +66,7 @@ router.get('/eventi/:id', async (req, res) => {
     try {
     const evento = await Evento.findById(req.params.id);
     if (!evento) {
-        return res.status(404).send({errormessag: 'Evento not found'});
+        return res.status(404).send('Evento not found');
     }
     res.json(evento);
     } catch (error) {
@@ -218,12 +218,10 @@ router.get('/eventi/utente/:utente_id', tokenChecker, async (req, res) => {
   try {
     const utenteLoggato = req.utenteLoggato;
     const utenteId = req.params.utente_id;
-
     const utente = await Persona.findById(utenteId);
     if (!utente) {
       return res.status(404).send('Utente not found');
     }
-
     // Check if the utente_id matches the ID of the logged-in user
     if (utenteId !== utenteLoggato.id) {
       return res.status(403).send('Unauthorized access');
@@ -232,9 +230,9 @@ router.get('/eventi/utente/:utente_id', tokenChecker, async (req, res) => {
     // Fetch the related Evento objects using the IDs in the 'eventiPrenotati' field
     const eventiPrenotati = [];
     const prenotazioni = utente.prenotazioni;
-
+   
     for (const elemento of prenotazioni) {
-      const evento = await Evento.findById(elemento);
+      const evento = await Evento.findById(elemento.toString());
       if (evento) {
         eventiPrenotati.push(evento);
       }

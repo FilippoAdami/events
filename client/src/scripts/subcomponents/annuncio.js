@@ -31,11 +31,9 @@ class Annuncio extends React.Component{
   render(){
       return(
           <div id="annuncio" className="inserzione" type="annunci" key={this.state.id}>
-              <div>{this.state.title} id {this.state.id}</div>
-              <div>{this.state.description}</div>
-              <div>{this.state.date}</div>
-              <div>{this.state.place}</div>
-              <div>{this.state.contact}</div>
+              <><div className="title">{this.state.title}</div> <div className="time">{this.state.time}</div></>
+              <div className="description">{this.state.description}</div>
+              <><div className="place">{this.state.place}</div> <div className="contact">{this.state.contact}</div></>    
           </div>
       );
   }

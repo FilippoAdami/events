@@ -82,8 +82,8 @@ function Home() {
             key={evento._id}
             id={evento._id}
             pubblicatore={evento.pubblicatore}
-            title={evento.titolo}
-            description={evento.descrizione}
+            titolo={evento.titolo}
+            descrizione={evento.descrizione}
             data={evento.data}
             ora={evento.ora}
             indirizzo={evento.indirizzo}

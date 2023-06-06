@@ -7,6 +7,16 @@ function Menu({menu}) {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  if (menu === 'profileMenu') {
+    return (
+      <div className="menu-profile">
+        <div className="rectangle"></div>
+        <div className="rectangle"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="menu-container">
       <div className={`menu-icon ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
