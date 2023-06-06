@@ -62,7 +62,7 @@ router.get('/users', async (req, res) => {
 //ritorna tutti gli utenti persona
 router.get('/persona', async (req, res) => {
     try {
-        const persona = await Persona.find()                           
+        const persona = await Persona.find({ruolo: "persona"})                           
         res.status(200).json(persona)                             
     } catch (err) {
         res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
