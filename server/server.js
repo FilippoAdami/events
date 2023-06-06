@@ -25,7 +25,6 @@ async function connectToDatabase() {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-    console.log('Connected to database');
   } catch (err) {
     console.error('Failed to connect to database:', err);
   }
@@ -49,4 +48,5 @@ app.use(routes);
 const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-
+//export the app for testing purposes
+module.exports = app;

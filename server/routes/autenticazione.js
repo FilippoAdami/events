@@ -26,10 +26,12 @@ router.post('/login', async (req, res) => {
     }
     try {
         if( await bcrypt.compare(req.body.password, utente.password)){
+
             var payload = { id: utente._id, email: utente.email }
             var options = { expiresIn: "30s" }                                                     
             var token = jwt.sign(payload, process.env.SECRET_TOKEN, options);
             return res.status(200).json({ auth: true, message: "login effettuato", token: token, utente }) 
+          
         } else {
             return res.status(400).json({ auth: false, message: "password sbagliata"})
         }
@@ -37,7 +39,6 @@ router.post('/login', async (req, res) => {
         return res.status(500).json({ message: "dati sbagliati"})
     }
 })
-
 
 
 //verifica autenticazione
@@ -94,4 +95,4 @@ router.delete('/elimina', tokenChecker, async (req, res) => {
 
 
 
-  module.exports = router;
+module.exports = router;

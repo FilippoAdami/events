@@ -22,6 +22,26 @@ function LogIn() {
         setStatoLogin(true)
         //alert("login effettuato")
         console.log("login corretto")
+        
+        Cookies.set('token', data.token, {
+          expires: 1, // Set the expiration of the cookie to 7 days
+          path: '/', // Cookie accessible from all paths on the domain
+        });
+        Cookies.set('email', data.utente.email, {
+          expires: 1,
+          path: '/',
+        });
+        Cookies.set('ruolo', data.utente.ruolo, {
+          expires: 1,
+          path: '/',
+        });
+        Cookies.set('id', data.utente._id, {
+          expires: 1,
+          path: '/',
+        });
+        
+        console.log('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
+        
       }
     })
   }
@@ -57,6 +77,7 @@ function LogIn() {
       setStatoLogin(false)
       console.log(response)
     })
+
   }
 
   return (

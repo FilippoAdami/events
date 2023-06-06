@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken'); 
 
-
 const tokenChecker = (req, res , next) => {
     const token = req.headers["x-access-token"]
     if(!token){

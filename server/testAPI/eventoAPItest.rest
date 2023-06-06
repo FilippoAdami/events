@@ -4,12 +4,12 @@ GET http://localhost:5000/api/eventi
 ###
 
 // Get event by ID
-GET http://localhost:5000/api/eventi/6469d40788175e21c5bf230d
+GET http://localhost:5000/api/eventi/000d0000aafe0fd0000f0000
 
 ###
 
 // Get events by publisher ID
-GET http://localhost:5000/api/eventi/publisher/idhere
+GET http://localhost:5000/api/eventi/publisher/647237535592096d9ae27a3a
 
 ###
 
@@ -38,8 +38,8 @@ Content-Type: application/json
 
 ###
 
-// Update existing event by ID
-PUT http://localhost:5000/api/eventi/6469d22c284c25f0309e735c
+// Update existing event by ID 
+PUT http://localhost:5000/api/eventi/647777acddfdfe452d709812
 Content-Type: application/json
 
 {
@@ -62,18 +62,22 @@ Content-Type: application/json
 
 ###
 
-// Delete existing event by ID
-DELETE http://localhost:5000/api/eventi/6469d22c284c25f0309e735c
-
+// Delete existing event by ID 
+DELETE http://localhost:5000/api/eventi/000d0000aafe0fd0000f0000
 ###
 
 // Test: Get postiLiberi
-GET http://localhost:5000/api/eventi/6469d40788175e21c5bf230d/postiLiberi
+GET http://localhost:5000/api/eventi/647777acddfdfe452d709812/postiLiberi
 
 ###
 // Test: Get coordinate
-GET http://localhost:5000/api/eventi/6469d40788175e21c5bf230d/coordinate
+GET http://localhost:5000/api/eventi/647777acddfdfe452d709812/coordinate
 
 ###
 // Test: Get utentiPrenotati
-GET http://localhost:5000/api/eventi/6469d40788175e21c5bf230d/utentiPrenotati
+GET http://localhost:5000/api/eventi/64777848ddfdfe452d70981c/utentiPrenotati
+
+###
+
+// Test: Get eventi a cui è iscritto un utente
+GET http://localhost:5000/api/eventi/utente/647237535592096d9ae27a3a
