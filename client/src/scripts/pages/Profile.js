@@ -24,6 +24,7 @@ const isLoggedIn = async (token) => {
 function Profile() {
   const token = Cookies.get('token');
   const id = Cookies.get('id');
+  const ruolo = Cookies.get('ruolo');
   const [selectedOption, setSelectedOption] = useState('pubblicazioni'); //variable that indicates whether to display events or ads
   let holder;
   const [pubblicazioni, setPubblicazioni] = useState([]); //variable that contains the pubblicazioni to be displayed
@@ -86,7 +87,7 @@ function Profile() {
           setPubblicazioni(fetchedEventi.concat(holder));
           //console.log('Eventi pubblicati fetched in Profile: \n'+ JSON.stringify(fetchedEventi[0]));
         });
-
+        if (ruolo === 'persona') {
         await axios.get(`http://localhost:5000/api/eventi/utente/${id}`)
         .then((response) => {
           const fetchedEventiI = response.data.map((evento) => (
@@ -113,6 +114,7 @@ function Profile() {
           setIscrizioni(fetchedEventiI);
           console.log('Eventi iscritto fetched in Profile: \n'+ JSON.stringify(fetchedEventiI[0]));
         });
+      }
 
       } catch (error) {
         console.error(`Error fetching ${selectedOption}:`, error);
@@ -130,6 +132,7 @@ function Profile() {
     //console.log('selectedOption toggled to ' + option);
   };
 
+  if(ruolo === 'persona'){
   return (
     < >
       <Header menu='profileMenu'/>
@@ -137,6 +140,14 @@ function Profile() {
       <Grid selectedOption={selectedOption} first={pubblicazioni} second={iscrizioni} />
     </>
   );
+  }else{
+    return (
+      < >
+        <Header menu='profileMenu'/>
+        <Grid selectedOption={selectedOption} first={pubblicazioni} second={iscrizioni} />
+      </>
+    );
+  }
 }
 
 
