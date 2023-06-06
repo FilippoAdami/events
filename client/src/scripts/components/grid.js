@@ -22,8 +22,8 @@ const Grid = ({ selectedOption, first, second, loadMore }) => {
   const [loadfirst, firstLoaded] = useState(0);
   const [loadBanners, bannersLoaded] = useState(0);
   const [loadAll, allLoaded] = useState(0);
+  const [loadNuber, setLoadNumer] = useState(0);
   const [divs, setDivs] = useState([]);
-  let divNumber = 0;
   let loading = false;
 
   const [banners, setBanners] = useState([]);
@@ -89,8 +89,6 @@ const Grid = ({ selectedOption, first, second, loadMore }) => {
       //console.log('first load');
       return;
     }
-    divNumber = 0;
-    //console.log('divNumber set to 0 for selectedOption change');
     setDivs([]);
     generateDivs();
     //console.log('selectedOption changed to ' + selectedOption);
@@ -125,30 +123,23 @@ const Grid = ({ selectedOption, first, second, loadMore }) => {
     let increment = divsNumberIncrement;
     //checks if it's showing the second
     if(selectedOption==='annunci' || selectedOption ==='iscrizioni'){
-      divNumber = second.length;
       pool = second;
     }//checks if it's showing the first
     else if(selectedOption==='eventi' || selectedOption ==='pubblicazioni'){
-      divNumber = first.length;
       pool = first;
     }
     //for cycle that generates the divs
     for (let i = 0; i < pool.length; i++) {
       //checks if it's time for a banner to appear
-      if((divNumber+i+1)%bannerFrequency === 0){
-        //push the banner, restart from the first if there are not enough banners
-        if(banners.length<(divNumber+i+1)/bannerFrequency) {
-          newDivs.push(<>{banners[(divNumber+i+1)/bannerFrequency-banners.length-1]}</>); 
-        }else {
-          newDivs.push(<>{banners[(divNumber+i+1)/bannerFrequency-1]}</>);
-        }
+      //push the banner, restart from the first if there are not enough banners
+      if ((i + 1) % bannerFrequency === 0) {
+        const bannerIndex = (i + 1) % banners.length;
+        newDivs.push(<>{banners[bannerIndex]}</>);
       }
       newDivs.push(<>{pool[i]}</>);  //div generation 
     }
     //console.log('divs generated: \n'+JSON.stringify(newDivs[0]));
-    //updates the divs, the divNumber and the loading variables
-    setDivs((prevDivs) => [...prevDivs, ...newDivs]);
-    divNumber += increment;
+    setDivs((prevDivs) => [...prevDivs, ...newDivs]);  //divs update
     loading = false;
   };
 

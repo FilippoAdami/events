@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import Grid from '../components/grid';
@@ -7,16 +8,41 @@ import Toggle from '../components/toggle.js';
 import Evento from '../subcomponents/evento.js';
 import Annuncio from '../subcomponents/annuncio.js';
 
+const isLoggedIn = async (token) => {
+  if (token) {
+    return await axios.get('http://localhost:5000/api/check-login', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } else {
+    return Promise.reject(new Error('User is not logged in')); // Return a rejected promise if the user is not logged in
+  }
+};
+
 function Home() {
   const [selectedOption, setSelectedOption] = useState('eventi'); //variable that indicates whether to display events or ads
-  //const [page, setPage] = useState(1);
+  const [logged, setLogged] = useState('login'); //variable that contains the eventi
   const [eventi, setEventi] = useState([]); //variable that contains the eventi
   const [annunci, setAnnunci] = useState([]); //variable that contains the annunci
   //const [eventiN, setEventiN] = useState(0); //variable that contains the number of eventi
   //const [annunciN, setAnnunciN] = useState(0); //variable that contains the number of annunci
+  //const [page, setPage] = useState(1);
 
   //useEffect to load the eventi & annunci from the database
   useEffect(() => {
+    // Check if the user is logged in
+    try {
+      const token = Cookies.get('token');
+      isLoggedIn(token)
+      .then((response) => {
+        if (response.status === 200) {
+          setLogged('profile');
+        }
+      })
+    } catch (error) {
+      console.log(error.message); // Handle the error, such as redirecting to the login page
+    }
     //fetch the annunci from the database
     try{
       axios.get("http://localhost:5000/api/annunci", {
@@ -91,7 +117,7 @@ function Home() {
 
   return (
     <>
-      <Header />
+      <Header menu={logged}/>
       <Toggle onToggle={handleToggle} type='e_a'/>
       <Grid selectedOption={selectedOption} first={eventi} second={annunci}/>
     </>

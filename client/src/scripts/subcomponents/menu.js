@@ -1,12 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from "react-router-dom";
 
-function Menu() {
+function Menu({menu}) {
+  let linkTo = `/${menu}`;
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <div id="menu">
-        <Link to="/signup"><button id="registrazione">Sign Up</button></Link>
-        <Link to="/login"><button id="login">Log In</button></Link>
-        <Link to="/profile"><button id="profile">Profile</button></Link>
+    <div className="menu-container">
+      <div className={`menu-icon ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      {isOpen && (
+        <div className="dropdown-menu">
+          <Link to={linkTo} className='link-item'><div id='id'      className="menu-item">{menu} </div></Link>
+          <div id='map'      className="menu-item">MAP </div>
+          <div id='new_post' className="menu-item">+ </div>
+        </div>
+      )}
     </div>
   );
 }

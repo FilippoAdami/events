@@ -132,7 +132,7 @@ function Profile() {
 
   return (
     < >
-      <Header />
+      <Header menu='profileMenu'/>
       <Toggle onToggle={handleToggle} type='p_i'/>
       <Grid selectedOption={selectedOption} first={pubblicazioni} second={iscrizioni} />
     </>
