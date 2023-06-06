@@ -4,38 +4,38 @@ class Annuncio extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-        id: props.id,
-        id_publisher: props.id_publisher,
-        title: props.title,
-        description: props.description,
-        date: props.date,
-        time: props.time,
-        place: props.place,
-        contact: props.contact,
+      id: props.id,
+      id_publisher: props.id_publisher,
+      title: props.title,
+      description: props.description,
+      date: props.date,
+      time: props.time,
+      place: props.place,
+      contact: props.contact,
+      mode: props.mode,
+      showSquare: false
     };
   }
-  /*
-  delete = this.deleteF.bind(this);
 
-  deleteF(){
-    axios
-      .delete(`http://localhost:5000/api/annunci/${this.state.id}`)
-      .then((response) => {
-        console.log(response);
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } */
+  handleEditClick = event => {
+    const { target } = event;
+    if (target.classList.contains("editAnnuncio")){ return;}
+    this.setState(prevState => ({
+      showSquare: !prevState.showSquare
+    }));
+  };
+
   render(){
-      return(
-          <div id="annuncio" className="inserzione" type="annunci" key={this.state.id}>
-              <><div className="title">{this.state.title}</div> <div className="time">{this.state.time}</div></>
-              <div className="description">{this.state.description}</div>
-              <><div className="place">{this.state.place}</div> <div className="contact">{this.state.contact}</div></>    
-          </div>
-      );
+    const { mode, showSquare } = this.state;
+    return(
+      <div id="annuncio" className="inserzione" type="annunci" key={this.state.id}>
+          {mode === "modifiable" && (<button className="edit" onClick={this.handleEditClick}></button>)}
+          {showSquare && (<div className="overlay" onClick={this.handleEditClick}><div className="editAnnuncio"></div></div>)}
+          <><div className="title">{this.state.title}</div> <div className="time">{this.state.time}</div></>
+          <div className="description">{this.state.description}</div>
+          <><div className="place">{this.state.place}</div> <div className="contact">{this.state.contact}</div></>    
+      </div>
+    );
   }
 }
 

@@ -47,6 +47,7 @@ function Profile() {
           const fetchedAnnunci = response.data.map((annuncio) => (
             <Annuncio
               key={annuncio._id}
+              mode='modifiable'
               id={annuncio._id}
               id_publisher={annuncio.id_publisher}
               title={annuncio.title}
@@ -66,6 +67,7 @@ function Profile() {
           const fetchedEventi = response.data.map((evento) => (
             <Evento
               key={evento._id}
+              mode='modifiable'
               id={evento._id}
               pubblicatore={evento.pubblicatore}
               titolo={evento.titolo}

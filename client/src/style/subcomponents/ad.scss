@@ -1,11 +1,44 @@
 [type='annunci']{
     background-color: rgb(255, 255, 255);
+    position: relative;
     display: grid;
     //grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr auto;
     grid-gap: 10px;
     grid-template-columns: 70% 30%;
     //grid-template-rows: auto auto 1fr;
+
+    .edit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        color: white;
+        padding: 0.5rem;
+        border-radius: 4px;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); // Darker background color
+        backdrop-filter: blur(2px); // Apply blur effect
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1; // Set a higher z-index value to appear on top
+    }
+      
+    .editAnnuncio {
+        width: 50vw;
+        height: 35vw;
+        background-color: white;
+        border: 1px solid black;
+    }
+      
 
     .title {
         grid-column: 1;
