@@ -49,8 +49,8 @@ router.get('/verifica', tokenChecker, (req, res) => {
 
 //logout
 router.get('/logout', tokenChecker, async (req, res) => {
-    const persona = await Persona.findOne({ _id: req.userVerificato.id, ruolo: "persona" })
-    const attivita = await Attivita.findOne({ _id: req.userVerificato.id, ruolo: "attivita" })
+    const persona = await Persona.findOne({ _id: req.utenteLoggato.id, ruolo: "persona" })
+    const attivita = await Attivita.findOne({ _id: req.utenteLoggato.id, ruolo: "attivita" })
     
     if(persona == null && attivita == null) {
       return res.status(400).json({ auth: false, message: "utente non trovato" })
@@ -72,8 +72,8 @@ router.get('/logout', tokenChecker, async (req, res) => {
 
 //elimina account
 router.delete('/elimina', tokenChecker, async (req, res) => {
-    const persona = await Persona.findOne({ _id: req.userVerificato.id, ruolo: "persona" })
-    const attivita = await Attivita.findOne({ _id: req.userVerificato.id, ruolo: "attivita" })
+    const persona = await Persona.findOne({ _id: req.utenteLoggato.id, ruolo: "persona" })
+    const attivita = await Attivita.findOne({ _id: req.utenteLoggato.id, ruolo: "attivita" })
     
     if(persona == null && attivita == null) {
       return res.status(400).json({ auth: false, message: "utente non trovato" })
