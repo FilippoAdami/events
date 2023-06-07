@@ -26,13 +26,8 @@ Content-Type: application/json
   "immagini": ["image1.jpg", "image2.jpg"],
   "costo": 10,
   "posti": 100,
-  "postiLiberi": 100,
   "visibilita": true,
-  "categoria": "altro",
-  "pubblicatore": "646893e72d12675abc29f74e",
-  "utentiPrenotati": ["646893e72d12675abc29f74e", "646898f2f99185e229992f72"],
-  "segnalato": false,
-  "segnalazioni": []
+  "categoria": "altro"
 }
 
 

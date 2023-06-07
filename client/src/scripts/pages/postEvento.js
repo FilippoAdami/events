@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "../../style/pages/postEvento.scss"
 
-
 function convertToBase64(file){                 //converte l'immagine passata come paramentro in Stringa
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader()
@@ -14,7 +13,6 @@ function convertToBase64(file){                 //converte l'immagine passata co
     }
   })
 }
-
 
 function PostEvento() {
 

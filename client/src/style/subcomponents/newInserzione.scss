@@ -18,6 +18,7 @@
       .row {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 1rem;
         
         &:last-child {
           flex-grow: 1;
@@ -43,13 +44,11 @@
         border-radius: 4px;
         height: 4rem;
         resize: vertical;
-      }
-      
-      label:first-child {
         margin-bottom: 1rem;
       }
       
-      button.newAButton {
+      
+      button.newButton {
         align-self: flex-end;
         margin-top: auto;
         padding: 0.5rem 1rem;

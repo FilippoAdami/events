@@ -85,7 +85,7 @@ function ModifyAnnuncio({id, title, description, place, time, contact}) {
         <label className="top-right">
           Time:
           <input
-            type="text"
+            type="time"
             className="editA"
             placeholder={timeS}
             onChange={(event) => setTime(event.target.value)}
@@ -168,7 +168,7 @@ function AddAnnuncio() {
     axios
       .post("http://localhost:5000/api/annunci", data)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         window.location.reload();
       })
       .catch((error) => {
@@ -192,7 +192,7 @@ function AddAnnuncio() {
           <label>
             Time:
             <input
-              type="text"
+              type="time"
               className='newAnnuncio'
               placeholder={time}
               onChange={(event) => setTime(event.target.value)}
@@ -233,7 +233,7 @@ function AddAnnuncio() {
         </div>
         <br />
 
-        <button className='newAButton' type="submit">Publish</button>
+        <button className='newButton' type="submit">Publish</button>
       </form>
     </div>
   );
