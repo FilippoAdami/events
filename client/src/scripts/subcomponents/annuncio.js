@@ -19,7 +19,7 @@ class Annuncio extends React.Component{
 
   handleEditClick = event => {
     const { target } = event;
-    if (target.classList.contains("editAnnuncio")){ return;}
+    if (target.classList.contains("editA")){ return;}
     this.setState(prevState => ({
       showSquare: !prevState.showSquare
     }));
@@ -30,7 +30,10 @@ class Annuncio extends React.Component{
     return(
       <div id="annuncio" className="inserzione" type="annunci" key={this.state.id}>
           {mode === "modifiable" && (<button className="edit" onClick={this.handleEditClick}></button>)}
-          {showSquare && (<div className="overlay" onClick={this.handleEditClick}><div className="editAnnuncio"></div></div>)}
+          {showSquare && 
+            (<div className="overlay" onClick={this.handleEditClick}><div id='editAnnuncio' className="editA">
+              <ModifyAnnuncio id={this.state.id} title={this.state.title} description={this.state.description} place={this.state.place} time={this.state.time} contact={this.state.contact}/>
+            </div></div>)}
           <><div className="title">{this.state.title}</div> <div className="time">{this.state.time}</div></>
           <div className="description">{this.state.description}</div>
           <><div className="place">{this.state.place}</div> <div className="contact">{this.state.contact}</div></>    
@@ -153,32 +156,26 @@ function AnnunciList() {
   );
 };
 
-function ModifyAnnuncio() {
-  const [id, setId] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [place, setPlace] = useState("");
-  const [contact, setContact] = useState("");
+function ModifyAnnuncio({id, title, description, place, time, contact}) {
+  const [titleS, setTitle] = useState(title);
+  const [descriptionS, setDescription] = useState(description);
+  const [placeS, setPlace] = useState(place);
+  const [timeS, setTime] = useState(time);
+  const [contactS, setContact] = useState(contact);
 
   const modifyA = (event) => {
     event.preventDefault();
     const data = {
-      id_publisher: 1,
-      title: title,
-      description: description,
-      time: 1,
-      place: place,
-      contact: contact
+      title: titleS,
+      description: descriptionS,
+      place: placeS,
+      time: timeS,
+      contact: contactS
     };
     axios
-      .put(`http://localhost:5000/api/annunci/${id}`, data)
+      .patch(`http://localhost:5000/api/annunci/${id}`, data)
       .then((response) => {
         console.log(response);
-        setId("");
-        setTitle("");
-        setDescription("");
-        setPlace("");
-        setContact("");
       })
       .catch((error) => {
         console.log(error);
@@ -186,52 +183,59 @@ function ModifyAnnuncio() {
   };
 
   return (
-    <form onSubmit={modifyA}>
-      <label>
-        ID:
-        <input
-          type="text"
-          value={id}
-          onChange={(event) => setId(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Title:
-        <input
-          type="text"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-      </label>
-      <br />
+    <form onSubmit={modifyA} id="editAForm" className="editA">
+      <div className="row">
+        <label className="top-left">
+          Title:
+          <input
+            type="text"
+            className="editA"
+            placeholder={titleS}
+            onChange={(event) => setTitle(event.target.value)}
+          />
+        </label>
+        <label className="top-right">
+          Time:
+          <input
+            type="text"
+            className="editA"
+            placeholder={timeS}
+            onChange={(event) => setTime(event.target.value)}
+          />
+        </label>
+      </div>
+
       <label>
         Description:
         <textarea
-          value={description}
+          className="editA"
+          placeholder={descriptionS}
           onChange={(event) => setDescription(event.target.value)}
-        />
+        ></textarea>
       </label>
-      <br />
-      <label>
-        Place:
-        <input
-          type="text"
-          value={place}
-          onChange={(event) => setPlace(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Contact:
-        <input
-          type="text"
-          value={contact}
-          onChange={(event) => setContact(event.target.value)}
-        />
-      </label>
-      <br />
-      <button type="submit">Modify Ad</button>
+
+      <div className="row">
+        <label className="left">
+          Contact:
+          <input
+            type="text"
+            className="editA"
+            placeholder={contactS}
+            onChange={(event) => setContact(event.target.value)}
+          />
+        </label>
+        <label className="right">
+          Place:
+          <input
+            type="text"
+            className="editA"
+            placeholder={placeS}
+            onChange={(event) => setPlace(event.target.value)}
+          />
+        </label>
+      </div>
+
+      <button type="submit" id="bottom-right" className="editA">Modify Ad</button>
     </form>
   );
 };

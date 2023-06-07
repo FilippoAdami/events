@@ -32,9 +32,9 @@
         z-index: 1; // Set a higher z-index value to appear on top
     }
       
-    .editAnnuncio {
+    #editAnnuncio {
         width: 50vw;
-        height: 35vw;
+        height: 60vh;
         background-color: white;
         border: 1px solid black;
     }
@@ -81,3 +81,66 @@
         text-align: left;
     }
 }
+
+#editAForm {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+  
+    label {
+      font-weight: bold;
+    }
+  
+    input[type="text"],
+    textarea {
+      width: 95%;
+      padding: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+  
+    textarea {
+      resize: vertical;
+      min-height: 50px;
+    }
+  
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+  
+      .left,
+      .right {
+        width: 40%;
+        margin: 10px;
+      }
+    }
+  
+    .top-left,
+    .top-right {
+      align-self: flex-start;
+      width: 40%;
+      margin: 10px;
+    }
+  
+    .top-right {
+      text-align: right;
+    }
+  
+    button[type="submit"] {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+  }
+  

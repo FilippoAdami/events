@@ -114,7 +114,7 @@ function Profile() {
             />
           ));
           setIscrizioni(fetchedEventiI);
-          console.log('Eventi iscritto fetched in Profile: \n'+ JSON.stringify(fetchedEventiI[0]));
+          //console.log('Eventi iscritto fetched in Profile: \n'+ JSON.stringify(fetchedEventiI[0]));
         });
       }
 
