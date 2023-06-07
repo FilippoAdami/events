@@ -142,53 +142,31 @@ router.delete('/persona/:id', getPersona, async (req, res) => {
 
 
 
+
 //Prenotazione
 //Aggiunge una evento alla lista prenotazione
-router.post('/persona/:id/prenotazioni'), getPersona, tokenChecker, async (req, res) => {
-  let persona = res.persona;
-
-  if (persona._id !== utenteLoggato._id) {
-    return res.status(403).send('Unauthorized access');
-  }
-
-  let eventoId = res.body.eventoId;
-  const evento = await Evento.findById(eventoId.toString());
-
-  if(!evento){
-    return res.status(404).send('Evento not found');
-  }else{
-
-    let listaIscritti = evento.utentiPrenotati;
-    if(persona._id in listaIscritti){
-      return res.status(403).send('Persona gia Iscritta');
-    }
-
-    let listaPrenotazioni = psona.prenotazioni;
-    
-
-    persona.is
-
-
-  }
-
-} 
- 
-
-
-
-//Prenotazione
 router.post('/persona/:id/prenotazioni', getPersona, tokenChecker, async(req,res) =>{
 
   let persona = res.persona
+  const utenteLoggato = req.utenteLoggato
+
+  if (persona.ruolo === "attivita") {
+    return res.status(403).send({message: "Le attivita non possono prenotarsi"}); 
+  }
+
+  if (persona.id !== utenteLoggato.id) {
+    return res.status(403).send({message: "Unauthorized access"});
+  }
+
+
   if(!req.body.eventoID){
-    res.status(400).send({message: "evento ID assente"})
+    return res.status(400).send({message: "evento ID assente"})
   }
   
   let evento = await Evento.findById(req.body.eventoID)
   if (evento == null) {
-    res.status(404).send({message: "Evento non trovato"})
+    return res.status(404).send({message: "Evento non trovato"})
   }
-  console.log(evento)
 
   try{
 

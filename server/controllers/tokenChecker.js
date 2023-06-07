@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const tokenChecker = (req, res , next) => {
     const token = req.headers["x-access-token"]
     if(!token){
-        res.status(403).json({auth: false, message: "Token assente"})
+        res.status(403).json({auth: false, errormessage: "Token assente"})
     } else {
         jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded ) =>{
             if(err){

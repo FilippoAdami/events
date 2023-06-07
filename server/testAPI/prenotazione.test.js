@@ -19,7 +19,8 @@ describe("POST /api/persona/:id/prenotazioni", () => {
         let utente = await request(app).get(`/api/persona/647ef0def12d8fd18d5b36b2`)    // prendo l'utente appena modificato per fare le varie verifiche
         let eventoAgg = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente 
 
-       
+        console.log(response.body.message)
+
         expect(response.status).toBe(201)
         expect(utente.body.prenotazioni).toContain(eventoID_value)
         expect(eventoAgg.body.utentiPrenotati).toContain(id_utente_test)
@@ -27,6 +28,130 @@ describe("POST /api/persona/:id/prenotazioni", () => {
         // cancello la prenotazione dal database per non riempirlo di dati di testing
         await request(app).delete(`/api/persona/${id_utente_test}/prenotazioni/${eventoID_value}`).set(`x-access-token`,token)
     })
+
+
+    // Test prenotazione da parte di attivita
+    test("should return 403 if an attvità account try to booking", async() => {
+
+        //token valido ed ID dell'utente attivita (token settato che non scada mai per scopi di test) 
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDgwZWFlOTg3N2ZlMWUzZjE3NTViNjgiLCJlbWFpbCI6ImF0dGl2aXRhQHRlc3QuaXQiLCJwYXNzd29yZCI6IiQyYiQxMCRwRnJsbWhTb1JJYnQzanBjRVlpd3NPMzBOLjBuT2Q0dU55NzJLWk1sUGRWNUYxSXdBZ3VTLiIsInJ1b2xvIjoiYXR0aXZpdGEiLCJub21lQXR0aXZpdGEiOiJBIiwiaW5kaXJpenpvIjoiQSIsInRlbGVmb25vIjoxLCJwYXJ0aXRhSVZBIjoxLCJpYmFuIjoiQSIsImV2ZW50aVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjE3MDM1OH0.LM-bg9M5YCd9YCcErCp8AAUBxmh-K06hMExv-Ry3Ubs"
+        let id_utente_test = "6480eae9877fe1e3f1755b68"
+
+        let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
+        let eventoID_value = evento.body._id                                            // ne ricavo l'ID 
+
+        const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
+        
+       
+        expect(response.status).toBe(403)
+        expect(response.body.message).toBe('Le attivita non possono prenotarsi')
+        
+    })
+
+    // Test prenotazione per la persona id mediante un token non corrispondente
+    test("should return 403 if persona id not corrispond to the token", async() => {
+
+        //token valido dell'utente Test (token settato che non scada mai per scopi di test) 
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let id_utente_test = "6471fccf2ff11c3b27c3e243"     // ID valido di un account diverso da quello di test
+
+        let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
+        let eventoID_value = evento.body._id                                            // ne ricavo l'ID 
+
+        const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
+        
+       
+        expect(response.status).toBe(403)
+        expect(response.body.message).toBe('Unauthorized access')
+        
+    })
+
+     // Test prenotazione non passando token
+     test("should return 403 if the token isn't specify", async() => {
+
+        let id_utente_test = "647ef0def12d8fd18d5b36b2"   
+
+        let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
+        let eventoID_value = evento.body._id                                            // ne ricavo l'ID 
+
+        const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).send({eventoID : eventoID_value});
+        
+       
+        expect(response.status).toBe(403)
+        expect(response.body.errormessage).toBe("Token assente")
+        
+    })
+
+    // Test prenotazione passando token non valido 
+    test("should return 403 if the token is wronk", async() => {
+
+        //token non valido
+        let token = "error"
+        let id_utente_test = "647ef0def12d8fd18d5b36b2"   
+
+        let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
+        let eventoID_value = evento.body._id                                            // ne ricavo l'ID 
+
+        const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
+        
+        expect(response.status).toBe(403)
+        expect(response.body.message).toBe("Unauthorized access")
+        
+    })
+
+
+
+    // Test prenotazione senza id event nella richiesta
+    test("should return 400 if isn't specify the id event in the request", async() => {
+
+        //token valido ed ID dell'utente Test (token settato che non scada mai per scopi di test) 
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let id_utente_test = "647ef0def12d8fd18d5b36b2"
+
+        
+        const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token);
+       
+        expect(response.status).toBe(400)
+        expect(response.body.message).toBe('evento ID assente')
+        
+    })
+
+
+    // Test prenotazione ad un evento non esistente
+    test("should return 404 if the event don't exist", async() => {
+
+         //token valido ed ID dell'utente Test (token settato che non scada mai per scopi di test) 
+         let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+         let id_utente_test = "647ef0def12d8fd18d5b36b2" 
+    
+        let eventoID_value = "000ef0def12d8fd18d5b36b0"                  // prendo un ID evento non esistente   
+
+        const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
+        
+       
+        expect(response.status).toBe(404)
+        expect(response.body.message).toBe('Evento non trovato')
+        
+    })
+
+     // Test prenotazione per un utente che non esistente
+     test("should return 404 if the utente don't exist", async() => {
+
+        //token valido dell'utente Test (token settato che non scada mai per scopi di test) 
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let id_utente_test = "000ef0def12d8fd18d5b36b0"             // ID Non valido 
+   
+        let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
+        let eventoID_value = evento.body._id                                            // ne ricavo l'ID 
+ 
+
+       const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
+       
+      
+       expect(response.status).toBe(404)
+       expect(response.body.message).toBe('Utente non trovato')
+       
+   })
 
 
     
