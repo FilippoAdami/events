@@ -3,12 +3,12 @@ POST http://localhost:5000/api/persona/register
 Content-Type: application/json
 
 {
-    "email": "prova@persona.it",
-    "password": "persona",
-    "nome": "a",
-    "cognome": "a",
-    "telefono": "1",
-    "dataNascita": "12/12/1999"
+    "email": "utenteTest@test.it",
+    "password": "test",
+    "nome": "test",
+    "cognome": "test",
+    "telefono": "0",
+    "dataNascita": "01/01/2000"
 }
 
 ###
@@ -18,8 +18,8 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "prova@persona.it",
-    "password": "persona"
+    "email": "utenteTest@test.it",
+    "password": "test"
 } 
 
 ###
@@ -48,8 +48,8 @@ PUT http://localhost:5000/api/persona/
 Content-Type: application/json
 
 {
-    "email": "prova@2.it",
-    "password": "prova@2",
+    "email": "utenteTest@test.it",
+    "password": "",
     "nome": "B",
     "cognome": "B",
     "telefono": "2",
