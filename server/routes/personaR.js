@@ -5,6 +5,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Persona = require('../models/personaM')
+const Evento = require('../models/eventoM')
 const tokenChecker = require('../controllers/tokenChecker')
 
 
@@ -138,4 +139,61 @@ router.delete('/persona/:id', getPersona, async (req, res) => {
     }
 })
  
+
+
+
+//Prenotazione
+router.post('/persona/:id/prenotazioni', getPersona, tokenChecker, async(req,res) =>{
+
+  let persona = res.persona
+  if(!req.body.eventoID){
+    res.status(400).send({message: "evento ID assente"})
+  }
+  
+  let evento = await Evento.findById(req.body.eventoID)
+  if (evento == null) {
+    res.status(404).send({message: "Evento non trovato"})
+  }
+  console.log(evento)
+
+  try{
+
+    await Persona.findByIdAndUpdate(persona._id,{$push: {prenotazioni : evento._id}});
+    await Evento.findByIdAndUpdate(evento._id,{$push: {utentiPrenotati : persona._id}});
+
+    res.status(201).send({message: "prenotazione effettuate"})
+
+  }catch(err){
+    res.status(500).json({ message: err.message })
+  }
+
+})
+
+
+router.delete('/persona/:id/prenotazioni/:idEvento', getPersona, tokenChecker, async(req,res) =>{
+
+  let persona = res.persona
+  if(!req.params.idEvento){
+    res.status(400).send({message: "evento ID assente"})
+  }
+  
+  let evento = await Evento.findById(req.params.idEvento)
+  if (evento == null) {
+    res.status(404).send({message: "Evento non trovato"})
+  }
+
+  try{
+
+    await Persona.findByIdAndUpdate(persona._id,{$pull: {prenotazioni : evento._id}});
+    await Evento.findByIdAndUpdate(evento._id,{$pull: {utentiPrenotati : persona._id}});
+
+    res.status(200).send({message: "prenotazione cancellata"})
+
+  }catch(err){
+    res.status(500).json({ message: err.message })
+  }
+
+})
+
+
 module.exports = router;

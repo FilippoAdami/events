@@ -75,7 +75,7 @@ describe('POST /api/eventi', () => {
 
         // rimuovo l'evento creato in fase di testing 
         let id = response.body._id
-        await Evento.findByIdAndDelete(id) 
+        await request(app).delete(`/api/eventi/${id}`).set(`x-access-token`,token);
     });
 
     // Testing if a post without non requested attributed go right
@@ -108,7 +108,7 @@ describe('POST /api/eventi', () => {
 
       // rimuovo l'evento creato in fase di testing 
       let id = response.body._id
-      await Evento.findByIdAndDelete(id) 
+      await request(app).delete(`/api/eventi/${id}`).set(`x-access-token`,token);
   });
     
     // Test to check if the server returns a 400 status code when some attributes are not specify, and if the attribute is specify corectly 
@@ -519,11 +519,11 @@ describe('GET /api/eventi/publisher/:publisher_id', () => {
   });
 
   
-  test('should return 400 in the request is not passed the token', async () => {
+  test('should return 403 in the request is not passed the token', async () => {
     let publisherId = "647ef0def12d8fd18d5b36b3" // diverso dall'id dell'utente test: ultima cifra dovrebbe essere un 2 invece è settata a 3
     
     const response = await request(app).get(`/api/eventi/publisher/${publisherId}`);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(403);
     expect(response.body.errormessage).toBe('Token assente');
   });
 
@@ -558,28 +558,24 @@ describe('DELETE /api/eventi/:id', () => {
   test('should delete an evento given its id', async () => {
     
     // Create a sample evento
-    let eventoTest = new Evento({
-      titolo: "TestDelete",
-      data:"1995-12-17T03:24:00.000Z",
+    let eventoTest ={
+      titolo: "TestEliminato",
+      data:"2023-05-21",
       ora:"2",
       indirizzo:"via del Test",
       descrizione:"Test descrizione",
       immagini:["Test Imagine 1"],
       costo:10,
       posti:10,
-      postiLiberi:10,
-      pubblicatore:"647ef0def12d8fd18d5b36b2",
       visibilita:true,
       categoria:"sport",
-      segnalato:false,
-      segnalazioni: [],
-      utentiPrenotati: []
-    })
-    await eventoTest.save();
+  }
 
     let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    const evento = await request(app).post('/api/eventi').set(`x-access-token`,token).send(eventoTest)
 
-    const response = await request(app).delete(`/api/eventi/${eventoTest._id}`).set(`x-access-token`,token);
+    const response = await request(app).delete(`/api/eventi/${evento.body._id}`).set(`x-access-token`,token);
+    console.log(response.text)
     expect(response.status).toBe(200);
     expect(response.text).toBe('Evento deleted successfully');
   });
