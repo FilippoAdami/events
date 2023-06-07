@@ -34,11 +34,12 @@ class Evento extends React.Component {
     this.setState(prevState => ({
       showSquare: !prevState.showSquare
     }));
+    console.log("showSquare: " + !this.state.showSquare);
   };
 
   handleOpen = event => {
     const { target } = event;
-    if (target.classList.contains("inserzione")){ this.setState({ open: true }); return;}
+    if (target.classList.contains("evento")){ this.setState({ open: true }); return;}
     if (target.classList.contains("overlay")){ this.setState({ open: false }); return;}
   };
 
@@ -61,13 +62,15 @@ class Evento extends React.Component {
     return (
       <div id="evento" className="inserzione" type="eventi" onClick={this.handleOpen} key={this.state.id_Evento}>
         {this.state.mode === "modifiable" && (<button className="edit" onClick={this.handleEditClick}></button>)}
-        {this.showSquare && 
-          (<div className="overlay" onClick={this.handleEditClick}><div id='editEvento' className="editE">
+        {this.state.showSquare && 
+          (<div className="overlay" onClick={this.handleEditClick}>
+            <div id='editEvento' className="editE">
             <ModifyEvento id={this.state.id} titolo={titolo} descrizione={descrizione} indirizzo={indirizzo} ora={ora} data={data} immagini={immagini} />
-          </div></div>)}
+            </div>
+          </div>)}
         <div className="immagini">
           <button onClick={this.handlePreviousImage}><b>&lt;</b>  </button> 
-          <img src={currentImage} alt='nessun immagine'/> 
+          <img src={currentImage} title={descrizione} alt={descrizione}/> 
           <button onClick={this.handleNextImage}><b>&gt;</b>  </button>
         </div>
         <div className='block'>
@@ -109,18 +112,18 @@ function ModifyEvento({id, titolo, descrizione, indirizzo, ora, data, immagini})
   const [immaginiS, setImmagini] = useState(immagini);
   const [immagineS, setImmagine] = useState(null);
 
-  const modifyA = (event) => {
+  const modifyE = (event) => {
     event.preventDefault();
-    const data = {
-      title: titleS,
-      description: descriptionS,
-      place: placeS,
-      time: timeS,
-      date: dateS,
-      images: immaginiS
+    const datas = {
+      titolo: titleS,
+      descrizione: descriptionS,
+      indirizzo: placeS,
+      ora: timeS,
+      data: dateS,
+      immagini: immaginiS
     };
     axios
-      .patch(`http://localhost:5000/api/annunci/${id}`, data)
+      .patch(`http://localhost:5000/api/eventi/${id}`, datas)
       .then((response) => {
         console.log(response);
       }).then(() => {
@@ -132,32 +135,47 @@ function ModifyEvento({id, titolo, descrizione, indirizzo, ora, data, immagini})
   };
 
   return (
-    <form onSubmit={modifyA} id="editAForm" className="editA">
+    <form onSubmit={modifyE} id="editForm" className="editE">
       <div className="row">
         <label className="top-left">
           Title:
           <input
             type="text"
-            className="editA"
+            className="editE"
             placeholder={titleS}
             onChange={(event) => setTitle(event.target.value)}
           />
         </label>
         <label className="top-right">
-          Time:
+        Place:
           <input
             type="text"
-            className="editA"
-            placeholder={timeS}
-            onChange={(event) => setTime(event.target.value)}
+            className="editE"
+            placeholder={placeS}
+            onChange={(event) => setPlace(event.target.value)}
           />
         </label>
       </div>
 
+      <label htmlFor="immagini">
+      Images:
+      <input
+        type="file"
+        id="immagini"
+        name="image"
+        accept=".jpeg, .png, .jpg"
+        onChange={async (e) => {
+          const file = e.target.files[0];
+          const base64 = await convertToBase64(file);
+          setImmagini(base64, '', '');
+        }}
+      />
+      </label>
+
       <label>
         Description:
         <textarea
-          className="editA"
+          className="editE"
           placeholder={descriptionS}
           onChange={(event) => setDescription(event.target.value)}
         ></textarea>
@@ -165,22 +183,33 @@ function ModifyEvento({id, titolo, descrizione, indirizzo, ora, data, immagini})
 
       <div className="row">
         <label className="right">
-          Place:
+          Date:
           <input
-            type="text"
-            className="editA"
-            placeholder={placeS}
-            onChange={(event) => setPlace(event.target.value)}
+            type="date"
+            className="editE"
+            placeholder={dateS}
+            onChange={(event) => setTime(event.target.value)}
+          />
+        </label>
+        <label className="right">
+          Time:
+          <input
+            type="time"
+            className="editE"
+            placeholder={timeS}
+            onChange={(event) => setTime(event.target.value)}
           />
         </label>
       </div>
+
       {DeleteEvento(id)}
-      <button type="submit" id="bottom-right" className="editA">Modify Ad</button>
+      <button type="submit" id="bottom-right" className="editE">Modify Ad</button>
     </form>
   );
 };
 
 function DeleteEvento(id) {
+
   const deleteE = (event) => {
     event.preventDefault();
     axios
@@ -193,7 +222,7 @@ function DeleteEvento(id) {
     });
   }
   return (
-    <button type="submit" id="bottom-left" className="editE" onClick={deleteE}>Delete</button>
+    <button id="deleteButton" className="delete" onClick={deleteE}>Delete</button>
   );
 }
 

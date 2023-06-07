@@ -71,7 +71,7 @@ function ModifyAnnuncio({id, title, description, place, time, contact}) {
   };
 
   return (
-    <form onSubmit={modifyA} id="editAForm" className="editA">
+    <form onSubmit={modifyA} id="editForm" className="editA">
       <div className="row">
         <label className="top-left">
           Title:
@@ -122,6 +122,7 @@ function ModifyAnnuncio({id, title, description, place, time, contact}) {
           />
         </label>
       </div>
+      
       {DeleteAnnuncio(id)}
       <button type="submit" id="bottom-right" className="editA">Modify Ad</button>
     </form>
@@ -134,9 +135,7 @@ function DeleteAnnuncio(id){
     event.preventDefault();
     axios
       .delete("http://localhost:5000/api/annunci/" + id)
-      .then((response) => {
-        console.log(response);
-      }).then(() => {
+      .then(() => {
         window.location.reload();
       })
       .catch((error) => {
@@ -145,7 +144,7 @@ function DeleteAnnuncio(id){
   };
 
   return(
-      <button className="delete" id="deleteAButton" onClick={DeleteAnnuncio(id)}> Delete </button>
+      <button className="delete" id="deleteButton" onClick={DeleteAnnuncio(id)}> Delete </button>
   );
 };
 
