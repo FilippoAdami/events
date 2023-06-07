@@ -4,15 +4,17 @@ const tokenChecker = (req, res , next) => {
     const token = req.headers["x-access-token"]
     if(!token){
         let errore ={ errormessage: "Token assente"}
-        res.status(400).send(errore);
+        res.status(403).send(errore);
         //res.json({auth: false, message: "token non trovato"})
     } else {
         jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded ) =>{
             if(err){
-                res.json({ auth: false, message: "errore autenticazione"})
+                res.status(403).json({ auth: false, message: "Unauthorized access"})
             }
-            req.utenteLoggato = decoded
-            next()
+            else{
+                req.utenteLoggato = decoded
+                next()
+            }
         })
     }
 }

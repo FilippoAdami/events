@@ -5,6 +5,8 @@ const Annuncio = require('../models/annuncioM');
 const mongoose = require('mongoose');
 const {getAnnuncio} = require('../routes/annunciR');
 
+
+
 // Test suite for the GET '/api/annunci' path
 describe('GET /api/annunci', () => {
   // Test to check if all annunci are returned successfully
@@ -34,6 +36,13 @@ describe('GET /api/annunci', () => {
   });
 });
 
+
+
+
+
+
+
+
 // Test suite for the POST '/api/annunci' path (with tokenChecker)
 describe('POST /api/annunci', () => {
     // Test to check if a new annuncio is created successfully
@@ -41,8 +50,10 @@ describe('POST /api/annunci', () => {
         // Mock the 'save' method of the 'Annuncio' model
         jest.spyOn(Annuncio.prototype, 'save').mockImplementationOnce(() => {});
     
-        // Send a POST request to the '/api/annunci' endpoint
-        const response = await request(app).post('/api/annunci');
+        //token valido ed ID dell'utente Test (token settato che non scada mai) 
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+
+        const response = await request(app).post('/api/annunci').set(`x-access-token`,token);
     
         // Assert that the response status is 201 (Created)
         expect(response.status).toBe(201);
@@ -52,13 +63,14 @@ describe('POST /api/annunci', () => {
     test('should return 400 if an error occurs', async () => {
         // Mock the 'save' method of the 'Annuncio' model to throw an error
         jest.spyOn(Annuncio.prototype, 'save').mockImplementationOnce(() => {
-        const errore = new Error('Test error');
-        throw errore;
+          const errore = new Error('Test error');
+          throw errore;
         });
     
         try {
         // Send a POST request to the '/api/annunci' endpoint
-        const response = await request(app).post('/api/annunci');
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        const response = await request(app).post('/api/annunci').set(`x-access-token`,token);
     
         // Assert that the response status is 400 (Bad Request)
         expect(response.status).toBe(400);
@@ -70,7 +82,46 @@ describe('POST /api/annunci', () => {
         throw error;
         }
     });
+
+    test('should return 400 if in the request is not define token ', async () => {
+      jest.spyOn(Annuncio.prototype, 'save').mockImplementationOnce(() => {});
+        
+      // Send a POST request to the '/api/annunci' endpoint
+     
+      const response = await request(app).post('/api/annunci')
+ 
+  
+      expect(response.status).toBe(400);
+      expect(response.body.errormessage).toBe('Token assente');
+
+    });
+    
+    //Testing error 403
+    test('should return 403 with error in the token', async () => {
+      jest.spyOn(Annuncio.prototype, 'save').mockImplementationOnce(() => {});
+        
+      let token = "errore"
+      
+      // Send a POST request to the '/api/annucni' endpoint
+      const response = await request(app).post('/api/annunci').set(`x-access-token`,token);
+      console.log(response.body);
+
+      // Assert that the response status is 201 (Created)
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('Unauthorized access');
+       
+    });
+
+
+
 });
+
+
+
+
+
+
+
 
 // Test suite for the GET '/api/annunci/:id' path
 describe('GET /api/annunci/:id', () => {
@@ -103,6 +154,8 @@ describe('GET /api/annunci/:id', () => {
       description: 'This is a test annuncio',
       time: 31,
     });
+
+    await annuncio.deleteOne();
   });
 
   test('should return 404 if the annuncio is not found', async () => {
@@ -135,21 +188,42 @@ describe('GET /api/annunci/:id', () => {
   });
 });
 
+
+
+
+
+
+
+
 // Test suite for the GET '/api/annunci/publisher/:publisher_id' path
 describe('GET /api/annunci/publisher/:publisher_id', () => {
   test('should return all annunci published by a specific publisher', async () => {
-    const publisherId = '647237535592096d9ae27a3a'; 
-    const LoggedInUser = '647237535592096d9ae27a3a';
-    const response = await request(app).get(`/api/annunci/publisher/${publisherId}`);
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(expect.arrayContaining([])); 
+    
+    //token valido ed ID dell'utente Test (token settato che non scada mai) 
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let id_utente_test = "647ef0def12d8fd18d5b36b2"
+
+
+    const response = await request(app).get(`/api/annunci/publisher/${id_utente_test}`).set(`x-access-token`,token);
+
     //console.log(response.body);
+
+    expect(response.status).toBe(200);
+    response.body.forEach(annuncio => {
+      expect(annuncio.id_publisher).toBe(id_utente_test);
+    });
+    
   });
 
   test('should return 403 if unauthorized access', async () => {
-    const publisherId = '1';
-    const LoggedInUser = '647237535592096d9ae27a3a';
-    const response = await request(app).get(`/api/annunci/publisher/${publisherId}`);
+
+    //token valido ed ID dell'utente Test (token settato che non scada mai) 
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let id_utente_test = "000ef0def12d8fd18d5b36b0" // ID diverso dall'utente Test
+
+
+    const response = await request(app).get(`/api/annunci/publisher/${id_utente_test}`).set(`x-access-token`,token);
+
     expect(response.status).toBe(403);
     expect(response.text).toBe('Unauthorized access');
   });
@@ -160,26 +234,42 @@ describe('GET /api/annunci/publisher/:publisher_id', () => {
       throw new Error('Test error');
     });
 
-    const publisherId = '647237535592096d9ae27a3a'; // Replace with the publisher ID you want to test
-    const response = await request(app).get(`/api/annunci/publisher/${publisherId}`);
+    //token valido ed ID dell'utente Test (token settato che non scada mai) 
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let id_utente_test = "647ef0def12d8fd18d5b36b2"
+
+
+    const response = await request(app).get(`/api/annunci/publisher/${id_utente_test}`).set(`x-access-token`,token);
+
     expect(response.status).toBe(500);
-    //console.log(response.text);
     expect(response.error.text).toBe('Test error');
   });
 });
+
+
+
+
+
+
+
 
 // Test suite for the DELETE '/api/annunci/:id' path
 describe('DELETE /api/annunci/:id', () => {
   test('should delete an annuncio given its id', async () => {
     // Create a sample annuncio
     const annuncio = new Annuncio({
-      id_publisher: '647237535592096d9ae27a3a',
+      id_publisher: '647ef0def12d8fd18d5b36b2',
       title: 'Test Annuncio',
       description: 'This is a test annuncio',
       time: 31,
     });
     await annuncio.save();
-    const response = await request(app).delete(`/api/annunci/${annuncio._id}`);
+
+    //token valido ed ID dell'utente Test (token settato che non scada mai) 
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+  
+    const response = await request(app).delete(`/api/annunci/${annuncio._id}`).set(`x-access-token`,token);
+
     expect(response.status).toBe(200);
     expect(response.text).toBe('Annuncio deleted successfully');
   });
@@ -193,13 +283,25 @@ describe('DELETE /api/annunci/:id', () => {
       time: 31,
     });
     await annuncio.save();
-    const response = await request(app).delete(`/api/annunci/${annuncio._id}`);
+
+    //token valido ed ID dell'utente Test (token settato che non scada mai) 
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+
+    const response = await request(app).delete(`/api/annunci/${annuncio._id}`).set(`x-access-token`,token);
+
     expect(response.status).toBe(403);
     expect(response.text).toContain('Unauthorized access');
+
+    await annuncio.deleteOne()
   });
 
   test('should return 404 if the annuncio deas not exist', async () => {
-    const response = await request(app).delete(`/api/annunci/645cf5721dd165875a1417f0`);
+
+    //token valido ed ID dell'utente Test (token settato che non scada mai) 
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+
+    const response = await request(app).delete(`/api/annunci/645cf5721dd165875a1417f0`).set(`x-access-token`,token);;
+    
     expect(response.status).toBe(404);
     expect(response.text).toContain('Annuncio non trovato');
   });
@@ -210,27 +312,39 @@ describe('DELETE /api/annunci/:id', () => {
       throw new Error('Test error');
     });
 
-    const annuncioId = '647274e3f4012a3d9e87f1ca'; // Replace with the annuncio ID you want to delete
-    const response = await request(app).delete(`/api/annunci/${annuncioId}`);
+    //token valido ed ID dell'utente Test (token settato che non scada mai) 
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    const annuncioId = '645cf4ceeeaea6d856022104'; // Replace with the annuncio ID publishe by the user define in the token you want to delete
+    
+    const response = await request(app).delete(`/api/annunci/${annuncioId}`).set(`x-access-token`,token);
     
     expect(response.status).toBe(500);
     expect(response.text).toBe('errore al server in delete annuncio');
   });
 });
 
+
+
+
+
+
+
+
+
 // Test suite for the PATCH '/api/annunci/:id' path
 describe('PATCH /annunci/:id', () => {
   test('should update an annuncio successfully', async () => {
     // Create a sample annuncio
     const annuncio = new Annuncio({
-      id_publisher: '647237535592096d9ae27a3a',
+      id_publisher: '647ef0def12d8fd18d5b36b2',
       title: 'Test Annuncio',
       description: 'This is a test annuncio',
       time: 31,
     });
     await annuncio.save();
-    const response = await request(app).patch(`/api/annunci/${annuncio._id}`)
-    .send({ title: 'Updated title'});
+
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    const response = await request(app).patch(`/api/annunci/${annuncio._id}`).set(`x-access-token`,token).send({ title: 'Updated title'});
 
     expect(response.status).toBe(200);
 
@@ -241,11 +355,13 @@ describe('PATCH /annunci/:id', () => {
       clicks: 0,
       views: 0,
       date: annuncio.date.toISOString(),
-      id_publisher: '647237535592096d9ae27a3a',
+      id_publisher: '647ef0def12d8fd18d5b36b2',
       title: 'Updated title',
       description: 'This is a test annuncio',
       time: 31,
     });
+
+    await annuncio.deleteOne()
   });
 
   test('should return 403 if unauthorized access', async () => {
@@ -257,11 +373,15 @@ describe('PATCH /annunci/:id', () => {
       time: 31,
     });
     await annuncio.save();
-    const response = await request(app).patch(`/api/annunci/${annuncio._id}`)
-    .send({ title: 'Updated title'});
+
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    const response = await request(app).patch(`/api/annunci/${annuncio._id}`).set(`x-access-token`,token).send({ title: 'Updated title'});
+
 
     expect(response.status).toBe(403);
     expect(response.text).toContain('Unauthorized access');
+
+    await annuncio.deleteOne()
   });
 
   test('should return 500 if an error occurs during the update', async () => {
@@ -270,8 +390,10 @@ describe('PATCH /annunci/:id', () => {
       throw new Error('Test error');
     });
 
-    const annuncioId = '647274e3f4012a3d9e87f1ca'; // Replace with the annuncio ID you want to delete
-    const response = await request(app).patch(`/api/annunci/${annuncioId}`);
+    const annuncioId = '645cf4ceeeaea6d856022104'; 
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    const response = await request(app).patch(`/api/annunci/${annuncioId}`).set(`x-access-token`,token).send({ title: 'Updated title'});
+
     
     expect(response.status).toBe(500);
     expect(response.text).toBe('Server error');
