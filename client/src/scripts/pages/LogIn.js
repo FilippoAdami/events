@@ -65,6 +65,12 @@ function LogIn() {
       localStorage.removeItem("token")
       setStatoLogin(false)
       console.log(response)
+
+      Cookies.remove('token')
+      Cookies.remove('email');
+      Cookies.remove('ruolo');
+      Cookies.remove('id');
+
     })
   }
 
@@ -76,6 +82,13 @@ function LogIn() {
     }).then((response) =>{
       setStatoLogin(false) 
       console.log(response)
+
+      
+      Cookies.remove('token')
+      Cookies.remove('email');
+      Cookies.remove('ruolo');
+      Cookies.remove('id');
+
     })
 
   }

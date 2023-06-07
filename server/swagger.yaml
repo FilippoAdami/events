@@ -508,6 +508,8 @@ paths:
             description: Created
           '400':
             description: Bad Request
+          '403':
+            description: Unauthorized access
           '500':
             description: Server error
       get:
