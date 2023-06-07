@@ -23,19 +23,19 @@ function LogIn() {
         //alert("login effettuato")
         console.log("login corretto")
         
-        Cookies.set('token', data.token, {
+        Cookies.set('token', response.data.token, {
           expires: 1, // Set the expiration of the cookie to 7 days
           path: '/', // Cookie accessible from all paths on the domain
         });
-        Cookies.set('email', data.utente.email, {
+        Cookies.set('email', response.data.utente.email, {
           expires: 1,
           path: '/',
         });
-        Cookies.set('ruolo', data.utente.ruolo, {
+        Cookies.set('ruolo', response.data.utente.ruolo, {
           expires: 1,
           path: '/',
         });
-        Cookies.set('id', data.utente._id, {
+        Cookies.set('id', response.data.utente._id, {
           expires: 1,
           path: '/',
         });
@@ -74,7 +74,7 @@ function LogIn() {
         "x-access-token": localStorage.getItem("token"),
       }
     }).then((response) =>{
-      setStatoLogin(false)
+      setStatoLogin(false) 
       console.log(response)
     })
 

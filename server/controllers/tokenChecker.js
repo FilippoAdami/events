@@ -9,7 +9,7 @@ const tokenChecker = (req, res , next) => {
             if(err){
                 res.json({ auth: false, message: "errore autenticazione"})
             }
-            req.userVerificato = decoded
+            req.utenteLoggato = decoded
             next()
         })
     }

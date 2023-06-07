@@ -10,6 +10,7 @@ const personaR = require('./personaR');
 const attivitaR = require('./attivitaR');
 const amministratoriR = require('./amministratoriR');
 const autenticazione = require('./autenticazione');
+const modificaDati = require('./modificaDati');
 
 // Set up routes
 router.use('/api', annunciR);
@@ -19,5 +20,6 @@ router.use('/api', attivitaR);
 router.use('/api', bannerR);
 router.use('/api', amministratoriR);
 router.use('/api', autenticazione)
+router.unsubscribe('/api', modificaDati)
 
 module.exports = router;
