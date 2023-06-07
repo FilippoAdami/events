@@ -40,120 +40,6 @@ class Annuncio extends React.Component{
       </div>
     );
   }
-}
-
-function DeleteAnnuncio(id){
-  axios
-    .delete(`http://localhost:5000/api/annunci/${id}`)
-    .then((response) => {
-      console.log(response);
-      window.location.reload();
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
-function AddAnnuncio() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [place, setPlace] = useState("");
-  const [contact, setContact] = useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = {
-      id: 1,
-      id_publisher: 1,
-      title: title,
-      description: description,
-      time: 1,
-      place: place,
-      contact: contact
-    };
-    axios
-      .post("http://localhost:5000/api/annunci", data)
-      .then((response) => {
-        console.log(response);
-        setTitle("");
-        setDescription("");
-        setPlace("");
-        setContact("");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Description:
-          <textarea
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Place:
-          <input
-            type="text"
-            value={place}
-            onChange={(event) => setPlace(event.target.value)}
-          />
-        </label>
-        <label>
-          Contact:
-          <input
-            type="text"
-            value={contact}
-            onChange={(event) => setContact(event.target.value)}
-          />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
-};
-
-function AnnunciList() {
-  const [ads, setAds] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/annunci").then((response) => {
-      setAds(response.data);
-    });
-  }, []);
-
-  return (
-    <div>
-      {ads.map((ad) => (
-        <Annuncio
-          key={ad._id}
-          id={ad._id}
-          id_publisher={ad.id_publisher}
-          title={ad.title}
-          description={ad.description}
-          date={new Date(ad.date)}
-          time={ad.time}
-          place={ad.place}
-          contact={ad.contact}
-        />
-      ))}
-    </div>
-  );
 };
 
 function ModifyAnnuncio({id, title, description, place, time, contact}) {
@@ -176,6 +62,8 @@ function ModifyAnnuncio({id, title, description, place, time, contact}) {
       .patch(`http://localhost:5000/api/annunci/${id}`, data)
       .then((response) => {
         console.log(response);
+      }).then(() => {
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -234,16 +122,123 @@ function ModifyAnnuncio({id, title, description, place, time, contact}) {
           />
         </label>
       </div>
-
+      {DeleteAnnuncio(id)}
       <button type="submit" id="bottom-right" className="editA">Modify Ad</button>
     </form>
   );
 };
 
-function fetchAnnunci() {
-  const response = axios.get('http://localhost:5000/api/annunci');
-  return response.data;
-}
+function DeleteAnnuncio(id){
 
-export {AddAnnuncio, ModifyAnnuncio, AnnunciList, DeleteAnnuncio};
+  const DeleteAnnuncio = (id) => (event) => {
+    event.preventDefault();
+    axios
+      .delete("http://localhost:5000/api/annunci/" + id)
+      .then((response) => {
+        console.log(response);
+      }).then(() => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return(
+      <button className="delete" id="deleteAButton" onClick={DeleteAnnuncio(id)}> Delete </button>
+  );
+};
+
+function AddAnnuncio() {
+  const [title, setTitle] = useState("Nuovo annuncio");
+  const [description, setDescription] = useState("Descrizione del nuovo annuncio");
+  const [place, setPlace] = useState("Trento");
+  const [contact, setContact] = useState("@IG: mario.rossi");
+  const [time, setTime] = useState("0000");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = {
+      title: title,
+      description: description,
+      time: time,
+      place: place,
+      contact: contact
+    };
+    axios
+      .post("http://localhost:5000/api/annunci", data)
+      .then((response) => {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <div className="newInserzione">
+      <form id='formNewA' onSubmit={handleSubmit}>
+        <div className="row">
+          <label>
+            Title:
+            <input
+              type="text"
+              className='newAnnuncio'
+              placeholder={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          </label>
+          <label>
+            Time:
+            <input
+              type="text"
+              className='newAnnuncio'
+              placeholder={time}
+              onChange={(event) => setTime(event.target.value)}
+            />
+          </label>
+        </div>
+        <br />
+
+        <label>
+          Description:
+          <textarea
+            className='newAnnuncio'
+            placeholder={description}
+            onChange={(event) => setDescription(event.target.value)}
+          />
+        </label>
+        <br />
+
+        <div className="row">
+          <label>
+            Place:
+            <input
+              type="text"
+              className='newAnnuncio'
+              placeholder={place}
+              onChange={(event) => setPlace(event.target.value)}
+            />
+          </label>
+          <label>
+            Contact:
+            <input
+              type="text"
+              className='newAnnuncio'
+              placeholder={contact}
+              onChange={(event) => setContact(event.target.value)}
+            />
+          </label>
+        </div>
+        <br />
+
+        <button className='newAButton' type="submit">Publish</button>
+      </form>
+    </div>
+  );
+
+};
+
+export {AddAnnuncio};
 export default Annuncio; 

@@ -19,66 +19,67 @@
     }
 
     .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); // Darker background color
-        backdrop-filter: blur(2px); // Apply blur effect
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1; // Set a higher z-index value to appear on top
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); // Darker background color
+      backdrop-filter: blur(2px); // Apply blur effect
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1; // Set a higher z-index value to appear on top
     }
       
     #editAnnuncio {
-        width: 50vw;
-        height: 60vh;
-        background-color: white;
-        border: 1px solid black;
+      border-radius: 10px;
+      width: 50vw;
+      height: 60vh;
+      background-color: white;
+      border: 1px solid black;
     }
       
 
     .title {
-        grid-column: 1;
-        grid-row: 1;
-        background-color: #f0f0f0;
-        padding: 10px;
-        font-weight: bold;
-        text-align: left;
+      grid-column: 1;
+      grid-row: 1;
+      background-color: #f0f0f0;
+      padding: 10px;
+      font-weight: bold;
+      text-align: left;
     }
     
     .time {
-        grid-column: 2;
-        grid-row: 1;
-        background-color: #f0f0f0;
-        padding: 10px;
-        text-align: right;
+      grid-column: 2;
+      grid-row: 1;
+      background-color: #f0f0f0;
+      padding: 10px;
+      text-align: right;
     }
     
     .description {
-        grid-column: 1 / span 2;
-        grid-row: 2;
-        background-color: #e0e0e0;
-        padding: 10px;
-        text-align: center;
+      grid-column: 1 / span 2;
+      grid-row: 2;
+      background-color: #e0e0e0;
+      padding: 10px;
+      text-align: center;
     }
     
     .place {
-        grid-column: 2;
-        grid-row: 3;
-        background-color: #f0f0f0;
-        padding: 10px;
-        text-align: right;
+      grid-column: 2;
+      grid-row: 3;
+      background-color: #f0f0f0;
+      padding: 10px;
+      text-align: right;
     }
     
     .contact {
-        grid-column: 1;
-        grid-row: 3;
-        background-color: #f0f0f0;
-        padding: 10px;
-        text-align: left;
+      grid-column: 1;
+      grid-row: 3;
+      background-color: #f0f0f0;
+      padding: 10px;
+      text-align: left;
     }
 }
 
@@ -136,6 +137,18 @@
         right: 10px;
         padding: 10px 20px;
         background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    #deleteAButton{
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        padding: 10px 20px;
+        background-color: #f44336;
         color: #fff;
         border: none;
         border-radius: 4px;
