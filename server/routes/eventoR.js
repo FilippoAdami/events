@@ -44,6 +44,11 @@ router.post('/eventi', tokenChecker, async (req, res) => {
       res.status(400).send(errore);
     }else {
       const evento = new Evento(eventoData);
+
+      // salvo l'id dell'evento nella lista eventi pubblicati dell'utenteLoggato
+      //let publicatore = Persona.findById(utenteLoggato.)
+      console.log(utenteLoggato)
+
       await evento.save();
 
       //Aggiorna la lista eventi pubblicati dell'utente pubblicatore
