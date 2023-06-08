@@ -7,7 +7,7 @@ describe("POST /api/persona/:id/prenotazioni", () => {
     test("should add in array prenotazioni the id of the event pass in the request", async() => {
 
         //token valido ed ID dell'utente Test (token settato che non scada mai per scopi di test) 
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
         let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
         let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
@@ -33,7 +33,7 @@ describe("POST /api/persona/:id/prenotazioni", () => {
     test("should return 403 if an attvità account try to booking", async() => {
 
         //token valido ed ID dell'utente attivita (token settato che non scada mai per scopi di test) 
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDgwZWFlOTg3N2ZlMWUzZjE3NTViNjgiLCJlbWFpbCI6ImF0dGl2aXRhQHRlc3QuaXQiLCJwYXNzd29yZCI6IiQyYiQxMCRwRnJsbWhTb1JJYnQzanBjRVlpd3NPMzBOLjBuT2Q0dU55NzJLWk1sUGRWNUYxSXdBZ3VTLiIsInJ1b2xvIjoiYXR0aXZpdGEiLCJub21lQXR0aXZpdGEiOiJBIiwiaW5kaXJpenpvIjoiQSIsInRlbGVmb25vIjoxLCJwYXJ0aXRhSVZBIjoxLCJpYmFuIjoiQSIsImV2ZW50aVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjE3MDM1OH0.LM-bg9M5YCd9YCcErCp8AAUBxmh-K06hMExv-Ry3Ubs"
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
         let id_utente_test = "6480eae9877fe1e3f1755b68"
 
         let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
@@ -51,7 +51,7 @@ describe("POST /api/persona/:id/prenotazioni", () => {
     test("should return 403 if persona id not corrispond to the token", async() => {
 
         //token valido dell'utente Test (token settato che non scada mai per scopi di test) 
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
         let id_utente_test = "6471fccf2ff11c3b27c3e243"     // ID valido di un account diverso da quello di test
 
         let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
@@ -104,7 +104,7 @@ describe("POST /api/persona/:id/prenotazioni", () => {
     test("should return 400 if isn't specify the id event in the request", async() => {
 
         //token valido ed ID dell'utente Test (token settato che non scada mai per scopi di test) 
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
         let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
         
@@ -120,7 +120,7 @@ describe("POST /api/persona/:id/prenotazioni", () => {
     test("should return 404 if the event don't exist", async() => {
 
          //token valido ed ID dell'utente Test (token settato che non scada mai per scopi di test) 
-         let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+         let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
          let id_utente_test = "647ef0def12d8fd18d5b36b2" 
     
         let eventoID_value = "000ef0def12d8fd18d5b36b0"                  // prendo un ID evento non esistente   
@@ -137,7 +137,7 @@ describe("POST /api/persona/:id/prenotazioni", () => {
      test("should return 404 if the utente don't exist", async() => {
 
         //token valido dell'utente Test (token settato che non scada mai per scopi di test) 
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
         let id_utente_test = "000ef0def12d8fd18d5b36b0"             // ID Non valido 
    
         let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
@@ -164,7 +164,7 @@ describe("DELETE /api/persona/:id/prenotazioni/idEvento", () => {
     test("should remove in array prenotazioni the id of the event pass in the request", async() => {
 
         //token valido ed ID dell'utente Test (token settato che non scada mai per scopi di test) 
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
         let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
         let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  

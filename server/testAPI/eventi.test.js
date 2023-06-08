@@ -59,7 +59,7 @@ describe('POST /api/eventi', () => {
         }
 
         //token valido ed ID dell'utente Test (token settato che non scada mai) 
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
         let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
         // Send a POST request to the '/api/eventi' endpoint
@@ -92,7 +92,7 @@ describe('POST /api/eventi', () => {
       }
 
       //token valido ed ID dell'utente Test (token settato che non scada mai) 
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
       let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
       // Send a POST request to the '/api/eventi' endpoint
@@ -127,7 +127,7 @@ describe('POST /api/eventi', () => {
       }
     
        //token valido ed ID dell'utente Test (token settato che non scada mai) 
-       let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+       let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
        let id_utente_test = "647ef0def12d8fd18d5b36b2"
  
        // Send a POST request to the '/api/eventi' endpoint
@@ -154,7 +154,7 @@ describe('POST /api/eventi', () => {
       }
 
       //token valido ed ID dell'utente Test (token settato che non scada mai) 
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
       let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
       // Send a POST request to the '/api/eventi' endpoint
@@ -181,7 +181,7 @@ describe('POST /api/eventi', () => {
       }
     
       //token valido ed ID dell'utente Test (token settato che non scada mai) 
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
       let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
       // Send a POST request to the '/api/eventi' endpoint
@@ -208,7 +208,7 @@ describe('POST /api/eventi', () => {
       }
     
       //token valido ed ID dell'utente Test (token settato che non scada mai) 
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
       let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
       // Send a POST request to the '/api/eventi' endpoint
@@ -235,7 +235,7 @@ describe('POST /api/eventi', () => {
       }
     
       //token valido ed ID dell'utente Test (token settato che non scada mai) 
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
       let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
       // Send a POST request to the '/api/eventi' endpoint
@@ -262,7 +262,7 @@ describe('POST /api/eventi', () => {
       }
     
       //token valido ed ID dell'utente Test (token settato che non scada mai) 
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
       let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
       // Send a POST request to the '/api/eventi' endpoint
@@ -289,7 +289,7 @@ describe('POST /api/eventi', () => {
       }
     
       //token valido ed ID dell'utente Test (token settato che non scada mai) 
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
       let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
       // Send a POST request to the '/api/eventi' endpoint
@@ -379,7 +379,7 @@ describe('POST /api/eventi', () => {
       }
   
       //token valido ed ID dell'utente Test (token settato che non scada mai) 
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
       let id_utente_test = "647ef0def12d8fd18d5b36b2"
 
       // Send a POST request to the '/api/eventi' endpoint
@@ -497,10 +497,11 @@ describe('GET /api/eventi/publisher/:publisher_id', () => {
   test('should return all eventi published by a specific publisher', async () => {
 
     //token valido ed ID dell'utente Test (token settato che non scada mai) 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     let publisherId = "647ef0def12d8fd18d5b36b2"
 
     const response = await request(app).get(`/api/eventi/publisher/${publisherId}`).set(`x-access-token`,token);
+    console.log(response.body)
     expect(response.status).toBe(200);
     response.body.forEach(evento => {
       expect(evento.pubblicatore).toBe(publisherId);
@@ -510,7 +511,7 @@ describe('GET /api/eventi/publisher/:publisher_id', () => {
   },20000);
 
   test('should return 403 if the user that make the request is not the same of publisherId', async () => {
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     let publisherId = "647ef0def12d8fd18d5b36b3" // diverso dall'id dell'utente test: ultima cifra dovrebbe essere un 2 invece è settata a 3
     
     const response = await request(app).get(`/api/eventi/publisher/${publisherId}`).set(`x-access-token`,token);
@@ -535,7 +536,7 @@ describe('GET /api/eventi/publisher/:publisher_id', () => {
       throw new Error('Test error');
     });
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     let publisherId = "647ef0def12d8fd18d5b36b2" 
 
     const response = await request(app).get(`/api/eventi/publisher/${publisherId}`).set(`x-access-token`,token);
@@ -571,7 +572,7 @@ describe('DELETE /api/eventi/:id', () => {
       categoria:"sport",
   }
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const evento = await request(app).post('/api/eventi').set(`x-access-token`,token).send(eventoTest)
 
     const response = await request(app).delete(`/api/eventi/${evento.body._id}`).set(`x-access-token`,token);
@@ -603,7 +604,7 @@ describe('DELETE /api/eventi/:id', () => {
     })
     await eventoTest.save();
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
    
     const response = await request(app).delete(`/api/eventi/${eventoTest._id}`).set(`x-access-token`,token);
     expect(response.status).toBe(403);
@@ -615,7 +616,7 @@ describe('DELETE /api/eventi/:id', () => {
 
   test('should return 404 if the evento deas not exist', async () => {
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
 
     const response = await request(app).delete(`/api/eventi/645cf5721dd165875a1417f0`).set(`x-access-token`,token);
     expect(response.status).toBe(404);
@@ -647,7 +648,7 @@ describe('DELETE /api/eventi/:id', () => {
     })
     await eventoTest.save();
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
 
     const response = await request(app).delete(`/api/eventi/${eventoTest._id}`).set(`x-access-token`,token);
     
@@ -692,7 +693,7 @@ describe('PATCH /eventi/:id', () => {
     })
     await eventoTest.save();
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
 
     const response = await request(app).patch(`/api/eventi/${eventoTest._id}`).set(`x-access-token`,token).send({ titolo: 'Updated title'});
 
@@ -743,7 +744,7 @@ describe('PATCH /eventi/:id', () => {
     })
     await eventoTest.save();
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).patch(`/api/eventi/${eventoTest._id}`).set(`x-access-token`,token).send({ titolo: 'Updated title'});
     
     await eventoTest.deleteOne(); // cancella l'evento di test
@@ -782,7 +783,7 @@ describe('PATCH /eventi/:id', () => {
     });
 
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).patch(`/api/eventi/${eventoTest._id}`).set(`x-access-token`,token).send({ titolo: 'Updated title'});
     
     await eventoTest.deleteOne(); // cancella l'evento di test
@@ -895,7 +896,7 @@ describe('GET/eventi/:id/utentiPrenotati', () => {
     })
     await eventoTest.save();
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`).set(`x-access-token`,token);
    
     expect(response.status).toBe(200);
@@ -926,7 +927,7 @@ describe('GET/eventi/:id/utentiPrenotati', () => {
     })
     await eventoTest.save();
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`).set(`x-access-token`,token);
 
     expect(response.status).toBe(403);
@@ -957,7 +958,7 @@ describe('GET/eventi/:id/utentiPrenotati', () => {
     })
     await eventoTest.save();
 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`).set(`x-access-token`,token);
    
     expect(response.status).toBe(404);
@@ -994,7 +995,7 @@ describe('GET/eventi/:id/utentiPrenotati', () => {
     await eventoTest.save();
 
     const eventoId = '6469d40788175e21c5bf230d'; 
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).get(`/api/eventi/${eventoTest._id}/utentiPrenotati`).set(`x-access-token`,token);
 
     expect(response.status).toBe(500);
@@ -1019,7 +1020,7 @@ describe('GET /eventi/utente/:utente_id', () => {
     const utenteId = '647ef0def12d8fd18d5b36b2'; // utente ID of out utente Test
 
     //Request
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).get('/api/eventi/utente/'+utenteId+'').set(`x-access-token`,token);
 
     console.log(response.body)
@@ -1038,7 +1039,7 @@ describe('GET /eventi/utente/:utente_id', () => {
     const utenteId = '64727ffe18301cb1f9737062'; // utente ID different from the Id of the account
 
     // Request
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).get('/api/eventi/utente/'+utenteId+'').set(`x-access-token`,token);
 
     expect(response.status).toBe(403);
@@ -1050,7 +1051,7 @@ describe('GET /eventi/utente/:utente_id', () => {
     const utenteId = '647237535592096d9ae27a3b'; // non-existent utente ID
 
     // Request
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
     const response = await request(app).get('/api/eventi/utente/'+utenteId+'').set(`x-access-token`,token);
 
     expect(response.status).toBe(404);
@@ -1067,7 +1068,7 @@ describe('GET /eventi/utente/:utente_id', () => {
    const utenteId = '647ef0def12d8fd18d5b36b2'; // utente ID of out utente Test
 
    //Request
-   let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2VmMGRlZjEyZDhmZDE4ZDViMzZiMiIsImVtYWlsIjoidXRlbnRlVGVzdEB0ZXN0Lml0IiwiaWF0IjoxNjg2MDQwODA4fQ.K2nZmHyw7W68KbH37xQmKXeQDEQdEMWl5sj_mEUsuyA"
+   let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
    const response = await request(app).get('/api/eventi/utente/'+utenteId+'').set(`x-access-token`,token);
 
 

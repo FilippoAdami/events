@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import Axios from 'axios';
+import Cookies from 'js-cookie'; 
 import { Link } from "react-router-dom";
 import NewInserzione from './newInserzione';
 
@@ -29,10 +31,20 @@ function Menu({menu}) {
     setTypeI(type);
   };
 
+  //function Log-Out
+  const logout = () => {
+    const token = Cookies.get('token');
+    Axios.get("http://localhost:5000/api/logout", {
+      headers: {
+        "x-access-token": token
+      }
+  })
+  }
+
   if (menu === 'profileMenu') {
     return (
       <div className="menu-profile">
-        <div className="rectangle"></div>
+        <div className="rectangle" onClick={logout}> LOG OUT </div>
         <div className="rectangle"></div>
       </div>
     );

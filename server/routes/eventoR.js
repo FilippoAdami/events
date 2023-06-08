@@ -9,7 +9,7 @@ router.post('/eventi', tokenChecker, async (req, res) => {
   try {
     const eventoData = req.body;
     const utenteLoggato = req.utenteLoggato;
-    eventoData.pubblicatore = utenteLoggato.id;
+    eventoData.pubblicatore = utenteLoggato._id;
 
     eventoData.postiLiberi = eventoData.posti;
     eventoData.segnalato=false;
@@ -51,7 +51,7 @@ router.post('/eventi', tokenChecker, async (req, res) => {
       await evento.save();
 
       //Aggiorna la lista eventi pubblicati dell'utente pubblicatore
-      await Persona.findByIdAndUpdate(utenteLoggato.id,{$push: {eventiPubblicati : evento._id}});
+      await Persona.findByIdAndUpdate(utenteLoggato._id,{$push: {eventiPubblicati : evento._id}});
       
       res.status(201).send(evento);
     }
@@ -75,7 +75,7 @@ router.get('/eventi/:id', async (req, res) => {
     try {
     const evento = await Evento.findById(req.params.id);
     if (!evento) {
-        return res.status(404).send('Evento not found');
+        return res.status(404).send({errormessag : 'Evento not found'});
     }
     res.json(evento);
     } catch (error) {
@@ -106,9 +106,10 @@ router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => 
 
       const publisherId = req.params.publisher_id;
       const utenteLoggato = req.utenteLoggato;
+      console.log(utenteLoggato)
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (publisherId !== utenteLoggato.id) {
+      if (publisherId !== utenteLoggato._id) {
         //console.log(utenteLoggato.id + ' ' + publisherId  );
         return res.status(403).send('Unauthorized access' ); 
       }
@@ -129,13 +130,13 @@ router.delete('/eventi/:id',getEvento, tokenChecker, async (req, res) => {
       const evento = res.evento;
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.pubblicatore !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato._id) {
         return res.status(403).send('Unauthorized access');
       }
 
       await evento.deleteOne();
       //Aggiorna la lista eventi pubblicati dell'utente pubblicatore
-      await Persona.findByIdAndUpdate(utenteLoggato.id,{$pull: {eventiPubblicati : evento._id}});
+      await Persona.findByIdAndUpdate(utenteLoggato._id,{$pull: {eventiPubblicati : evento._id}});
 
       res.send('Evento deleted successfully');
     } catch (error) {
@@ -152,7 +153,7 @@ router.patch('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
       const evento = res.evento;
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.pubblicatore !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato._id) {
         return res.status(403).send('Unauthorized access');
       }
 
@@ -196,7 +197,7 @@ router.get('/eventi/:id/utentiPrenotati',getEvento , tokenChecker, async (req, r
       //console.log(evento);
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.pubblicatore !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato._id) {
         return res.status(403).send('Unauthorized access');
       }
 
@@ -234,7 +235,7 @@ router.get('/eventi/utente/:utente_id', tokenChecker, async (req, res) => {
       return res.status(404).send('Utente not found');
     }
     // Check if the utente_id matches the ID of the logged-in user
-    if (utenteId !== utenteLoggato.id) {
+    if (utenteId !== utenteLoggato._id) {
       return res.status(403).send('Unauthorized access');
     }
 

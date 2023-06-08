@@ -154,7 +154,7 @@ router.post('/persona/:id/prenotazioni', getPersona, tokenChecker, async(req,res
     return res.status(403).send({message: "Le attivita non possono prenotarsi"}); 
   }
 
-  if (persona.id !== utenteLoggato.id) {
+  if (persona.id !== utenteLoggato._id) {
     return res.status(403).send({message: "Unauthorized access"});
   }
 

@@ -45,7 +45,11 @@ function Profile() {
       }
       //fetch the pubblicazioni and the iscrizioni from the database
       try{
-        /* await axios.get(`http://localhost:5000/api/annunci/publisher/${id}`)
+        await axios.get(`http://localhost:5000/api/annunci/publisher/${id}`, {
+          headers: {
+            "x-access-token": token
+          }
+        })
         .then((response) => {
           const fetchedAnnunci = response.data.map((annuncio) => (
             <Annuncio
@@ -63,9 +67,8 @@ function Profile() {
           )); // Fetch the annunci pubblicati if the user is logged in
           holder = fetchedAnnunci;
           //console.log('Annunci pubblicati fetched in Profile: \n'+ JSON.stringify(fetchedAnnunci[0]));
-        }); */
+        }); 
 
-        console.log(id)
         await axios.get(`http://localhost:5000/api/eventi/publisher/${id}`, {
           headers: {
             "x-access-token": token
@@ -97,8 +100,13 @@ function Profile() {
           setPubblicazioni(fetchedEventi.concat(holder));
           //console.log('Eventi pubblicati fetched in Profile: \n'+ JSON.stringify(fetchedEventi[0]));
         });
+
         if (ruolo === 'persona') {
-        await axios.get(`http://localhost:5000/api/eventi/utente/${id}`)
+        await axios.get(`http://localhost:5000/api/eventi/utente/${id}`, {
+          headers: {
+            "x-access-token": token
+          }
+        })
         .then((response) => {
           const fetchedEventiI = response.data.map((evento) => (
             <Evento

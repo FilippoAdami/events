@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
     
     try {
         if( await bcrypt.compare(req.body.password, utente.password)){
-            var options = { expiresIn: "30s" }                                                     
+            var options = { expiresIn: "300s" }                                                     
             var token = jwt.sign(utente, process.env.SECRET_TOKEN, options);
             return res.status(200).json({ auth: true, message: "login effettuato", token: token, utente}) 
           } else {
@@ -42,7 +42,12 @@ router.post('/login', async (req, res) => {
 
 //verifica autenticazione
 router.get('/verifica', tokenChecker, async (req, res) => {
-    res.status(200).json({message: "sei autenticato, il token è valido"})
+    try{
+        res.status(200).json({message: "sei autenticato, il token è valido"})
+    }catch(err){
+        res.status(500).json({ message: err.message }) 
+    }
+    
 })
 
 
