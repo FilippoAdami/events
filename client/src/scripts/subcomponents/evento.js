@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 class Evento extends React.Component {
   constructor(props) {
@@ -55,6 +56,36 @@ class Evento extends React.Component {
     }));
   };
 
+  handleBottonePrenotazione = async() =>{
+    const tokenBottone = Cookies.get('token');
+    const idpersonaBotone = Cookies.get('id');
+
+    const richiesta = await axios.post(`http://localhost:5000/api/persona/${idpersonaBotone}/prenotazioni`,{
+      "eventoID" : this.state.id
+    },{
+      headers: {
+        "x-access-token": tokenBottone
+      }
+    })
+    
+
+
+    
+  }
+
+  handleBottoneCancellaPrenotazione = async() =>{
+    const tokenBottone = Cookies.get('token');
+    const idpersonaBotone = Cookies.get('id');
+    axios.delete(`http://localhost:5000/api/persona/${idpersonaBotone}/prenotazioni/${this.state.id}`,{
+        headers: {
+          "x-access-token": tokenBottone
+        }
+      })
+      console.log("cancella prenotazione")
+
+  }
+
+
   render() {
     const { titolo, data, ora, indirizzo, descrizione, immagini, costo, postiLiberi } = this.state;
     const currentImage = immagini[this.state.currentImageIndex];
@@ -81,6 +112,13 @@ class Evento extends React.Component {
             <div className='address'>{indirizzo}</div>
           </div>
           <div className='block2'>
+            {this.state.mode === "iscrizione" && (
+              <button className='prenotazione' onClick={this.handleBottoneCancellaPrenotazione} >Canc Iscrizione</button>
+            )}
+
+            {this.state.mode === undefined && (
+               <button className='prenotazione' onClick={this.handleBottonePrenotazione}>Prenota</button>
+            )}
             <div className='price'>{costo}€</div>
             <div className='available'>post rimanenti: {postiLiberi}</div>
           </div>
@@ -387,6 +425,7 @@ function PostEvento() {
 
   );
 }
+
 
 export {PostEvento}
 export default Evento;

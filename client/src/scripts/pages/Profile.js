@@ -127,6 +127,7 @@ function Profile() {
               utentiPrenotati = {evento.utentiPrenotati}
               segnalato = {evento.segnalato}
               segnalazioni = {evento.segnalazioni}
+              mode='iscrizione'
             />
           ));
           setIscrizioni(fetchedEventiI);
