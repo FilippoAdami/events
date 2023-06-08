@@ -24,15 +24,9 @@ class Banner extends React.Component {
         className="inserzione"
         type="banners"
         key={this.state.id}
+        href={this.state.link}
       >
-        <div>{this.state.title} (ID: {this.state.id})</div>
-        <div>{this.state.descrizione}</div>
-        <div>{this.state.image}</div>
-        <div>{this.state.budget}</div>
-        <div>{this.state.link}</div>
-        <div>{this.state.clicks}</div>
-        <div>{this.state.views}</div>
-        <div>{this.state.show}</div>
+        <img src={this.state.image} alt='no ad'/>
       </div>
     );
   }

@@ -1,0 +1,76 @@
+#evento {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    padding: 1rem;
+    box-sizing: border-box;
+    position: relative;
+  
+    .immagini {
+      height: 60%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #555;
+      }
+  
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .block{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 40%;
+        width: 100%;
+    }
+  
+    .block1 {
+        font-size: 0.9rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 55%;
+        align-self: flex-end;
+    }
+    
+    .titolo {
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding-bottom: 5px;
+      }
+  
+    .block2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 43%;
+        align-self: flex-end;
+    }
+}
+
+#editEvento {
+  border-radius: 10px;
+  width: 50vw;
+  height: 60vh;
+  background-color: white;
+  border: 1px solid black;
+}
+
+#immagini{ 
+  margin-bottom: 10px;
+}
+  

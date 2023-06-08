@@ -9,6 +9,7 @@ const Attivita = require('../models/attivitaM')
 const tokenChecker = require('../controllers/tokenChecker');
 
 
+
 //api login
 router.post('/login', async (req, res) => {
     const persona = await Persona.findOne({ email: req.body.email, ruolo: "persona" })
@@ -64,6 +65,7 @@ router.delete('/elimina', tokenChecker, async (req, res) => {
         res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
+
 
 
 
