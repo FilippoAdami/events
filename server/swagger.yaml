@@ -339,8 +339,7 @@ paths:
       tags: 
       - Persona
       summary: Saving a new prenotazione
-      description:  This endpoint updates the list of prenotazioni of the utente adding the id of the event booked; 
-      and update the list of utentiPrenotati of the event adding the id of utente 
+      description:  This endpoint updates the list of prenotazioni of the utente adding the id of the event booked; and update the list of utentiPrenotati of the event adding the id of utente 
       requestBody:
         required: true
         content:
@@ -367,8 +366,7 @@ paths:
       tags: 
       - Persona
       summary: Remove a prenotazione
-      description: This endpoint updates the list of prenotazioni of the utente removing the id of the event booked; 
-      and update the list of utentiPrenotati of the event removing the id of utente
+      description: This endpoint updates the list of prenotazioni of the utente removing the id of the event booked; and update the list of utentiPrenotati of the event removing the id of utente
       responses:
         '200':
           description: Success

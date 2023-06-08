@@ -1,7 +1,6 @@
 const request = require('supertest');
 const app = require('../server');
-const Evento = require('../models/eventoM');
-const Persona = require('../models/personaM')
+
 
 describe("POST /api/persona/:id/prenotazioni", () => {
 
@@ -19,7 +18,7 @@ describe("POST /api/persona/:id/prenotazioni", () => {
         let utente = await request(app).get(`/api/persona/647ef0def12d8fd18d5b36b2`)    // prendo l'utente appena modificato per fare le varie verifiche
         let eventoAgg = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente 
 
-        console.log(response.body.message)
+        console.log(response.body)
 
         expect(response.status).toBe(201)
         expect(utente.body.prenotazioni).toContain(eventoID_value)
