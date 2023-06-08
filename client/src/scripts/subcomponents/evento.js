@@ -68,9 +68,6 @@ class Evento extends React.Component {
       }
     })
     
-
-
-    
   }
 
   handleBottoneCancellaPrenotazione = async() =>{
@@ -82,6 +79,7 @@ class Evento extends React.Component {
         }
       })
       console.log("cancella prenotazione")
+      window.location.href ='/profile'
 
   }
 

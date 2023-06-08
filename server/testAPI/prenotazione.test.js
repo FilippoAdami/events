@@ -39,13 +39,36 @@ describe("POST /api/persona/:id/prenotazioni", () => {
         let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
         let eventoID_value = evento.body._id                                            // ne ricavo l'ID 
 
+        await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
+        const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
+        
+        expect(response.status).toBe(403)
+        expect(response.body.message).toBe('Le attivita non possono prenotarsi')
+
+        await request(app).delete(`/api/persona/${id_utente_test}/prenotazioni/${eventoID_value}`).set(`x-access-token`,token)
+        
+    })
+
+
+    // Test prenotazione ad un evento gia prenotato
+    test("should return 403 if the utente is already booked for that event", async() => {
+
+        //token valido ed ID dell'utente attivita (token settato che non scada mai per scopi di test) 
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdlZjBkZWYxMmQ4ZmQxOGQ1YjM2YjIiLCJlbWFpbCI6InV0ZW50ZVRlc3RAdGVzdC5pdCIsInBhc3N3b3JkIjoiJDJiJDEwJGpTWENDRHI0SWxQQkRsZ3BTRWFYQU9MY05YejNiTzB0Rk5FeVJ0QnRrbHEwazBBeS5icHdTIiwicnVvbG8iOiJwZXJzb25hIiwibm9tZSI6InRlc3QiLCJjb2dub21lIjoidGVzdCIsInRlbGVmb25vIjowLCJkYXRhTmFzY2l0YSI6IjE5OTktMTItMzFUMjM6MDA6MDAuMDAwWiIsImV2ZW50aVB1YmJsaWNhdGkiOlsiNjQ4MGFhZTMwMDlmZmNlODAzNDhmMWFiIl0sInByZW5vdGF6aW9uaSI6WyI2NDY5ZGM2NTgwNTU4MTgxY2Q4OTY4ZmIiXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjIzNTUwM30.RPUoc26pvh2UVwqtNPBDonMYLFM40UXSmMu0FzCnxbg'
+        let id_utente_test = "647ef0def12d8fd18d5b36b2"
+
+        let evento = await request(app).get(`/api/eventi/6469e719edbf5af71c5bf5fa`)     // prendo un evento esistente ( festa Mesiano )  
+        let eventoID_value = evento.body._id                                            // ne ricavo l'ID 
+
+        //await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
         const response = await request(app).post(`/api/persona/${id_utente_test}/prenotazioni`).set(`x-access-token`,token).send({eventoID : eventoID_value});
         
        
         expect(response.status).toBe(403)
-        expect(response.body.message).toBe('Le attivita non possono prenotarsi')
+        expect(response.body.message).toBe('Gia prenotato a questo evneto')
         
     })
+
 
     // Test prenotazione per la persona id mediante un token non corrispondente
     test("should return 403 if persona id not corrispond to the token", async() => {

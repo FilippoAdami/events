@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken')
 const Persona = require('../models/personaM')
 const Evento = require('../models/eventoM')
 
-const tokenChecker = require('../controllers/tokenChecker')
+const tokenChecker = require('../controllers/tokenChecker');
+const { Int32 } = require('mongodb');
 
 
 //api registrazione
@@ -169,6 +170,21 @@ router.post('/persona/:id/prenotazioni', getPersona, tokenChecker, async(req,res
   }
 
   try{
+
+    let utente = await Persona.findById(persona._id)
+    let prenotazioni = []
+    let eventoIdStringa = evento._id.toString()
+
+    utente.prenotazioni.forEach(element => {
+      prenotazioni.push(element.toString())
+    });
+
+    console.log(eventoIdStringa)
+    console.log(prenotazioni)
+
+    if(prenotazioni.includes(eventoIdStringa)){
+      return res.status(403).send({message: "Gia prenotato a questo evneto"})
+    }
 
     await Persona.findByIdAndUpdate(persona._id,{$push: {prenotazioni : evento._id}});
     await Evento.findByIdAndUpdate(evento._id,{$push: {utentiPrenotati : persona._id}});
