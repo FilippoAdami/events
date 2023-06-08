@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
 
 
 //verifica autenticazione
-router.get('/verifica', tokenChecker, (req, res) => {
+router.get('/verifica', tokenChecker, async (req, res) => {
     res.status(200).json({message: "sei autenticato, il token è valido"})
 })
 

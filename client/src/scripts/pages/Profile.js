@@ -11,11 +11,14 @@ import Annuncio from '../subcomponents/annuncio.js';
 
 const isLoggedIn = async (token) => {
   if (token) {
-    return await axios.get('http://localhost:5000/api/check-login', {
+    //console.log(token)
+    var richiesta = await axios.get('http://localhost:5000/api/verifica', {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        "x-access-token": token,
+      }
     });
+    console.log(richiesta)
+    return richiesta
   } else {
     return Promise.reject(new Error('User is not logged in')); // Return a rejected promise if the user is not logged in
   }
@@ -42,7 +45,7 @@ function Profile() {
       }
       //fetch the pubblicazioni and the iscrizioni from the database
       try{
-        await axios.get(`http://localhost:5000/api/annunci/publisher/${id}`)
+        /* await axios.get(`http://localhost:5000/api/annunci/publisher/${id}`)
         .then((response) => {
           const fetchedAnnunci = response.data.map((annuncio) => (
             <Annuncio
@@ -60,9 +63,14 @@ function Profile() {
           )); // Fetch the annunci pubblicati if the user is logged in
           holder = fetchedAnnunci;
           //console.log('Annunci pubblicati fetched in Profile: \n'+ JSON.stringify(fetchedAnnunci[0]));
-        });
+        }); */
 
-        await axios.get(`http://localhost:5000/api/eventi/publisher/${id}`)
+        console.log(id)
+        await axios.get(`http://localhost:5000/api/eventi/publisher/${id}`, {
+          headers: {
+            "x-access-token": token
+          }
+        })
         .then((response) => {
           const fetchedEventi = response.data.map((evento) => (
             <Evento

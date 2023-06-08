@@ -10,11 +10,14 @@ import Annuncio from '../subcomponents/annuncio.js';
 
 const isLoggedIn = async (token) => {
   if (token) {
-    return await axios.get('http://localhost:5000/api/check-login', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      console.log(token)
+      var richiesta = await axios.get('http://localhost:5000/api/verifica', {
+        headers: {
+          "x-access-token": token,
+        }
+      });
+      console.log(richiesta.request)
+      return richiesta
   } else {
     return Promise.reject(new Error('User is not logged in')); // Return a rejected promise if the user is not logged in
   }
