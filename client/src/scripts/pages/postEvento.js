@@ -28,7 +28,6 @@ function PostEvento() {
   const [postiLiberi, setpostiLiberi] = useState(0);
   const [visibilita, setVisibilita] = useState(true);
   const [categoria, setCategoria] = useState('socila life');
-  const [pubblicatore, setPubblicatore] = useState('');
   const [segnalato, setSegnalato] =useState(false);
 
   
@@ -37,26 +36,16 @@ function PostEvento() {
     const response = await fetch('http://localhost:5000/api/eventi', {
       method: 'POST',
       headers: {
+        "x-access-token": localStorage.getItem("token"),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        titolo, data, ora, indirizzo, descrizione, immagini, costo, posti, postiLiberi, visibilita, categoria, pubblicatore, segnalato
+        titolo, data, ora, indirizzo, descrizione, immagini, costo, posti, postiLiberi, visibilita, categoria, segnalato
       })
     })
 
     const dat = await response.json()
     console.log(dat)
-  }
-
-
-
-  function prova(event){
-    console.log("ciao")
-    var prova = JSON.stringify({
-      titolo, data, ora, indirizzo, descrizione, costo, posti, postiLiberi, visibilita, categoria, pubblicatore, segnalato   
-    })
-    console.log(prova);
-    
   }
 
 
@@ -126,9 +115,6 @@ function PostEvento() {
             <label>altro</label>
             <input type="radio" name="Radio" value={'altro'} onChange={ (e) => setCategoria(e.target.value)} />
           </div>
-            
-          <label>Pubblicatore</label>
-          <input type = "number" onChange={ (e) => setPubblicatore(e.target.value)} />
 
           <button type="submit"> post </button>
 

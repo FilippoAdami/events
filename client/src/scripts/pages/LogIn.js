@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Axios from 'axios';
 import Cookies from 'js-cookie'; 
 
 
@@ -6,44 +7,90 @@ function LogIn() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [statoLogin, setStatoLogin] = useState(false)
 
-  async function login(event){
+  const login = (event) => {
     event.preventDefault()
-    const response = await fetch('http://localhost:5000/api/login', {
-      method: 'POST',
+    Axios.post("http://localhost:5000/api/login", {
+      email, password,
+    }).then((response) => {
+      if(!response.data.auth) {
+        //alert("errore login")
+        console.log("login fallito")
+      } else {
+        localStorage.setItem("token", response.data.token)
+        setStatoLogin(true)
+        //alert("login effettuato")
+        console.log("login corretto")
+        
+        Cookies.set('token', response.data.token, {
+          expires: 1, // Set the expiration of the cookie to 7 days
+          path: '/', // Cookie accessible from all paths on the domain
+        });
+        Cookies.set('email', response.data.utente.email, {
+          expires: 1,
+          path: '/',
+        });
+        Cookies.set('ruolo', response.data.utente.ruolo, {
+          expires: 1,
+          path: '/',
+        });
+        Cookies.set('id', response.data.utente._id, {
+          expires: 1,
+          path: '/',
+        });
+        
+        console.log('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
+        
+      }
+    })
+  }
+
+  const verifica = () => {
+    Axios.get("http://localhost:5000/api/verifica", {
       headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email, password, 
-      })
+        "x-access-token": localStorage.getItem("token"),
+      }
+    }).then((response) =>{    
+      console.log(response)
+    })
+  }
+
+  const logout = () => {
+    Axios.get("http://localhost:5000/api/logout", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      }
+    }).then((response) =>{
+      localStorage.removeItem("token")
+      setStatoLogin(false)
+      console.log(response)
+
+      Cookies.remove('token')
+      Cookies.remove('email');
+      Cookies.remove('ruolo');
+      Cookies.remove('id');
+
+    })
+  }
+
+  const elimina = () => {
+    Axios.delete("http://localhost:5000/api/elimina", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      }
+    }).then((response) =>{
+      setStatoLogin(false) 
+      console.log(response)
+
+      
+      Cookies.remove('token')
+      Cookies.remove('email');
+      Cookies.remove('ruolo');
+      Cookies.remove('id');
+
     })
 
-    const data = await response.json()
-  
-    if(data.utente){
-      console.log('login effettuato');
-      Cookies.set('token', data.token, {
-        expires: 1, // Set the expiration of the cookie to 7 days
-        path: '/', // Cookie accessible from all paths on the domain
-      });
-      Cookies.set('email', data.email, {
-        expires: 1,
-        path: '/',
-      });
-      Cookies.set('ruolo', data.ruolo, {
-        expires: 1,
-        path: '/',
-      });
-      Cookies.set('id', data.id, {
-        expires: 1,
-        path: '/',
-      });
-      window.location.href = '/'
-      console.log('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
-    } else {
-      console.log('errore login')
-    }
   }
 
   return (
@@ -65,7 +112,15 @@ function LogIn() {
         />
         <br />
         <input type = "submit" value = "login" />
+        
+        
       </form>
+      <br />
+      <input type = "submit" onClick={verifica} value = "verifica" />
+      <br />
+      {statoLogin && <input type = "submit" onClick={elimina} value = "elimina account" />}
+      <br />
+      {statoLogin && <input type = "submit" onClick={logout} value = "logout" />}
     </div>
   );
 }

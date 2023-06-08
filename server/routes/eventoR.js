@@ -43,7 +43,16 @@ router.post('/eventi', tokenChecker, async (req, res) => {
       res.status(400).send(errore);
     }else {
       const evento = new Evento(eventoData);
+
+      // salvo l'id dell'evento nella lista eventi pubblicati dell'utenteLoggato
+      //let publicatore = Persona.findById(utenteLoggato.)
+      console.log(utenteLoggato)
+
       await evento.save();
+
+      //Aggiorna la lista eventi pubblicati dell'utente pubblicatore
+      await Persona.findByIdAndUpdate(utenteLoggato.id,{$push: {eventiPubblicati : evento._id}});
+      
       res.status(201).send(evento);
     }
   } catch (error) {
@@ -124,7 +133,9 @@ router.delete('/eventi/:id',getEvento, tokenChecker, async (req, res) => {
         return res.status(403).send('Unauthorized access');
       }
 
-      evento.deleteOne();
+      await evento.deleteOne();
+      //Aggiorna la lista eventi pubblicati dell'utente pubblicatore
+      await Persona.findByIdAndUpdate(utenteLoggato.id,{$pull: {eventiPubblicati : evento._id}});
 
       res.send('Evento deleted successfully');
     } catch (error) {
