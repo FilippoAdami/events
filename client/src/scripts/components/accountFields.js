@@ -7,6 +7,7 @@ function AccountFields()
         // informazioni comuni 
 
         const [_id,setId] = useState("");
+        const [ruolo,setRuolo] = useState("");
         const [email,setEmail] = useState("");
         const [password,setPassword] = useState("");
         const [telefono,setTelefono] = useState("");
@@ -67,7 +68,7 @@ function AccountFields()
                 const componentsToRender = [];
 
 
-                const id = "6471fccf2ff11c3b27c3e243";
+                const id = "6471d93e99059a0dd6057e97";
                 fetch(`http://localhost:3000/api/persona/${id}`)
                 .then((response)=>{
                     const data = response.json();
@@ -77,11 +78,12 @@ function AccountFields()
                 .then((data)=>{
                 //console.log(Object.keys(data));
                 setId(data._id);
+                setRuolo(data.ruolo)
                 setTelefono(data.telefono);
                 setPassword(data.password);
                 setEmail(data.email);
 
-                if(data.ruolo == "attivita")
+                if(ruolo == "attivita")
                 {   
                     setNomeAttivita(data.nomeAttivita);
                     setIndirizzo(data.indirizzo);
@@ -106,8 +108,8 @@ function AccountFields()
                     
                 }
 
-                console.log("uscit");
-                console.log(componentsToRender);
+                //console.log("uscit");
+                //console.log(componentsToRender);
                
                 })
 
@@ -121,7 +123,8 @@ function AccountFields()
     }
 )
     
-
+    if(ruolo == "persona")
+    {
     return(
         <div style={{textAlign: "center"}}>
             <p>
@@ -136,32 +139,56 @@ function AccountFields()
 
                 <label>
                     NOME
-                    <input type="text" name="nome" defaultValue={nome}/>
+                    <input 
+                    type="text" 
+                    name="nome"  
+                    placeholder ={nome} 
+                    onChange = {(e) => setNome(e.target.value)}/>
                 </label><br/>
 
                 <label>
                     COGNOME
-                    <input type="text" name="cognome" defaultValue={cognome}/>
+                    <input 
+                    type="text" 
+                    name="cognome" 
+                    placeholder={cognome} 
+                    onChange = {(e) => setCognome(e.target.value)}/>
                 </label><br/>
 
                 <label>
                     EMAIL
-                    <input  type="text" name="email" defaultValue={email}/>
+                    <input  
+                    type="text" 
+                    name="email" 
+                    placeholder = {email}
+                    onChange = {(e) => setEmail(e.target.value)}/>
                 </label><br/>
 
                 <label>
                     TELEFONO
-                    <input  type="text"  name="telefono" defaultValue={telefono}/>
+                    <input  
+                    type="text"  
+                    name="telefono" 
+                    placeholder={telefono}
+                    onChange = {(e) => setTelefono(e.target.value)}/>
                 </label><br/>
 
                 <label>
                     PASSWORD
-                    <input  type="text"  name="password" defaultValue={password}/>
+                    <input  
+                    type="text" 
+                    name="password" 
+                    placeholder={password}
+                    onChange = {(e) => setPassword(e.target.value)}/>
                 </label><br/>
 
                 <label>
                     DATA DI NASCITA
-                    <input  type="text" name="dataNascita" defaultValue={dataNascita}/>
+                    <input 
+                    type="text" 
+                    name="dataNascita" 
+                    placeholder={dataNascita}
+                    onChange = {(e) => setDataNascita(e.target.value)}/>
                 </label><br/>
 
                 <button type="submit">SAVE</button>
@@ -169,6 +196,75 @@ function AccountFields()
 
            </div>
     )
+    }
+    else if(ruolo == "attivita")
+    {
+        return(
+            <div style={{textAlign :"center"}}>
+            <h1>ATTIVITA</h1>
+
+            <form method="post" onSubmit={handleSubmit}>
+
+                <label>
+                    NOME ATTIVITA'
+                    <input 
+                    type="text" 
+                    name="nomeAttivita"  
+                    placeholder ={nomeAttivita} 
+                    onChange = {(e) => setNomeAttivita(e.target.value)}/>
+                </label><br/>
+
+                <label>
+                    INDIRIZZO
+                    <input 
+                    type="text" 
+                    name="indirizzo" 
+                    placeholder={indirizzo} 
+                    onChange = {(e) => setIndirizzo(e.target.value)}/>
+                </label><br/>
+
+                <label>
+                    EMAIL
+                    <input  
+                    type="text" 
+                    name="email" 
+                    placeholder = {email}
+                    onChange = {(e) => setEmail(e.target.value)}/>
+                </label><br/>
+
+                <label>
+                    TELEFONO
+                    <input  
+                    type="text"  
+                    name="telefono" 
+                    placeholder={telefono}
+                    onChange = {(e) => setTelefono(e.target.value)}/>
+                </label><br/>
+
+                <label>
+                    PASSWORD
+                    <input  
+                    type="text" 
+                    name="password" 
+                    placeholder={password}
+                    onChange = {(e) => setPassword(e.target.value)}/>
+                </label><br/>
+
+                <label>
+                    IBAN
+                    <input 
+                    type="text" 
+                    name="iban" 
+                    placeholder={iban}
+                    onChange = {(e) => setIban(e.target.value)}/>
+                </label><br/>
+
+                <button type="submit">SAVE</button>
+            </form>
+
+           </div>
+        )
+    }
 }
 
 
