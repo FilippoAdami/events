@@ -768,7 +768,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Annuncio'
         '400':
-          description: Bad request
+          description: Bad Request
+        '403':
+          description: Unauthorized access
     get:
       tags:
       - Annunci

@@ -303,7 +303,7 @@ describe('POST /api/eventi', () => {
 
 
     // Testing Tocken Cheker part
-    test('should return 400 if in the request is not define token ', async () => {
+    test('should return 403 if in the request is not define token ', async () => {
         
       let eventoTest ={
         titolo: "Test",
@@ -321,7 +321,7 @@ describe('POST /api/eventi', () => {
       const response = await request(app).post('/api/eventi').send(eventoTest);
  
   
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(403);
       expect(response.body.errormessage).toBe('Token assente');
 
     });
