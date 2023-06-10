@@ -41,7 +41,7 @@ function LogIn() {
         });
         
         console.log('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
-        
+        window.location.href = '/'
       }
     })
   }

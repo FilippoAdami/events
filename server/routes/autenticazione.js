@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
         
     try {
         if( await bcrypt.compare(req.body.password, utente.password)){
-            var options = { expiresIn: "30s" }                                                     
+            var options = { expiresIn: "30m" }                                                     
             var token = jwt.sign(utente, process.env.SECRET_TOKEN);
             return res.status(200).json({ auth: true, message: "login effettuato", token: token, utente}) 
           } else {

@@ -19,10 +19,9 @@ router.patch('/modifica/email/persona', tokenChecker, async (req, res) => {
     req.utenteLoggato.email = req.body.email
   }
   try {
-      const nuovoUtente = await persona.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "email modificata", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await persona.save()                                                  
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "email modificata", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica email" })                
   }
@@ -36,10 +35,9 @@ router.patch('/modifica/password/persona', tokenChecker, async (req, res) => {
         req.utenteLoggato.password = passwordCryptata
       }
     try {
-        const nuovoUtente = await persona.save()
-        var options = { expiresIn: "30s" }                                                     
-        var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-        return res.status(200).json({ auth: true, message: "password modificata", token: newToken, nuovoUtente}) 
+        const nuovoUtente = await persona.save()                                                    
+        var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+        return res.status(200).json({ auth: true, message: "password modificata", newToken: newToken, nuovoUtente}) 
       } catch (err) {
         res.status(400).json({ message: "errore modifica password" })                
     }
@@ -52,10 +50,9 @@ router.patch('/modifica/telefono/persona', tokenChecker, async (req, res) => {
     req.utenteLoggato.telefono = req.body.telefono
   }
   try {
-      const nuovoUtente = await persona.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "telefono modificato", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await persona.save()                                                  
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "telefono modificato", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica telefono" })                
   }
@@ -68,10 +65,9 @@ router.patch('/modifica/nome', tokenChecker, async (req, res) => {
     req.utenteLoggato.nome = req.body.nome
   }
   try {
-      const nuovoUtente = await persona.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "nome modificato", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await persona.save()                                              
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "nome modificato", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica nome" })                
   }
@@ -84,10 +80,9 @@ router.patch('/modifica/cognome', tokenChecker, async (req, res) => {
     req.utenteLoggato.cognome = req.body.cognome
   }
   try {
-      const nuovoUtente = await persona.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "cognome modificato", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await persona.save()                                                  
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "cognome modificato", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica cognome" })                
   }
@@ -100,10 +95,9 @@ router.patch('/modifica/dataNascita', tokenChecker, async (req, res) => {
     req.utenteLoggato.dataNascita = req.body.dataNascita
   }
   try {
-      const nuovoUtente = await persona.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "data di nascita modificata", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await persona.save()                                                   
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "data di nascita modificata", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica data di nascita" })                
   }
@@ -118,12 +112,11 @@ router.patch('/modifica/email/attivita', tokenChecker, async (req, res) => {
     req.utenteLoggato.email = req.body.email
   }
   try {
-      const nuovoUtente = await attivita.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "email modificata", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await attivita.save()                                                  
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "email modificata", newToken: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: "errore modifica email" })                
+      res.status(400).json({ message: "errore modifica email",  error: err.message })                
   }
 })
 
@@ -135,10 +128,9 @@ router.patch('/modifica/password/attivita', tokenChecker, async (req, res) => {
         req.utenteLoggato.password = passwordCryptata
       }
     try {
-        const nuovoUtente = await attivita.save()
-        var options = { expiresIn: "30s" }                                                     
-        var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-        return res.status(200).json({ auth: true, message: "password modificata", token: newToken, nuovoUtente}) 
+        const nuovoUtente = await attivita.save()                                                 
+        var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+        return res.status(200).json({ auth: true, message: "password modificata", newToken: newToken, nuovoUtente}) 
       } catch (err) {
         res.status(400).json({ message: "errore modifica password" })                
     }
@@ -151,10 +143,9 @@ router.patch('/modifica/telefono/attivita', tokenChecker, async (req, res) => {
     req.utenteLoggato.telefono = req.body.telefono
   }
   try {
-      const nuovoUtente = await attivita.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "telefono modificato", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await attivita.save()                                                    
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "telefono modificato", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica telefono" })                
   }
@@ -167,10 +158,9 @@ router.patch('/modifica/nomeAttivita', tokenChecker, async (req, res) => {
     req.utenteLoggato.nomeAttivita = req.body.nomeAttivita
   }
   try {
-      const nuovoUtente = await attivita.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "nome attivita modificato", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await attivita.save()                                                 
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "nome attivita modificato", newToken: newToken, nuovoUtente}) 
  } catch (err) {
       res.status(400).json({ message: "errore modifica nome attivita" })                
   }
@@ -183,10 +173,9 @@ router.patch('/modifica/indirizzo', tokenChecker, async (req, res) => {
     req.utenteLoggato.indirizzo = req.body.indirizzo
   }
   try {
-      const nuovoUtente = await attivita.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "indirizzo modificato", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await attivita.save()                                                  
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "indirizzo modificato", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica indirizzo" })                
   }
@@ -199,10 +188,9 @@ router.patch('/modifica/partitaIVA', tokenChecker, async (req, res) => {
     req.utenteLoggato.partitaIVA = req.body.partitaIVA
   }
   try {
-      const nuovoUtente = await attivita.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "partita iva modificata", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await attivita.save()                                                  
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "partita iva modificata", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica partita iva" })                
   }
@@ -215,10 +203,9 @@ router.patch('/modifica/iban', tokenChecker, async (req, res) => {
     req.utenteLoggato.iban = req.body.iban
   }
   try {
-      const nuovoUtente = await attivita.save()
-      var options = { expiresIn: "30s" }                                                     
-      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "iban modificato", token: newToken, nuovoUtente}) 
+      const nuovoUtente = await attivita.save()                                                 
+      var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
+      return res.status(200).json({ auth: true, message: "iban modificato", newToken: newToken, nuovoUtente}) 
     } catch (err) {
       res.status(400).json({ message: "errore modifica iban" })                
   }
