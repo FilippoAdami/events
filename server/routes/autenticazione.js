@@ -24,11 +24,11 @@ router.post('/login', async (req, res) => {
     } else{
         return res.status(500).json({message: "dati sbagliati" })
     }
-    
+        
     try {
         if( await bcrypt.compare(req.body.password, utente.password)){
             var options = { expiresIn: "30s" }                                                     
-            var token = jwt.sign(utente, process.env.SECRET_TOKEN, options);
+            var token = jwt.sign(utente, process.env.SECRET_TOKEN);
             return res.status(200).json({ auth: true, message: "login effettuato", token: token, utente}) 
           } else {
             return res.status(400).json({ auth: false, message: "password sbagliata"})
@@ -48,7 +48,7 @@ router.get('/verifica', tokenChecker, (req, res) => {
 //logout
 router.get('/logout', tokenChecker, async (req, res) => {
     try {
-        res.status(200).json({ message: "logout" })
+        res.status(200).json({ message: "logout effettuato" })
       } catch (err) {
         res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
@@ -57,8 +57,13 @@ router.get('/logout', tokenChecker, async (req, res) => {
 
 //elimina account
 router.delete('/elimina', tokenChecker, async (req, res) => {
+    if(req.utenteLoggato.ruolo == "persona"){
+        var utente = await Persona.findById(req.utenteLoggato._id)
+    } else if (req.utenteLoggato.ruolo == "attivita"){
+        var utente = await Attivita.findById(req.utenteLoggato._id)
+    }
     try {
-        req.utenteLoggato.deleteOne()
+        utente.deleteOne()
         res.status(200).json({ message: "utente eliminato"})
       } catch (err) {
         res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database

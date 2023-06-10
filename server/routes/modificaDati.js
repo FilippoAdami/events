@@ -24,7 +24,7 @@ router.patch('/modifica/email/persona', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "email modificata", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica email" })                
   }
 })
 
@@ -41,7 +41,7 @@ router.patch('/modifica/password/persona', tokenChecker, async (req, res) => {
         var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
         return res.status(200).json({ auth: true, message: "password modificata", token: newToken, nuovoUtente}) 
       } catch (err) {
-        res.status(400).json({ message: err.message })                
+        res.status(400).json({ message: "errore modifica password" })                
     }
 })
 
@@ -57,7 +57,7 @@ router.patch('/modifica/telefono/persona', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "telefono modificato", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica telefono" })                
   }
 })
 
@@ -73,7 +73,7 @@ router.patch('/modifica/nome', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "nome modificato", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica nome" })                
   }
 })
 
@@ -89,7 +89,7 @@ router.patch('/modifica/cognome', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "cognome modificato", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica cognome" })                
   }
 })
 
@@ -105,7 +105,7 @@ router.patch('/modifica/dataNascita', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "data di nascita modificata", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica data di nascita" })                
   }
 })
 
@@ -123,7 +123,7 @@ router.patch('/modifica/email/attivita', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "email modificata", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica email" })                
   }
 })
 
@@ -140,7 +140,7 @@ router.patch('/modifica/password/attivita', tokenChecker, async (req, res) => {
         var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
         return res.status(200).json({ auth: true, message: "password modificata", token: newToken, nuovoUtente}) 
       } catch (err) {
-        res.status(400).json({ message: err.message })                
+        res.status(400).json({ message: "errore modifica password" })                
     }
 })
 
@@ -156,7 +156,7 @@ router.patch('/modifica/telefono/attivita', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "telefono modificato", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica telefono" })                
   }
 })
 
@@ -170,9 +170,9 @@ router.patch('/modifica/nomeAttivita', tokenChecker, async (req, res) => {
       const nuovoUtente = await attivita.save()
       var options = { expiresIn: "30s" }                                                     
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
-      return res.status(200).json({ auth: true, message: "nome attività modificato", token: newToken, nuovoUtente}) 
-    } catch (err) {
-      res.status(400).json({ message: err.message })                
+      return res.status(200).json({ auth: true, message: "nome attivita modificato", token: newToken, nuovoUtente}) 
+ } catch (err) {
+      res.status(400).json({ message: "errore modifica nome attivita" })                
   }
 })
 
@@ -188,7 +188,7 @@ router.patch('/modifica/indirizzo', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "indirizzo modificato", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica indirizzo" })                
   }
 })
 
@@ -204,7 +204,7 @@ router.patch('/modifica/partitaIVA', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "partita iva modificata", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica partita iva" })                
   }
 })
 
@@ -220,7 +220,7 @@ router.patch('/modifica/iban', tokenChecker, async (req, res) => {
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "iban modificato", token: newToken, nuovoUtente}) 
     } catch (err) {
-      res.status(400).json({ message: err.message })                
+      res.status(400).json({ message: "errore modifica iban" })                
   }
 })
 
