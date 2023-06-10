@@ -131,7 +131,7 @@ describe('GET /api/persona7:id', () => {
 
     test('should return 500 if an error occurs', async () => {
       
-        jest.spyOn(Persona, 'find').mockImplementationOnce(() => {
+        jest.spyOn(Persona, 'findById').mockImplementationOnce(() => {
             throw new Error('error');
         });
   
@@ -188,7 +188,7 @@ describe('PUT /api/persona:id', () => {
 
     test('should return 500 if an error occurs', async () => {
       
-        jest.spyOn(Persona, 'find').mockImplementationOnce(() => {
+        jest.spyOn(Persona, 'findById').mockImplementationOnce(() => {
             throw new Error('error');
         });
   
@@ -236,7 +236,7 @@ describe('DELETE /api/persona:id', () => {
 
     test('should return 500 if an error occurs', async () => {
       
-        jest.spyOn(Persona, 'find').mockImplementationOnce(() => {
+        jest.spyOn(Persona, 'findById').mockImplementationOnce(() => {
             throw new Error('error');
         });
   

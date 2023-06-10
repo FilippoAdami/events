@@ -96,7 +96,7 @@ describe('GET /api/attivita', () => {
             throw new Error('error');
         });
   
-        const response = await request(app).get(`/api/attivita`)
+        const response = await request(app).get('/api/attivita')
         expect(response.status).toBe(500)
         expect(response.body.message).toBe('error')
     });
@@ -139,7 +139,7 @@ describe('GET /api/attivita:id', () => {
 
     test('should return 500 if an error occurs', async () => {
       
-        jest.spyOn(Attivita, 'find').mockImplementationOnce(() => {
+        jest.spyOn(Attivita, 'findById').mockImplementationOnce(() => {
             throw new Error('error');
         });
   
@@ -150,6 +150,7 @@ describe('GET /api/attivita:id', () => {
 });
 
 
+//MODIFICA DATI
 describe('PUT /api/attivita:id', () => {
 
     test('should modify the user with matching id and return status 200 ', async () => {
@@ -198,7 +199,7 @@ describe('PUT /api/attivita:id', () => {
 
     test('should return 500 if an error occurs', async () => {
       
-        jest.spyOn(Attivita, 'find').mockImplementationOnce(() => {
+        jest.spyOn(Attivita, 'findById').mockImplementationOnce(() => {
             throw new Error('error');
         });
   
@@ -209,6 +210,7 @@ describe('PUT /api/attivita:id', () => {
 })  
 
 
+//DELETE
 describe('DELETE /api/attivita:id', () => {
 
     test('should delete the user with matching id and return status 200', async () => {
@@ -247,7 +249,7 @@ describe('DELETE /api/attivita:id', () => {
 
     test('should return 500 if an error occurs', async () => {
       
-        jest.spyOn(Attivita, 'find').mockImplementationOnce(() => {
+        jest.spyOn(Attivita, 'findById').mockImplementationOnce(() => {
             throw new Error('error');
         });
   
