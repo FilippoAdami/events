@@ -19,6 +19,12 @@
     },
     "homepage": "https://github.com/FilippoAdami/events-manager#readme",
     "dependencies": {
-        "dotenv": "^16.0.3"
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "mongoose": "^7.2.3",
+        "node-sass": "^9.0.0",
+        "react-scripts": "^5.0.1",
+        "swagger-ui-express": "^4.6.3",
+        "yamljs": "^0.3.0"
     }
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AccountField from "./accountField.js"
 
-
 function AccountFields()
 {
         // informazioni comuni 
@@ -50,6 +49,7 @@ function AccountFields()
                     method: 'PUT',
                     headers: {
                     "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
                     },
                     body: formJson
                 });  
@@ -201,7 +201,7 @@ function AccountFields()
     {
         return(
             <div style={{textAlign :"center"}}>
-            <h1>ATTIVITA</h1>
+            <h1>ATTIVITA'</h1>
 
             <form method="post" onSubmit={handleSubmit}>
 
