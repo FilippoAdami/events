@@ -14,7 +14,6 @@ const tokenChecker = require('../controllers/tokenChecker');
 
 router.patch('/modifica/email/persona', tokenChecker, async (req, res) => {
   var persona = await Persona.findById(req.utenteLoggato._id)
-  console.log(persona)
   if( req.body.email != null) {
     persona.email = req.body.email,
     req.utenteLoggato.email = req.body.email
@@ -172,7 +171,7 @@ router.patch('/modifica/nomeAttivita', tokenChecker, async (req, res) => {
       var options = { expiresIn: "30s" }                                                     
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN, options);
       return res.status(200).json({ auth: true, message: "nome attivita modificato", token: newToken, nuovoUtente}) 
-    } catch (err) {
+ } catch (err) {
       res.status(400).json({ message: "errore modifica nome attivita" })                
   }
 })
