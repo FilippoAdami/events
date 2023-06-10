@@ -5,27 +5,28 @@ function AccountFields()
 {
         // informazioni comuni 
 
-        const [_id,setId] = useState("");
-        const [ruolo,setRuolo] = useState("");
-        const [email,setEmail] = useState("");
-        const [password,setPassword] = useState("");
-        const [telefono,setTelefono] = useState("");
+        const [_id,setId] = useState(null);
+        const [ruolo,setRuolo] = useState(null);
+        const [email,setEmail] = useState(null);
+        const [password,setPassword] = useState(null);
+        const [telefono,setTelefono] = useState(null);
 
         // in caso di persona 
         
-        const [nome,setNome] = useState("");
-        const [cognome,setCognome] = useState("");
-        const [dataNascita, setDataNascita] = useState("");
+        const [nome,setNome] = useState(null);
+        const [cognome,setCognome] = useState(null);
+        const [dataNascita, setDataNascita] = useState(null);
         
-        const [eventiPubblicati,setEventiPubblicati] = useState("");
-        const [prenotazioni, setPrenotazioni] = useState("");
-        const [annunciPubblicati, setAnnunciPubblicati] = useState("");
+        const [eventiPubblicati,setEventiPubblicati] = useState(null);
+        const [prenotazioni, setPrenotazioni] = useState(null);
+        const [annunciPubblicati, setAnnunciPubblicati] = useState(null);
 
         // in caso di attivita
 
-        const [nomeAttivita,setNomeAttivita] = useState("");
-        const [indirizzo,setIndirizzo] = useState("");
-        const [iban,setIban] = useState("");
+        const [nomeAttivita,setNomeAttivita] = useState(null);
+        const [indirizzo,setIndirizzo] = useState(null);
+        const [iban,setIban] = useState(null);
+        const [partitaIva,setPartitaIva] = useState(null);
 
 
 
@@ -41,21 +42,209 @@ function AccountFields()
 
             console.log(formJson);
 
+            const requestBody ={
+                utenteLoggato : {id : data._id},
+                formJson }
+            
+
             
             // You can pass formData as a fetch body directly:
-
-            fetch(`http://localhost:3000/api/persona/${_id}`, {
+            if(data.ruolo == "attivita")
+            {
+                if(data.email != null)
+                {
+                    fetch(`http://localhost:3000/modifica/email/attivita`, {
                 
-                    method: 'PUT',
+                    method: 'PUT', // o patch ?
                     headers: {
                     "Content-Type": "application/json",
                     "x-access-token": localStorage.getItem("token"),
                     },
-                    body: formJson
-                });  
-        }
+                    body: requestBody 
+                    
+                });
+                }
+
+                if(data.password != null)
+                {
+                    fetch(`http://localhost:3000/modifica/password/attivita`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+
+                if(data.telefono != null)
+                {
+                    fetch(`http://localhost:3000/modifica/telefono/attivita`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+                
+                if(data.nomeAttivita != null)
+                {
+                    fetch(`http://localhost:3000/modifica/nomeAttivita`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
 
 
+                if(data.indirizzo != null)
+                {
+                    fetch(`http://localhost:3000/modifica/indirizzo`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+
+                if(data.partitaIva != null)
+                {
+                    fetch(`http://localhost:3000/modifica/partitaIVA`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+
+                if(data.iban != null)
+                {
+                    fetch(`http://localhost:3000/modifica/iban`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+
+
+                }
+            }else if(data.ruolo == "persona")
+            {
+                if(data.email != null)
+                {
+                    fetch(`http://localhost:3000/modifica/email/persona`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+
+                if(data.password != null)
+                {
+                    fetch(`http://localhost:3000/modifica/password/persona`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+                if(data.telefono != null)
+                {
+                    fetch(`http://localhost:3000/modifica/telefono/persona`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+
+                if(data.nome != null)
+                {
+                    fetch(`http://localhost:3000/modifica/nome`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+
+                if(data.cognome != null)
+                {
+                    fetch(`http://localhost:3000/modifica/cognome`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+
+                if(data.dataNascita != null)
+                {
+                    fetch(`http://localhost:3000/modifica/dataNascita`, {
+                
+                    method: 'PUT', // o patch ?
+                    headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: requestBody 
+                    
+                });
+                }
+
+                
+                
+
+                
+                
+
+            }
+
+    }
         //console.log("TESTCHECK");
 
 
@@ -77,7 +266,7 @@ function AccountFields()
                 })
                 .then((data)=>{
                 //console.log(Object.keys(data));
-                setId(data._id);
+                setId(data._id);    
                 setRuolo(data.ruolo)
                 setTelefono(data.telefono);
                 setPassword(data.password);
@@ -89,9 +278,9 @@ function AccountFields()
                     setIndirizzo(data.indirizzo);
                     setIban(data.iban);
 
-                    componentsToRender.push(<AccountField field="nomeAttivita" value={data.nomeAttivita}/>);
-                    componentsToRender.push(<AccountField field="indirizzo" value={data.indirizzo}/>);
-                    componentsToRender.push(<AccountField field="iban" value={data.iban}/>);
+                    //componentsToRender.push(<AccountField field="nomeAttivita" value={data.nomeAttivita}/>);
+                    //componentsToRender.push(<AccountField field="indirizzo" value={data.indirizzo}/>);
+                    //componentsToRender.push(<AccountField field="iban" value={data.iban}/>);
                     
                     console.log()
                 }
@@ -102,9 +291,9 @@ function AccountFields()
                     setDataNascita(data.dataNascita);
 
                     
-                    componentsToRender.push(<AccountField field="nome" value={data.nome}/>);
-                    componentsToRender.push(<AccountField field="cognome" value={data.cognome}/>);
-                    componentsToRender.push(<AccountField field="data di nascita" value={data.dataNascita}/>);
+                    //componentsToRender.push(<AccountField field="nome" value={data.nome}/>);
+                    //componentsToRender.push(<AccountField field="cognome" value={data.cognome}/>);
+                    //componentsToRender.push(<AccountField field="data di nascita" value={data.dataNascita}/>);
                     
                 }
 
