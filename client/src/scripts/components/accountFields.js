@@ -43,15 +43,15 @@ function AccountFields()
             console.log(formJson);
 
             const requestBody ={
-                utenteLoggato : {id : data._id},
+                utenteLoggato : {id : _id},
                 formJson }
             
 
             
             // You can pass formData as a fetch body directly:
-            if(data.ruolo == "attivita")
+            if(ruolo == "attivita")
             {
-                if(data.email != null)
+                if(formJson.email != null)
                 {
                     fetch(`http://localhost:3000/modifica/email/attivita`, {
                 
@@ -65,7 +65,7 @@ function AccountFields()
                 });
                 }
 
-                if(data.password != null)
+                if(formJson.password != null)
                 {
                     fetch(`http://localhost:3000/modifica/password/attivita`, {
                 
@@ -79,7 +79,7 @@ function AccountFields()
                 });
                 }
 
-                if(data.telefono != null)
+                if(formJson.telefono != null)
                 {
                     fetch(`http://localhost:3000/modifica/telefono/attivita`, {
                 
@@ -93,7 +93,7 @@ function AccountFields()
                 });
                 }
                 
-                if(data.nomeAttivita != null)
+                if(formJson.nomeAttivita != null)
                 {
                     fetch(`http://localhost:3000/modifica/nomeAttivita`, {
                 
@@ -108,7 +108,7 @@ function AccountFields()
                 }
 
 
-                if(data.indirizzo != null)
+                if(formJson.indirizzo != null)
                 {
                     fetch(`http://localhost:3000/modifica/indirizzo`, {
                 
@@ -121,7 +121,7 @@ function AccountFields()
                     
                 });
 
-                if(data.partitaIva != null)
+                if(formJson.partitaIva != null)
                 {
                     fetch(`http://localhost:3000/modifica/partitaIVA`, {
                 
@@ -135,7 +135,7 @@ function AccountFields()
                 });
                 }
 
-                if(data.iban != null)
+                if(formJson.iban != null)
                 {
                     fetch(`http://localhost:3000/modifica/iban`, {
                 
@@ -151,9 +151,9 @@ function AccountFields()
 
 
                 }
-            }else if(data.ruolo == "persona")
+            }else if(ruolo == "persona")
             {
-                if(data.email != null)
+                if(formJson.email != null)
                 {
                     fetch(`http://localhost:3000/modifica/email/persona`, {
                 
@@ -167,7 +167,7 @@ function AccountFields()
                 });
                 }
 
-                if(data.password != null)
+                if(formJson.password != null)
                 {
                     fetch(`http://localhost:3000/modifica/password/persona`, {
                 
@@ -180,7 +180,7 @@ function AccountFields()
                     
                 });
                 }
-                if(data.telefono != null)
+                if(formJson.telefono != null)
                 {
                     fetch(`http://localhost:3000/modifica/telefono/persona`, {
                 
@@ -194,7 +194,7 @@ function AccountFields()
                 });
                 }
 
-                if(data.nome != null)
+                if(formJson.nome != null)
                 {
                     fetch(`http://localhost:3000/modifica/nome`, {
                 
@@ -208,7 +208,7 @@ function AccountFields()
                 });
                 }
 
-                if(data.cognome != null)
+                if(formJson.cognome != null)
                 {
                     fetch(`http://localhost:3000/modifica/cognome`, {
                 
@@ -222,7 +222,7 @@ function AccountFields()
                 });
                 }
 
-                if(data.dataNascita != null)
+                if(formJson.dataNascita != null)
                 {
                     fetch(`http://localhost:3000/modifica/dataNascita`, {
                 
