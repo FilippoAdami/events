@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect} from 'react';
 import Axios from 'axios';
 import Cookies from 'js-cookie'; 
 
@@ -6,7 +6,8 @@ import Cookies from 'js-cookie';
 function ModificaAccount() {
 
     const ruolo = Cookies.get('ruolo');
-    const token = Cookies.get('token')
+    const token = Cookies.get('token');
+    const id = Cookies.get('id')
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -18,6 +19,41 @@ function ModificaAccount() {
     const [indirizzo, setIndirizzo] = useState('')
     const [partitaIVA, setPartitaIVA] = useState('')
     const [iban, setIban] = useState('')
+
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+      if(ruolo === "persona"){
+        const fetchUser = async () => {
+          try {
+            const response = await Axios.get(`http://localhost:5000/api/persona/${id}`);
+            setUser(response.data);
+          } catch (error) {
+            console.error('Errore durante la chiamata API:', error);
+          }
+        };
+
+        fetchUser();
+      } else if( ruolo === "attivita"){
+        const fetchUser = async () => {
+          try {
+            const response = await Axios.get(`http://localhost:5000/api/attivita/${id}`);
+            setUser(response.data);
+          } catch (error) {
+            console.error('Errore durante la chiamata API:', error);
+          }
+        };
+
+        fetchUser();
+      } else {
+        console.log("errore")
+      }
+
+
+      return () => {
+        setUser(null);
+      };
+    }, []);
     
 
     const modificaEmailPersona = (event) => {
@@ -506,7 +542,17 @@ function ModificaAccount() {
     if(ruolo === "persona"){
         return(
             <div>
-            <h1>Modifica dati persona</h1>
+            <h1>Area personale di {user.email}</h1>
+            <h3>I miei dati</h3>
+            <p>
+              Email: {user.email} <br />
+              Nome: {user.nome} <br />
+              Cognome: {user.cognome} <br />
+              Telefono: {user.telefono} <br />
+              Data di nascita: {user.dataNascita}
+            </p>
+            <h3>Modifica i tuoi dati</h3>
+            <p>inserisci il nuovo dato e clicca su modifica</p>
             <form onSubmit = {modificaEmailPersona}>
                 <input
                 value = { email }
@@ -566,7 +612,18 @@ function ModificaAccount() {
       } else if (ruolo === "attivita"){
         return (
             <div>
-            <h1>Modifica dati attivita</h1>
+            <h1>Area personale di {user.email}</h1>
+            <h3>I miei dati</h3>
+            <p>
+              Email: {user.email} <br />
+              Nome Attività: {user.nomeAttivita} <br />
+              Indirizzo: {user.indirizzo} <br />
+              Telefono: {user.telefono} <br />
+              Partita Iva: {user.partitaIVA} <br />
+              Iban: {user.iban} 
+            </p>
+            <h3>Modifica i tuoi dati</h3>
+            <p>inserisci il nuovo dato e clicca su modifica</p>
             <form onSubmit = {modificaEmailAttivita}>
                 <input
                 value = { email }
