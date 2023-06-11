@@ -1,4 +1,5 @@
 require('dotenv').config({path: '../.env'});
+const path = require('path');
 
 //modules imports
 const express = require('express');
@@ -40,8 +41,18 @@ app.use(cors({
   optionsSuccessStatus: 200 // return 200 for successful CORS pre-flight requests
 }));
 
+
+
+// Serve static files from the React client build
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 // Set up the routes
 app.use(routes);
+
+// The catch-all route that serves the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 
 // Start the server
 const PORT = process.env.PORT || 5000; 

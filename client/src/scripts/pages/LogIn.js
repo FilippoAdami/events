@@ -76,6 +76,10 @@ function LogIn() {
         />
         <br />
         <input type = "submit" value = "login" />
+
+        <div className='signup'>
+          <a href='/signup'>Non hai un account? Registrati</a>
+        </div>
         </form>
     </div>
   );
