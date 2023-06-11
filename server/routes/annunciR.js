@@ -8,7 +8,7 @@ router.post('/annunci', tokenChecker, async (req, res) => {
   try {
     const annuncioData = req.body;
     const utenteLoggato = req.utenteLoggato;
-    annuncioData.id_publisher = utenteLoggato.id;
+    annuncioData.id_publisher = utenteLoggato._id;
 
     const annuncio = new Annuncio(annuncioData);
     await annuncio.save();
@@ -68,7 +68,7 @@ router.get('/annunci/publisher/:publisher_id', tokenChecker, async (req, res) =>
     const utenteLoggato = req.utenteLoggato;
 
     // Check if the publisher_id matches the ID of the logged-in user
-    if (publisherId !== utenteLoggato.id) {
+    if (publisherId !== utenteLoggato._id) {
       //console.log(utenteLoggato.id + ' ' + publisherId  );
       return res.status(403).send('Unauthorized access' );
       
@@ -89,7 +89,7 @@ router.delete('/annunci/:id', getAnnuncio, tokenChecker, async (req, res) => {
     const utenteLoggato = req.utenteLoggato;
     const annuncio = res.annuncio;
     // Check if the publisher_id matches the ID of the logged-in user
-    if (annuncio.id_publisher !== utenteLoggato.id) {
+    if (annuncio.id_publisher !== utenteLoggato._id) {
       return res.status(403).send('Unauthorized access');
     }
     //console.log(annuncio);
@@ -110,7 +110,7 @@ router.patch('/annunci/:id', getAnnuncio, tokenChecker, async (req, res) => {
     const annuncio = res.annuncio;
 
     // Check if the publisher_id matches the ID of the logged-in user
-    if (annuncio.id_publisher !== utenteLoggato.id) {
+    if (annuncio.id_publisher !== utenteLoggato._id) {
       return res.status(403).send('Unauthorized access');
     }
 

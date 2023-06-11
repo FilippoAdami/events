@@ -431,6 +431,56 @@ paths:
         '500':
           description: Server Error
 
+  /api/persona/:id/prenotazioni:    
+    post:
+      tags: 
+      - Persona
+      summary: Saving a new prenotazione
+      description:  This endpoint updates the list of prenotazioni of the utente adding the id of the event booked; and update the list of utentiPrenotati of the event adding the id of utente 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventoID:
+                  type: ObjectID
+      responses:
+        '201':
+          description: Prenotazione Saved
+        '400':
+          description: Bad request 
+        '403':
+          description: Unauthorized access 
+        '404':
+          description: Evento or Persona not found 
+        '500':
+          description: Server Error
+    
+  /api/persona/:id/prenotazioni/:idEvento:   
+    delete:
+      tags: 
+      - Persona
+      summary: Remove a prenotazione
+      description: This endpoint updates the list of prenotazioni of the utente removing the id of the event booked; and update the list of utentiPrenotati of the event removing the id of utente
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request 
+        '403':
+          description: Unauthorized access 
+        '404':
+          description: Evento or Persona not found 
+        '500':
+          description: Server Error
+
+
+
+
+
+
   /api/attivita:
     get:
       tags:

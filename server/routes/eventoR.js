@@ -4,13 +4,12 @@ const Evento = require('../models/eventoM');
 const Persona = require('../models/personaM')
 const tokenChecker = require('../controllers/tokenChecker.js');
 
-
 //API to post a new evento (updated with tokenChecker)
 router.post('/eventi', tokenChecker, async (req, res) => {
   try {
     const eventoData = req.body;
     const utenteLoggato = req.utenteLoggato;
-    eventoData.pubblicatore = utenteLoggato.id;
+    eventoData.pubblicatore = utenteLoggato._id;
 
     eventoData.postiLiberi = eventoData.posti;
     eventoData.segnalato=false;
@@ -44,7 +43,16 @@ router.post('/eventi', tokenChecker, async (req, res) => {
       res.status(400).send(errore);
     }else {
       const evento = new Evento(eventoData);
+
+      // salvo l'id dell'evento nella lista eventi pubblicati dell'utenteLoggato
+      //let publicatore = Persona.findById(utenteLoggato.)
+      console.log(utenteLoggato)
+
       await evento.save();
+
+      //Aggiorna la lista eventi pubblicati dell'utente pubblicatore
+      await Persona.findByIdAndUpdate(utenteLoggato._id,{$push: {eventiPubblicati : evento._id}});
+      
       res.status(201).send(evento);
     }
   } catch (error) {
@@ -67,7 +75,7 @@ router.get('/eventi/:id', async (req, res) => {
     try {
     const evento = await Evento.findById(req.params.id);
     if (!evento) {
-        return res.status(404).send({errormessag: 'Evento not found'});
+        return res.status(404).send({errormessag : 'Evento not found'});
     }
     res.json(evento);
     } catch (error) {
@@ -98,9 +106,10 @@ router.get('/eventi/publisher/:publisher_id', tokenChecker, async (req, res) => 
 
       const publisherId = req.params.publisher_id;
       const utenteLoggato = req.utenteLoggato;
+      console.log(utenteLoggato)
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (publisherId !== utenteLoggato.id) {
+      if (publisherId !== utenteLoggato._id) {
         //console.log(utenteLoggato.id + ' ' + publisherId  );
         return res.status(403).send('Unauthorized access' ); 
       }
@@ -121,11 +130,13 @@ router.delete('/eventi/:id',getEvento, tokenChecker, async (req, res) => {
       const evento = res.evento;
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.pubblicatore !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato._id) {
         return res.status(403).send('Unauthorized access');
       }
 
-      evento.deleteOne();
+      await evento.deleteOne();
+      //Aggiorna la lista eventi pubblicati dell'utente pubblicatore
+      await Persona.findByIdAndUpdate(utenteLoggato._id,{$pull: {eventiPubblicati : evento._id}});
 
       res.send('Evento deleted successfully');
     } catch (error) {
@@ -142,7 +153,7 @@ router.patch('/eventi/:id', getEvento, tokenChecker, async (req, res) => {
       const evento = res.evento;
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.pubblicatore !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato._id) {
         return res.status(403).send('Unauthorized access');
       }
 
@@ -186,7 +197,7 @@ router.get('/eventi/:id/utentiPrenotati',getEvento , tokenChecker, async (req, r
       //console.log(evento);
 
       // Check if the publisher_id matches the ID of the logged-in user
-      if (evento.pubblicatore !== utenteLoggato.id) {
+      if (evento.pubblicatore !== utenteLoggato._id) {
         return res.status(403).send('Unauthorized access');
       }
 
@@ -219,23 +230,21 @@ router.get('/eventi/utente/:utente_id', tokenChecker, async (req, res) => {
   try {
     const utenteLoggato = req.utenteLoggato;
     const utenteId = req.params.utente_id;
-
     const utente = await Persona.findById(utenteId);
     if (!utente) {
       return res.status(404).send('Utente not found');
     }
-
     // Check if the utente_id matches the ID of the logged-in user
-    if (utenteId !== utenteLoggato.id) {
+    if (utenteId !== utenteLoggato._id) {
       return res.status(403).send('Unauthorized access');
     }
 
     // Fetch the related Evento objects using the IDs in the 'eventiPrenotati' field
     const eventiPrenotati = [];
     const prenotazioni = utente.prenotazioni;
-
+   
     for (const elemento of prenotazioni) {
-      const evento = await Evento.findById(elemento);
+      const evento = await Evento.findById(elemento.toString());
       if (evento) {
         eventiPrenotati.push(evento);
       }

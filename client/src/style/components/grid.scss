@@ -12,21 +12,16 @@
 //set properties of inserzioni
 .inserzione{
     width: 25%; /* Initially, both boxes occupy 25% of the window width */
-    height: 50vh; 
+    height: 45vh; 
     text-align: center;
-    padding: 8px;
     box-sizing: border-box;
     border: 1px solid #000000;
-}
-//set properties of eventi, annunci and banners
-[type='eventi']{
-    background-color: aqua;
-}
-[type='annunci']{
-    background-color: rgb(106, 206, 59);
-}
-[type='banners']{
-    background-color: rgb(77, 42, 142);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
 }
 //when the window width becomes smaller than 70em, 3 boxes will be displayed for each row
 @media (max-width: 70em) {

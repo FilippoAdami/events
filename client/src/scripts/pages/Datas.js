@@ -4,86 +4,9 @@ import axios from "axios";
 import Annuncio from "../subcomponents/annuncio";
 import Evento from "../subcomponents/evento";
 import Cookies from "js-cookie";
+import { AddAnnuncio } from "../subcomponents/annuncio";
 
-function AddAnnuncio() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [place, setPlace] = useState("");
-  const [contact, setContact] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = {
-      id: 1,
-      id_publisher: 1,
-      title: title,
-      description: description,
-      time: 1,
-      place: place,
-      contact: contact
-    };
-
-    const token = Cookies.get('token');
-
-    axios
-      .post("http://localhost:5000/api/annunci", data, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then((response) => {
-        console.log(response);
-        setTitle("");
-        setDescription("");
-        setPlace("");
-        setContact("");
-      }).catch((error) => {
-        console.log(error);
-      });
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Description:
-          <textarea
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Place:
-          <input
-            type="text"
-            value={place}
-            onChange={(event) => setPlace(event.target.value)}
-          />
-        </label>
-        <label>
-          Contact:
-          <input
-            type="text"
-            value={contact}
-            onChange={(event) => setContact(event.target.value)}
-          />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
-};
 
 function ModifyAnnuncio() {
   const [title, setTitle] = useState("");

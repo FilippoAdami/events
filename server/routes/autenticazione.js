@@ -9,6 +9,7 @@ const Attivita = require('../models/attivitaM')
 const tokenChecker = require('../controllers/tokenChecker');
 
 
+
 //api login
 router.post('/login', async (req, res) => {
     const persona = await Persona.findOne({ email: req.body.email, ruolo: "persona" })
@@ -27,7 +28,7 @@ router.post('/login', async (req, res) => {
         
     try {
         if( await bcrypt.compare(req.body.password, utente.password)){
-            var options = { expiresIn: "30m" }                                                     
+            var options = { expiresIn: "1d" }                                                     
             var token = jwt.sign(utente, process.env.SECRET_TOKEN, options);
             return res.status(200).json({ auth: true, message: "login effettuato", token: token, utente}) 
           } else {
@@ -40,8 +41,13 @@ router.post('/login', async (req, res) => {
 
 
 //verifica autenticazione
-router.get('/verifica', tokenChecker, (req, res) => {
-    res.status(200).json({message: "sei autenticato, il token è valido"})
+router.get('/verifica', tokenChecker, async (req, res) => {
+    try{
+        res.status(200).json({message: "sei autenticato, il token è valido"})
+    }catch(err){
+        res.status(500).json({ message: err.message }) 
+    }
+    
 })
 
 
@@ -69,6 +75,7 @@ router.delete('/elimina', tokenChecker, async (req, res) => {
         res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
+
 
 
 
