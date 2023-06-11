@@ -8,7 +8,8 @@ import SignUpPersona from './pages/SignUpPersona.js';
 import ResPubbHome from './pages/ResPubbHome.js';
 import SignUpAttivita from './pages/SignUpAttivita.js';
 import PostEvento from './pages/postEvento.js';
-
+import ModifyAccount from './pages/ModifyAccount.js';
+import ModificaAccount from './pages/modificaAccount.js';
 import Cookies from 'js-cookie';
 
 
@@ -26,6 +27,8 @@ function App() {
         <Route path="/respubbhome" element={<ResPubbHome/>} />
         <Route path='/signup/attivita' element={<SignUpAttivita/>}/>
         <Route path='/postEvento' element={<PostEvento/>}/>
+        <Route path='/modifyAccount' element={<ModifyAccount/>}/>
+        <Route path='/modificaAccount' element={<ModificaAccount/>}/>
       </Routes>
       </div>
     </Router>

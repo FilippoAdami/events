@@ -15,12 +15,12 @@ function LogIn() {
       email, password,
     }).then((response) => {
       if(!response.data.auth) {
-        //alert("errore login")
-        console.log("login fallito")
+        alert("errore login")
+        console.log("errore login")
       } else {
         localStorage.setItem("token", response.data.token)
         setStatoLogin(true)
-        //alert("login effettuato")
+        alert("login corretto")
         console.log("login corretto")
         
         Cookies.set('token', response.data.token, {
@@ -41,7 +41,7 @@ function LogIn() {
         });
         
         console.log('cookie settati:\n' + Cookies.get('token') + '\n' + Cookies.get('email') + '\n' + Cookies.get('ruolo') + '\n' + Cookies.get('id'))
-        
+        window.location.href = '/'
       }
     })
   }

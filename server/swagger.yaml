@@ -274,6 +274,103 @@ paths:
           description: Persona not found
         '500':
           description: Server Error
+  
+  /api/persona/email:
+    patch:
+      tags:
+      - Persona
+      summary: Update the email 
+      description: This endpoint update te attribute email of the account persona calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Error update email
+
+  /api/persona/password:
+    patch:
+      tags:
+      - Persona
+      summary: Update the password 
+      description: This endpoint update te attribute password of the account persona calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Error update password
+  
+  /api/persona/telefono:
+    patch:
+      tags:
+      - Persona
+      summary: Update the telefono 
+      description: This endpoint update te attribute telefono of the account persona calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Error update telefono
+
+  /api/persona/nome:
+    patch:
+      tags:
+      - Persona
+      summary: Update the nome 
+      description: This endpoint update te attribute nome of the account persona calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Error update nome
+    
+  /api/persona/cognome:
+    patch:
+      tags:
+      - Persona
+      summary: Update the cognome 
+      description: This endpoint update te attribute cognome of the account persona calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Error update cognome
+  
+  /api/persona/dataNascita:
+    patch:
+      tags:
+      - Persona
+      summary: Update the dataNascita 
+      description: This endpoint update te attribute dataNascita of the account persona calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Error update dataNascita
+  
   /api/persona/register:
     post:
       tags: 
@@ -431,6 +528,119 @@ paths:
           description: Attività not found
         '500':
           description: Server Error
+
+  /api/attivita/email:
+    patch:
+      tags:
+      - Attività
+      summary: Update the email 
+      description: This endpoint update te attribute email of the account attivita calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '400':
+          description: Error update email
+  
+  /api/attivita/password:
+    patch:
+      tags:
+      - Attività
+      summary: Update the password 
+      description: This endpoint update te attribute password of the account attivita calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '400':
+          description: Error update password
+  
+  /api/attivita/telefono:
+    patch:
+      tags:
+      - Attività
+      summary: Update the telefono 
+      description: This endpoint update te attribute telefono of the account attivita calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '400':
+          description: Error update telefono
+  
+  /api/attivita/nomeAttivita:
+    patch:
+      tags:
+      - Attività
+      summary: Update the nomeAttivita 
+      description: This endpoint update te attribute nomeAttivita of the account attivita calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '400':
+          description: Error update nomeAttivita
+  
+  /api/attivita/indirizzo:
+    patch:
+      tags:
+      - Attività
+      summary: Update the indirizzo 
+      description: This endpoint update te attribute indirizzo of the account attivita calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '400':
+          description: Error update indirizzo
+  
+  /api/attivita/partitaIVA:
+    patch:
+      tags:
+      - Attività
+      summary: Update the partitaIVA 
+      description: This endpoint update te attribute partitaIVA of the account attivita calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '400':
+          description: Error update partitaIVA
+  
+  /api/attivita/iban:
+    patch:
+      tags:
+      - Attività
+      summary: Update the iban 
+      description: This endpoint update te attribute iban of the account attivita calling it.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '400':
+          description: Error update iban
+
   /api/attivita/register:
     post:
       tags: 

@@ -23,7 +23,7 @@ router.post('/persona/register', async (req, res) => {
     })
     return res.status(201).json({persona, message: "utente registrato"})
   } catch (err) { 
-    return res.status(400).json({ status: 'error', error: err })  
+    return res.status(400).json({ message: "errore registrazione" })  
   }
 })
 
@@ -55,7 +55,7 @@ router.get('/persona', async (req, res) => {
       const persona = await Persona.find({ruolo: "persona"});                           
       res.status(200).json(persona)                             
   } catch (err) {
-      res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
+      res.status(500).json({ message: "error" })      //errore 500: c'è un errore nel server, nel nostro caso nel database
   }
 })
 
@@ -65,7 +65,7 @@ router.get('/persona', async (req, res) => {
         const persona = await Persona.find({ruolo: "persona"})                           
         res.status(200).json(persona)                             
     } catch (err) {
-        res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
+        res.status(500).json({ message: "error" })      //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
 
@@ -75,10 +75,10 @@ async function getPersona(req, res, next) {
     try {
       persona = await Persona.findById(req.params.id)
       if (persona == null) {
-        return res.status(404).json({ message: 'Utente non trovato' })    //400: errore da parte del cliente
+        return res.status(404).json({ message: 'utente non trovato' })    //400: errore da parte del cliente
       }
     } catch (err) {
-      return res.status(500).json({ message: err.message })               //errore 500: c'è un errore nel server, nel nostro caso nel database
+      return res.status(500).json({ message: "error" })               //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
   
     res.persona = persona
@@ -119,7 +119,7 @@ router.put('/persona/:id', getPersona, async (req, res) => {
     const updatedPersona = await res.persona.save()
     res.status(200).json({ updatedPersona, message: "utente modificato"})
   } catch (err) {
-    res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
+    res.status(500).json({ message: "error" })                  
   }
 })
 
@@ -132,9 +132,9 @@ router.get('/persona/:id', getPersona, (req, res) => {
 router.delete('/persona/:id', getPersona, async (req, res) => {
     try {
       await res.persona.deleteOne()
-      res.status(200).json({ message: 'Utente correttamente rimosso' })
+      res.status(200).json({ message: 'utente correttamente rimosso' })
     } catch (err) {
-      res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
+      res.status(500).json({ message: "error" })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
  

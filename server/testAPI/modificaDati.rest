@@ -1,0 +1,32 @@
+//test api registrazione
+POST http://localhost:5000/api/persona/register
+Content-Type: application/json
+
+{
+    "email": "modifica@dati.it",
+    "password": "test",
+    "nome": "test",
+    "cognome": "test",
+    "telefono": "0",
+    "dataNascita": "01/01/2000"
+}
+
+###
+
+//test api login
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "email": "modifica@dati.it",
+    "password": "ciao"
+} 
+
+###
+PATCH http://localhost:5000/api/modifica/email/persona
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDgzMzU4MTk4NjI5MTg5MWZhNTQ3MTAiLCJlbWFpbCI6Im1vZGlmaWNhQGRhdGkuaXQiLCJwYXNzd29yZCI6IiQyYiQxMCQzTEVSb0dvTmE5cEwvTGM5YlRJbS9PalAxdEhvMzdCUzM3Q29QeGtKblR1TkJ6am9BTXplMiIsInJ1b2xvIjoicGVyc29uYSIsIm5vbWUiOiJ0ZXN0IiwiY29nbm9tZSI6InRlc3QiLCJ0ZWxlZm9ubyI6MCwiZGF0YU5hc2NpdGEiOiIxOTk5LTEyLTMxVDIzOjAwOjAwLjAwMFoiLCJldmVudGlQdWJibGljYXRpIjpbXSwicHJlbm90YXppb25pIjpbXSwiYW5udW5jaVB1YmJsaWNhdGkiOltdLCJfX3YiOjAsImlhdCI6MTY4NjM0MzkxMn0.uXsl1ayabUZkfgcJFTl_GNkx1hb36OhJ2vS6re6gs2c
+Content-Type: application/json
+
+{
+    "email": "ciao@lol.it"
+}

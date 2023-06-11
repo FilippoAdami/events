@@ -23,7 +23,7 @@ router.post('/attivita/register', async (req, res) => {
     })
     return res.status(201).json({attivita, message: "utente registrato"})
     } catch (err) {
-    return res.status(400).json({ status: 'error', error: err })  
+    return res.status(400).json({ message: "errore registrazione" })  
   }
 })
 
@@ -50,14 +50,14 @@ router.post('/attivita/login', async (req, res) => {
 })*/
 
 
-//ritorna tutti gli utenti attività
+//ritorna tutti gli utenti persona
 router.get('/attivita', async (req, res) => {
-    try {
-        const attivita = await Attivita.find({ruolo: "attivita"})
-        res.json(attivita)                             
-    } catch (err) {
-        res.status(500).json({ message: err.message })      //errore 500: c'è un errore nel server, nel nostro caso nel database
-    }
+  try {
+      const attivita = await Attivita.find({ruolo: "attivita"})                           
+      res.status(200).json(attivita)                             
+  } catch (err) {
+      res.status(500).json({ message: "error" })      //errore 500: c'è un errore nel server, nel nostro caso nel database
+  }
 })
 
 
@@ -67,10 +67,10 @@ async function getAttivita(req, res, next) {
     try {
       attivita = await Attivita.findById(req.params.id)
       if (attivita == null) {
-        return res.status(404).json({ message: 'Utente non trovato' })    //400: errore da parte del cliente
+        return res.status(404).json({ message: 'utente non trovato' })    //400: errore da parte del cliente
       }
     } catch (err) {
-      return res.status(500).json({ message: err.message })               //errore 500: c'è un errore nel server, nel nostro caso nel database
+      return res.status(500).json({ message: "error" })               //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
   
     res.attivita = attivita
@@ -107,9 +107,9 @@ router.put('/attivita/:id', getAttivita, async (req, res) => {
   }
   try {
     const newAttivita = await res.attivita.save()
-    res.json(newAttivita)
+    res.status(200).json({ newAttivita, message: "utente modificato"})
   } catch (err) {
-    res.status(400).json({ message: err.message })                //400: errore da parte del cliente   
+    res.status(400).json({ message: "error" })                //400: errore da parte del cliente   
   }
 })
 
@@ -124,9 +124,9 @@ router.get('/attivita/:id', getAttivita, (req, res) => {
 router.delete('/attivita/:id', getAttivita, async (req, res) => {
     try {
       await res.attivita.deleteOne()
-      res.json({ message: 'Utente correttamente rimosso' })
+      res.json({ message: 'utente correttamente rimosso' })
     } catch (err) {
-      res.status(500).json({ message: err.message })                //errore 500: c'è un errore nel server, nel nostro caso nel database
+      res.status(500).json({ message: "error" })                //errore 500: c'è un errore nel server, nel nostro caso nel database
     }
 })
 
