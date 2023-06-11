@@ -26,7 +26,7 @@ function ModificaAccount() {
       if(ruolo === "persona"){
         const fetchUser = async () => {
           try {
-            const response = await Axios.get(`http://localhost:5000/api/persona/${id}`);
+            const response = await Axios.get(`https://events-tcqp.onrender.com/api/persona/${id}`);
             setUser(response.data);
           } catch (error) {
             console.log(error);
@@ -37,7 +37,7 @@ function ModificaAccount() {
       } else if( ruolo === "attivita"){
         const fetchUser = async () => {
           try {
-            const response = await Axios.get(`http://localhost:5000/api/attivita/${id}`);
+            const response = await Axios.get(`https://events-tcqp.onrender.com/api/attivita/${id}`);
             setUser(response.data);
           } catch (error) {
             console.log(error);
@@ -56,7 +56,7 @@ function ModificaAccount() {
     }, []);
     
     const logout = () => {
-      Axios.get("http://localhost:5000/api/logout", {
+      Axios.get("https://events-tcqp.onrender.com/api/logout", {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         }
@@ -74,7 +74,7 @@ function ModificaAccount() {
     }
 
     const elimina = () => {
-      Axios.delete("http://localhost:5000/api/elimina", {
+      Axios.delete("https://events-tcqp.onrender.com/api/elimina", {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         }
@@ -115,7 +115,7 @@ function ModificaAccount() {
           data.dataNascita = dataNascita;
         }
 
-        Axios.patch("http://localhost:5000/api/persona", {
+        Axios.patch("https://events-tcqp.onrender.com/api/persona", {
             data, 
         }, {
           headers: {
@@ -179,7 +179,7 @@ function ModificaAccount() {
           data.iban = iban;
         }
 
-        Axios.patch("http://localhost:5000/api/attivita", {
+        Axios.patch("https://events-tcqp.onrender.com/api/attivita", {
             data,
         }, {
           headers: {

@@ -10,7 +10,7 @@ function LogIn() {
 
   const login = (event) => {
     event.preventDefault()
-    Axios.post("http://localhost:5000/api/login", {
+    Axios.post("https://events-tcqp.onrender.com/api/login", {
       email, password,
     }).then((response) => {
       if(!response.data.auth) {

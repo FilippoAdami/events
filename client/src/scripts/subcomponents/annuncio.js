@@ -61,7 +61,7 @@ function ModifyAnnuncio({id, title, description, place, time, contact}) {
       contact: contactS
     };
     axios
-      .patch(`http://localhost:5000/api/annunci/${id}`, data, {
+      .patch(`https://events-tcqp.onrender.com/api/annunci/${id}`, data, {
         headers: {
           "x-access-token": Cookies.get('token')
         }
@@ -141,7 +141,7 @@ function DeleteAnnuncio(id){
   const DeleteAnnuncio = (id) => (event) => {
     event.preventDefault();
     axios
-      .delete("http://localhost:5000/api/annunci/" + id, {
+      .delete("https://events-tcqp.onrender.com/api/annunci/" + id, {
         headers: {
           "x-access-token": Cookies.get('token')
         }
@@ -176,7 +176,7 @@ function AddAnnuncio() {
       contact: contact
     };
     axios
-      .post("http://localhost:5000/api/annunci", data, {
+      .post("https://events-tcqp.onrender.com/api/annunci", data, {
         headers: {
           "x-access-token": Cookies.get('token')
         }

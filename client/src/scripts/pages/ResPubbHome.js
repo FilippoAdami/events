@@ -27,7 +27,7 @@ function PostBanners(){
 
   function handleSubmit(event) {
     event.preventDefault()
-    axios.post('http://localhost:5000/api/banners', {  
+    axios.post('https://events-tcqp.onrender.com/api/banners', {  
       id_publisher,
       title,
       descrizione,
@@ -79,13 +79,13 @@ function GetBanners(){
 
   function handleSubmit(event){
     event.preventDefault();
-    axios.get('http://localhost:5000/api/banners')
+    axios.get('https://events-tcqp.onrender.com/api/banners')
     .then(res => setData(res.data))
     .catch(err=> console.log(err));
   }
 
   useEffect(() => {                                   // Prima richiesta GEt appena arrivi alla pagina
-    axios.get('http://localhost:5000/api/banners')
+    axios.get('https://events-tcqp.onrender.com/api/banners')
     .then(res => setData(res.data))
     .catch(err=> console.log(err));
   },[])

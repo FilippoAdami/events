@@ -12,7 +12,7 @@ import Annuncio from '../subcomponents/annuncio.js';
 const isLoggedIn = async (token) => {
   if (token) {
     //console.log(token)
-    var richiesta = await axios.get('http://localhost:5000/api/verifica', {
+    var richiesta = await axios.get('https://events-tcqp.onrender.com//api/verifica', {
       headers: {
         "x-access-token": token,
       }
@@ -45,7 +45,7 @@ function Profile() {
       }
       //fetch the pubblicazioni and the iscrizioni from the database
       try{
-        await axios.get(`http://localhost:5000/api/annunci/publisher/${id}`, {
+        await axios.get(`https://events-tcqp.onrender.com/api/annunci/publisher/${id}`, {
           headers: {
             "x-access-token": token
           }
@@ -69,7 +69,7 @@ function Profile() {
           //console.log('Annunci pubblicati fetched in Profile: \n'+ JSON.stringify(fetchedAnnunci[0]));
         }); 
 
-        await axios.get(`http://localhost:5000/api/eventi/publisher/${id}`, {
+        await axios.get(`https://events-tcqp.onrender.com/api/eventi/publisher/${id}`, {
           headers: {
             "x-access-token": token
           }
@@ -102,7 +102,7 @@ function Profile() {
         });
 
         if (ruolo === 'persona') {
-        await axios.get(`http://localhost:5000/api/eventi/utente/${id}`, {
+        await axios.get(`https://events-tcqp.onrender.com/api/eventi/utente/${id}`, {
           headers: {
             "x-access-token": token
           }

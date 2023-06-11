@@ -14,7 +14,7 @@ function SignUpPersona() {
 
   async function register(event){
     event.preventDefault()
-    const response = await fetch('http://localhost:5000/api/persona/register', {
+    const response = await fetch('https://events-tcqp.onrender.com/api/persona/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

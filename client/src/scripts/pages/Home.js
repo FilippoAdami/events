@@ -10,7 +10,7 @@ import Annuncio from '../subcomponents/annuncio.js';
 
 const isLoggedIn = async (token) => {
   if (token) {
-      var richiesta = await axios.get('http://localhost:5000/api/verifica', {
+      var richiesta = await axios.get('https://events-tcqp.onrender.com/api/verifica', {
         headers: {
           "x-access-token": token,
         }
@@ -48,7 +48,7 @@ function Home() {
     }
     //fetch the annunci from the database
     try{
-      axios.get("http://localhost:5000/api/annunci", {
+      axios.get("https://events-tcqp.onrender.com/api/annunci", {
         params: {
           page: 1,
           limit: 32,
@@ -74,7 +74,7 @@ function Home() {
     }
     //fetch the eventi from the database
     try{
-    axios.get("http://localhost:5000/api/eventi", {
+    axios.get("https://events-tcqp.onrender.com/api/eventi", {
       params: {
         page: 1,
         limit: 32,

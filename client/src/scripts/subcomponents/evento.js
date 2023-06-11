@@ -61,7 +61,7 @@ class Evento extends React.Component {
     const idpersonaBotone = Cookies.get('id');
 
     try{
-    await axios.post(`http://localhost:5000/api/persona/${idpersonaBotone}/prenotazioni`,{
+    await axios.post(`https://events-tcqp.onrender.com/api/persona/${idpersonaBotone}/prenotazioni`,{
       "eventoID" : this.state.id
     },{
       headers: {
@@ -79,7 +79,7 @@ class Evento extends React.Component {
   handleBottoneCancellaPrenotazione = async() =>{
     const tokenBottone = Cookies.get('token');
     const idpersonaBotone = Cookies.get('id');
-    axios.delete(`http://localhost:5000/api/persona/${idpersonaBotone}/prenotazioni/${this.state.id}`,{
+    axios.delete(`https://events-tcqp.onrender.com/api/persona/${idpersonaBotone}/prenotazioni/${this.state.id}`,{
         headers: {
           "x-access-token": tokenBottone
         }
@@ -166,7 +166,7 @@ function ModifyEvento({id, titolo, descrizione, indirizzo, ora, data, immagini})
     };
 
     axios
-      .patch(`http://localhost:5000/api/eventi/${id}`, datas, {
+      .patch(`https://events-tcqp.onrender.com/api/eventi/${id}`, datas, {
         headers: {
           "x-access-token": tokenBottone
         }
@@ -261,7 +261,7 @@ function DeleteEvento(id) {
   const deleteE = (event) => {
     event.preventDefault();
     axios
-    .delete(`http://localhost:5000/api/eventi/${id}`, {
+    .delete(`https://events-tcqp.onrender.com/api/eventi/${id}`, {
       headers: {
         "x-access-token": Cookies.get('token')
       }
@@ -306,7 +306,7 @@ function PostEvento() {
       immagini: immagini
     };
     //alert(JSON.stringify(datas));
-    axios.post('http://localhost:5000/api/eventi', datas, {
+    axios.post('https://events-tcqp.onrender.com/api/eventi', datas, {
       headers: {
         "x-access-token": tokenBottone
       }

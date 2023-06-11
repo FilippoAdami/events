@@ -30,7 +30,7 @@ const Grid = ({ selectedOption, first, second, loadMore }) => {
   //useEffect to load the banners from the database
   useEffect(() => {
     //fetch the banners from the database
-    axios.get("http://localhost:5000/api/banners")
+    axios.get("https://events-tcqp.onrender.com/api/banners")
       .then((response) => {
         const fetchedBanners = response.data.map((banner) => (
           <Banner
