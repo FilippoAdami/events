@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "server": "nodemon server.js",
     "warnings": "node --trace-warnings server.js",
     "test": "jest --forceExit --coverage"
