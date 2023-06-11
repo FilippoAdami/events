@@ -27,7 +27,7 @@ function SignUpAttivita() {
 
     const data = await response.json()
     if(data.attivita){
-      alert('registrazione effettuata')
+      alert('registrazione effettuata');
       window.location.href = '/login'
     } else {
       alert('errore registrazione')

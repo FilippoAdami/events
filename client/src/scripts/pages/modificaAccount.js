@@ -29,7 +29,7 @@ function ModificaAccount() {
             const response = await Axios.get(`http://localhost:5000/api/persona/${id}`);
             setUser(response.data);
           } catch (error) {
-            console.error('Errore durante la chiamata API:', error);
+            console.log(error);
           }
         };
 
@@ -40,7 +40,7 @@ function ModificaAccount() {
             const response = await Axios.get(`http://localhost:5000/api/attivita/${id}`);
             setUser(response.data);
           } catch (error) {
-            console.error('Errore durante la chiamata API:', error);
+            console.log(error);
           }
         };
 
@@ -55,11 +55,68 @@ function ModificaAccount() {
       };
     }, []);
     
+    const logout = () => {
+      Axios.get("http://localhost:5000/api/logout", {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        }
+      }).then((response) =>{
+        localStorage.removeItem("token")
+        console.log(response)
+  
+        Cookies.remove('token')
+        Cookies.remove('email');
+        Cookies.remove('ruolo');
+        Cookies.remove('id');
+        
+        window.location.href = '/'
+      })
+    }
 
-    const modificaEmailPersona = (event) => {
+    const elimina = () => {
+      Axios.delete("http://localhost:5000/api/elimina", {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        }
+      }).then((response) =>{
+        console.log(response)
+  
+        Cookies.remove('token')
+        Cookies.remove('email');
+        Cookies.remove('ruolo');
+        Cookies.remove('id');
+  
+        window.location.href = '/'
+      })
+  
+    }
+
+    const modificaPersona = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/persona/email", {
-            email,
+
+        const data = {}; 
+        
+        if (email) {
+          data.email = email;
+        }
+        if (password) {
+          data.password = password;
+        }
+        if (nome) {
+          data.nome = nome;
+        }
+        if (cognome) {
+          data.cognome = cognome;
+        }
+        if (telefono) {
+          data.telefono = telefono;
+        }
+        if (dataNascita) {
+          data.dataNascita = dataNascita;
+        }
+
+        Axios.patch("http://localhost:5000/api/persona", {
+            data, 
         }, {
           headers: {
             "x-access-token": token,
@@ -73,6 +130,12 @@ function ModificaAccount() {
             const nuovoUtente = response.data.nuovoUtente;
 
             localStorage.setItem("token", newToken);
+
+            Cookies.remove('token');
+            Cookies.set('token', newToken, {
+                expires: 1,
+                path: '/',
+            });
 
             Cookies.remove('email');
             Cookies.set('email', nuovoUtente.email, {
@@ -80,463 +143,76 @@ function ModificaAccount() {
                 path: '/',
             });
 
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-            
-
-            console.log("Email modificata e token aggiornato con successo");
-            alert("email modificata")
-            window.location.href = '/ModificaAccount'
+            console.log("Dati modificati e token aggiornato con successo");
+            alert("dati modificati")
+            window.location.reload();
         }
         })
     }
 
-    const modificaPasswordPersona = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/persona/password", {
-            password,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('password');
-            Cookies.set('password', nuovoUtente.password, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Password modificata e token aggiornato con successo");
-            alert("password modificata")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaTelefonoPersona = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/persona/telefono", {
-            telefono,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('telefono');
-            Cookies.set('telefono', nuovoUtente.telefono, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Telefono modificato e token aggiornato con successo");
-            alert("telefono modificato")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaNome = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/persona/nome", {
-            nome,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('nome');
-            Cookies.set('nome', nuovoUtente.nome, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Nome modificato e token aggiornato con successo");
-            alert("nome modificato")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaCognome = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/persona/cognome", {
-            cognome,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('cognome');
-            Cookies.set('cognome', nuovoUtente.cognome, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Cognome modificato e token aggiornato con successo");
-            alert("cognome modificato")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaDataNascita = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/persona/dataNascita", {
-            dataNascita,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('dataNascita');
-            Cookies.set('dataNascita', nuovoUtente.dataNascita, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Data di nascita modificata e token aggiornato con successo");
-            alert("data di nascita modificata")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaEmailAttivita = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/attivita/email", {
-            email,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('email');
-            Cookies.set('email', nuovoUtente.email, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Email modificata e token aggiornato con successo");
-            alert("email modificata")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    }
-
-    const modificaPasswordAttivita = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/attivita/password", {
-            password,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('password');
-            Cookies.set('password', nuovoUtente.password, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Password modificata e token aggiornato con successo");
-            alert("password modificata")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaTelefonoAttivita = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/attivita/telefono", {
-            telefono,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('telefono');
-            Cookies.set('telefono', nuovoUtente.telefono, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Telefono modificato e token aggiornato con successo");
-            alert("telefono modificato")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaNomeAttivita = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/attivita/nomeAttivita", {
-            nomeAttivita,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('nomeAttivita');
-            Cookies.set('nomeAttivita', nuovoUtente.nomeAttivita, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Nome attivita modificata e token aggiornato con successo");
-            alert("nome attività modificato")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaIndirizzo = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/attivita/indirizzo", {
-            indirizzo,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('indirizzo');
-            Cookies.set('indirizzo', nuovoUtente.indirizzo, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Indirizzo modificato e token aggiornato con successo");
-            alert("indirizzo modificato")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaPartitaIVA = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/attivita/partitaIVA", {
-            partitaIVA,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('partitaIVA');
-            Cookies.set('partitaIVA', nuovoUtente.partitaIVA, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Partita iva modificata e token aggiornato con successo");
-            alert("partita iva modificata")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
-
-    const modificaIban = (event) => {
-        event.preventDefault()
-        Axios.patch("http://localhost:5000/api/attivita/iban", {
-            iban,
-        }, {
-          headers: {
-            "x-access-token": token,
-          },
-        }).then((response) => {
-          if(!response.data.auth){
-            console.log(response.data.message)
-            alert("errore modifica")
-          } else {
-            const newToken = response.data.newToken;
-            const nuovoUtente = response.data.nuovoUtente;
-
-            localStorage.setItem("token", newToken);
-
-            Cookies.remove('iban');
-            Cookies.set('iban', nuovoUtente.iban, {
-                expires: 1,
-                path: '/',
-            });
-
-            Cookies.remove('token');
-            Cookies.set('token', newToken, {
-                expires: 1,
-                path: '/',
-            });
-
-            console.log("Iban modificato e token aggiornato con successo");
-            alert("iban modificato")
-            window.location.href = '/ModificaAccount'
-        }
-        })
-    } 
     
+
+    const modificaAttivita = (event) => {
+        event.preventDefault()
+
+        const data = {}; 
+
+        if (email) {
+          data.email = email;
+        }
+        if (password) {
+          data.password = password;
+        }
+        if (nomeAttivita) {
+          data.nomeAttivita = nomeAttivita;
+        }
+        if (telefono) {
+          data.telefono = telefono;
+        }
+        if (indirizzo) {
+          data.indirizzo = indirizzo;
+        }
+        if (partitaIVA) {
+          data.partitaIVA = partitaIVA;
+        }
+        if (iban) {
+          data.iban = iban;
+        }
+
+        Axios.patch("http://localhost:5000/api/attivita", {
+            data,
+        }, {
+          headers: {
+            "x-access-token": token,
+          },
+        }).then((response) => {
+          if(!response.data.auth){
+            console.log(response.data.message)
+            alert("errore modifica")
+          } else {
+            const newToken = response.data.newToken;
+            const nuovoUtente = response.data.nuovoUtente;
+
+            localStorage.setItem("token", newToken);
+
+            Cookies.remove('token');
+            Cookies.set('token', newToken, {
+                expires: 1,
+                path: '/',
+            });
+
+            Cookies.remove('email');
+            Cookies.set('email', nuovoUtente.email, {
+                expires: 1,
+                path: '/',
+            });
+
+            console.log("Dati modificati e token aggiornato con successo");
+            //alert("dati modificati")
+            window.location.reload();
+        }
+        })
+    }
     
     
     if(ruolo === "persona"){
@@ -553,61 +229,50 @@ function ModificaAccount() {
             </p>
             <h3>Modifica i tuoi dati</h3>
             <p>inserisci il nuovo dato e clicca su modifica</p>
-            <form onSubmit = {modificaEmailPersona}>
+            <form onSubmit = {modificaPersona}>
                 <input
                 value = { email }
                 onChange={ (e) => setEmail(e.target.value)}
                 type = "email"
                 placeholder = "email"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaPasswordPersona}>
+                /> <br />
                 <input
                 value = { password }
                 onChange={ (e) => setPassword(e.target.value)}
                 type = "password"
                 placeholder = "password"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaTelefonoPersona}>
-                <input
-                value = { telefono }
-                onChange={ (e) => setTelefono(e.target.value)}
-                type = "text"
-                placeholder = "telefono"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaNome}>
+                /> <br />
                 <input
                 value = { nome }
                 onChange={ (e) => setNome(e.target.value)}
                 type = "text"
                 placeholder = "nome"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaCognome}>
+                /> <br />
                 <input
                 value = { cognome }
                 onChange={ (e) => setCognome(e.target.value)}
                 type = "text"
                 placeholder = "cognome"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaDataNascita}>
+                /> <br />
+                <input
+                value = { telefono }
+                onChange={ (e) => setTelefono(e.target.value)}
+                type = "text"
+                placeholder = "telefono"
+                /> <br />
                 <input
                 value = { dataNascita }
                 onChange={ (e) => setDataNascita(e.target.value)}
                 type = "date"
                 placeholder = "data di nascita"
-                />
+                /> <br />
                 <input type = "submit" value = "modifica" />
             </form>
-            </div>
+            <br />
+            <input type = "submit" onClick={elimina} value = "elimina account" />
+            <br />
+            <input type = "submit" onClick={logout} value = "logout" />
+          </div>
         )
       } else if (ruolo === "attivita"){
         return (
@@ -617,77 +282,63 @@ function ModificaAccount() {
             <p>
               Email: {user.email} <br />
               Nome Attività: {user.nomeAttivita} <br />
-              Indirizzo: {user.indirizzo} <br />
               Telefono: {user.telefono} <br />
+              Indirizzo: {user.indirizzo} <br />
               Partita Iva: {user.partitaIVA} <br />
               Iban: {user.iban} 
             </p>
             <h3>Modifica i tuoi dati</h3>
             <p>inserisci il nuovo dato e clicca su modifica</p>
-            <form onSubmit = {modificaEmailAttivita}>
+            <form onSubmit = {modificaAttivita}>
                 <input
                 value = { email }
                 onChange={ (e) => setEmail(e.target.value)}
                 type = "email"
                 placeholder = "email"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaPasswordAttivita}>
+                /> <br />
                 <input
                 value = { password }
                 onChange={ (e) => setPassword(e.target.value)}
                 type = "password"
                 placeholder = "password"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaTelefonoAttivita}>
-                <input
-                value = { telefono }
-                onChange={ (e) => setTelefono(e.target.value)}
-                type = "text"
-                placeholder = "telefono"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaNomeAttivita}>
+                /> <br />
                 <input
                 value = { nomeAttivita }
                 onChange={ (e) => setNomeAttivita(e.target.value)}
                 type = "text"
                 placeholder = "nome attivita"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaIndirizzo}>
+                /> <br />
+                <input
+                value = { telefono }
+                onChange={ (e) => setTelefono(e.target.value)}
+                type = "text"
+                placeholder = "telefono"
+                /> <br />
                 <input
                 value = { indirizzo }
                 onChange={ (e) => setIndirizzo(e.target.value)}
                 type = "text"
                 placeholder = "indirizzo"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaPartitaIVA}>
+                /> <br />
                 <input
                 value = { partitaIVA }
                 onChange={ (e) => setPartitaIVA(e.target.value)}
                 type = "text"
                 placeholder = "partita iva"
-                />
-                <input type = "submit" value = "modifica" />
-            </form>
-            <form onSubmit = {modificaIban}>
+                /> <br />
                 <input
                 value = { iban }
                 onChange={ (e) => setIban(e.target.value)}
                 type = "text"
                 placeholder = "iban"
-                />
+                /> <br />
                 <input type = "submit" value = "modifica" />
             </form>
-            </div>
+            <br />
+            <input type = "submit" onClick={elimina} value = "elimina account" />
+            <br />
+            <input type = "submit" onClick={logout} value = "logout" />
+          </div>
         );
     } else {
         return (

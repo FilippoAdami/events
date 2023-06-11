@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import Axios from 'axios';
-import Cookies from 'js-cookie'; 
 import { Link } from "react-router-dom";
 import NewInserzione from './newInserzione';
+import ProfileMenu from './profileMenu';
 
 function Menu({menu}) {
   let linkTo = `/${menu}`;
@@ -31,54 +30,52 @@ function Menu({menu}) {
     setTypeI(type);
   };
 
-  //function Log-Out
-  const logout = () => {
-    const token = Cookies.get('token');
-    Axios.get("http://localhost:5000/api/logout", {
-      headers: {
-        "x-access-token": token
-      }
-  })
-  }
-
   if (menu === 'profileMenu') {
     return (
-      <div className="menu-profile">
-        <div className="rectangle" onClick={logout}> LOG OUT </div>
-        <div className="rectangle"></div>
+      <Link to={'./edit'} className='link-item'>
+        <ProfileMenu />
+      </Link>
+    );
+  }
+  else if (menu === 'editProfileMenu') {
+    return (
+      <div>
+      <Link to={'../profile'} className='link-item'> Profile </Link>
+      <Link to={'../'} className='link-item'> Home </Link>
       </div>
     );
   }
-
-  return (
-    <div className="menu-container">
-      <div className={`menu-icon ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
-        <span></span>
-        <span></span>
-        <span></span>
+  else {
+    return (
+      <div className="menu-container">
+        <div className={`menu-icon ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        {isOpen && (
+          <div className="dropdown-menu">
+            <Link to={linkTo} className='link-item'><div id='id' className="menu-item">{menu} </div></Link>
+            <div id='map'      className="menu-item">MAP </div>
+            <div id='new_post' className="menu-item" onClick={changeNewI}> + </div>
+          </div>
+        )}
+        {newI && (
+          <div className="overlay" onClick={changeNewI}>
+            { !showForm &&(
+              <div id='chooseEA' className="newI">
+              <button className="newI-item" onClick={() => changeShowForm('annuncio')}>Annuncio</button>
+              <button className="newI-item" onClick={() => changeShowForm('evento')}>Evento</button>
+              </div>
+            )}
+            { showForm &&(
+              <NewInserzione typeIns={typeI} />
+            )}
+          </div>
+        )}
       </div>
-      {isOpen && (
-        <div className="dropdown-menu">
-          <Link to={linkTo} className='link-item'><div id='id' className="menu-item">{menu} </div></Link>
-          <div id='map'      className="menu-item">MAP </div>
-          <div id='new_post' className="menu-item" onClick={changeNewI}> + </div>
-        </div>
-      )}
-      {newI && (
-        <div className="overlay" onClick={changeNewI}>
-          { !showForm &&(
-            <div id='chooseEA' className="newI">
-            <button className="newI-item" onClick={() => changeShowForm('annuncio')}>Annuncio</button>
-            <button className="newI-item" onClick={() => changeShowForm('evento')}>Evento</button>
-            </div>
-          )}
-          { showForm &&(
-            <NewInserzione typeIns={typeI} />
-          )}
-        </div>
-      )}
-    </div>
-  );
+    );
+  }
 }
 
 export default Menu;

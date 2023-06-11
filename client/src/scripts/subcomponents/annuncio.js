@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
+
 class Annuncio extends React.Component{
   constructor(props) {
     super(props);
@@ -59,7 +61,11 @@ function ModifyAnnuncio({id, title, description, place, time, contact}) {
       contact: contactS
     };
     axios
-      .patch(`http://localhost:5000/api/annunci/${id}`, data)
+      .patch(`http://localhost:5000/api/annunci/${id}`, data, {
+        headers: {
+          "x-access-token": Cookies.get('token')
+        }
+      })
       .then((response) => {
         console.log(response);
       }).then(() => {
@@ -122,9 +128,10 @@ function ModifyAnnuncio({id, title, description, place, time, contact}) {
           />
         </label>
       </div>
-      
+      <div className="row">
       {DeleteAnnuncio(id)}
-      <button type="submit" id="bottom-right" className="editA">Modify Ad</button>
+      <button type="submit" id="bottom-right" className="editA">Modify</button>
+      </div>
     </form>
   );
 };
@@ -134,7 +141,11 @@ function DeleteAnnuncio(id){
   const DeleteAnnuncio = (id) => (event) => {
     event.preventDefault();
     axios
-      .delete("http://localhost:5000/api/annunci/" + id)
+      .delete("http://localhost:5000/api/annunci/" + id, {
+        headers: {
+          "x-access-token": Cookies.get('token')
+        }
+      })
       .then(() => {
         window.location.reload();
       })
@@ -165,7 +176,11 @@ function AddAnnuncio() {
       contact: contact
     };
     axios
-      .post("http://localhost:5000/api/annunci", data)
+      .post("http://localhost:5000/api/annunci", data, {
+        headers: {
+          "x-access-token": Cookies.get('token')
+        }
+      })
       .then((response) => {
         //console.log(response);
         window.location.reload();

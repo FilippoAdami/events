@@ -12,7 +12,7 @@ const eventoSchema = new mongoose.Schema({
     immagini : [{type : String, required: false}], 
     costo : {type: Number, required : true},
     posti : {type : Number, required:  true}, // forse potrebbe essere facoltativo
-    postiLiberi : {type : Number, required : false},
+    postiLiberi : {type : Number, required : false, default : 0},
     visibilita : {type : Boolean , required: true},
     categoria : {type : String , required: false , enum : ['social-life','sport','studio','svago','viaggi','business/progetti','cultura','arte','cinema','filosofia','altro']},
     pubblicatore : {type : String, required: true},

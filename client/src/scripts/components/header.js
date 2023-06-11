@@ -11,7 +11,6 @@ function Header({menu}) {
     <div id="header">
       <Logo />
       <Filter />
-      <Account />
       <Menu menu={menu}/>     
     </div>
   );

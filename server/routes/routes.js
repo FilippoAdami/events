@@ -19,7 +19,7 @@ router.use('/api', personaR);
 router.use('/api', attivitaR);
 router.use('/api', bannerR);
 router.use('/api', amministratoriR);
-router.use('/api', autenticazione)
-router.use('/api', modificaDati)
+router.use('/api', autenticazione);
+router.use('/api', modificaDati);
 
 module.exports = router;

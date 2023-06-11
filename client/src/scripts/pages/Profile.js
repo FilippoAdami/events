@@ -17,7 +17,7 @@ const isLoggedIn = async (token) => {
         "x-access-token": token,
       }
     });
-    console.log(richiesta)
+    //console.log(richiesta)
     return richiesta
   } else {
     return Promise.reject(new Error('User is not logged in')); // Return a rejected promise if the user is not logged in

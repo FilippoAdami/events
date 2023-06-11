@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {AddAnnuncio} from "./annuncio.js";
 import { PostEvento } from "./evento";
-import axios from "axios";
 
 // Component NewInserzione
 function NewInserzione({typeIns}) {

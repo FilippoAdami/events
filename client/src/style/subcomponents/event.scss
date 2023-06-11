@@ -65,7 +65,10 @@
 #editEvento {
   border-radius: 10px;
   width: 50vw;
-  height: 60vh;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: white;
   border: 1px solid black;
 }

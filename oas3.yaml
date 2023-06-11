@@ -1,7 +1,7 @@
 openapi: '3.0.0'
 info:
   title: Events API
-  version: 1.0.1
+  version: 1.0.2
 paths:
   /api/amministratori:
     get:
@@ -194,6 +194,33 @@ paths:
                 $ref: '#/components/schemas/Persona'
         '500':
           description: Server Error
+    patch:
+      tags:
+        - Persona
+      summary: Update a persona by ID
+      description: This endpoint updates the object persona saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Persona ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Errore modifica dati    
   /api/persona/{id}:
     get:
       tags:
@@ -273,7 +300,7 @@ paths:
         '404':
           description: Persona not found
         '500':
-          description: Server Error
+          description: Server Error 
   /api/persona/register:
     post:
       tags: 
@@ -333,6 +360,51 @@ paths:
           description: Bad request 
         '500':
           description: Server Error
+  /api/persona/:id/prenotazioni:    
+    post:
+      tags: 
+      - Persona
+      summary: Saving a new prenotazione
+      description:  This endpoint updates the list of prenotazioni of the utente adding the id of the event booked; and update the list of utentiPrenotati of the event adding the id of utente 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventoID:
+                  type: ObjectID
+      responses:
+        '201':
+          description: Prenotazione Saved
+        '400':
+          description: Bad request 
+        '403':
+          description: Unauthorized access 
+        '404':
+          description: Evento or Persona not found 
+        '409':
+          description: conflict (prenotazione already exist or can not be done)
+        '500':
+          description: Server Error  
+  /api/persona/:id/prenotazioni/:idEvento:   
+    delete:
+      tags: 
+      - Persona
+      summary: Remove a prenotazione
+      description: This endpoint updates the list of prenotazioni of the utente removing the id of the event booked; and update the list of utentiPrenotati of the event removing the id of utente
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request 
+        '403':
+          description: Unauthorized access 
+        '404':
+          description: Evento or Persona not found 
+        '500':
+          description: Server Error
 
   /api/attivita:
     get:
@@ -349,6 +421,35 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Attivita'
+        '500':
+          description: Server Error
+    patch: 
+      tags:
+      - Attività
+      summary: Update an attività by ID
+      description: This endpoint updates the object attività saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attività ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attivita'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '403':
+          description: Unauthorized access
         '500':
           description: Server Error
   /api/attivita/{id}:
@@ -508,6 +609,10 @@ paths:
             description: Created
           '400':
             description: Bad Request
+          '403':
+            description: Unauthorized access
+          '500':
+            description: Server error
       get:
         tags:
           - Evento
@@ -546,6 +651,8 @@ paths:
                   $ref: '#/components/schemas/Evento'
           '404':
             description: Event not found
+          '500':
+            description: Internal server error
       delete:
         tags:
           - Evento
@@ -559,11 +666,19 @@ paths:
             required: true
             description: Event ID
         responses:
-          '204':
-            description: No Content
+          '200':
+            description: Evento deleted successfully
+            content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evento'
+          '403':
+            description: Unauthorized access
           '404':
             description: Event not found
-      put:
+          '500':
+            description: Internal server error
+      patch:
         tags:
           - Evento
         summary: Update event by ID
@@ -582,10 +697,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Evento'
         responses:
-          '204':
-            description: No Content
+          '200':
+            description: Evento updated successfully
+            content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evento'
+          '403':
+            description: Unauthorized access
           '404':
             description: Event not found
+          '500':
+            description: Internal server error
   /api/eventi/{id}/postiLiberi:
       get:
         tags:
@@ -612,8 +735,7 @@ paths:
           '404':
             description: Event not found
           '500':
-            description: Internal server error
-              
+            description: Internal server error            
   /api/eventi/{id}/coordinate:
       get:
         tags:
@@ -662,11 +784,69 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Persona'
+                  $ref: '#/components/schemas/PersonaPrenotata'
+        '403':
+          description: Unauthorized access
         '404':
-          description: Event not found
+          description: Evento not found or Persona not found 
         '500':
-          description: Internal server error
+          description: Server error
+  /eventi/utente/{utente_id}:
+      get:
+        tags:
+          - Evento
+        summary: Get eventi prenotati by utente
+        description: Retrieves the eventi to which a specific utente is subscribed. Requires authentication via token.
+        parameters:
+          - name: utente_id
+            in: path
+            description: ID of the utente
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Successful response
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Evento'
+          '403':
+            description: Unauthorized access
+          '404':
+            description: Utente not found
+          '500':
+            description: Internal server error
+  /api/eventi/publisher/{publisher_id}:
+    get:
+      tags:
+        - Evento
+      summary: Get the events published by the id user 
+      description: This endpoint gets all the events published by an user
+      parameters:
+        - in: path
+          name: publisher_id
+          schema:
+            type: string
+          required: true
+          description: User ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Evento'
+                  $ref: '#/components/schemas/Evento'
+        '403':
+          description: Unauthorized access
+        '500':
+          description: Internal server error 
+
 
   /api/annunci:
     post:
@@ -688,7 +868,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Annuncio'
         '400':
-          description: Bad request
+          description: Bad Request
+        '403':
+          description: Unauthorized access
     get:
       tags:
       - Annunci
@@ -728,8 +910,8 @@ paths:
         '404':
           description: Annuncio not found
         '500':
-          description: Internal server error
-    put:
+          description: Server error
+    patch:
       tags:
       - Annunci
       summary: Update an annuncio by ID
@@ -754,10 +936,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Annuncio'
+        '403':
+          description: Unauthorized access
         '404':
           description: Annuncio not found
         '500':
-          description: Internal server error
+          description: Server error
     delete:
       tags:
       - Annunci
@@ -777,10 +961,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Annuncio'
+        '403':
+          description: Unauthorized access
         '404':
           description: Annuncio not found
         '500':
-          description: Internal server error
+          description: errore al server in delete annuncio
   /api/annunci/publisher/{publisher_id}:
     get:
       tags:
@@ -803,8 +989,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Annuncio'
-        '404':
-          description: Publisher not found
+        '403': 
+          description: Unauthorized access
         '500':
           description: Internal server error
 
@@ -1081,6 +1267,19 @@ components:
           type: array
           items:
             type: number
+    PersonaPrenotata:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        nome:
+          type: string
+          required: true
+        cognome:
+          type: string
+          required: true
+    
     Annuncio:
       type: object
       properties:

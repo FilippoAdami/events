@@ -60,13 +60,19 @@ class Evento extends React.Component {
     const tokenBottone = Cookies.get('token');
     const idpersonaBotone = Cookies.get('id');
 
-    const richiesta = await axios.post(`http://localhost:5000/api/persona/${idpersonaBotone}/prenotazioni`,{
+    try{
+    await axios.post(`http://localhost:5000/api/persona/${idpersonaBotone}/prenotazioni`,{
       "eventoID" : this.state.id
     },{
       headers: {
         "x-access-token": tokenBottone
       }
-    })
+    });
+    alert('prenotazione effettuata');
+    window.location.reload();
+    }catch(error) {
+      console.log(error);
+    };
     
   }
 
@@ -146,7 +152,7 @@ function ModifyEvento({id, titolo, descrizione, indirizzo, ora, data, immagini})
   const [timeS, setTime] = useState(ora);
   const [dateS, setDate] = useState(data);
   const [immaginiS, setImmagini] = useState(immagini);
-  const [immagineS, setImmagine] = useState(null);
+  const tokenBottone = Cookies.get('token');
 
   const modifyE = (event) => {
     event.preventDefault();
@@ -158,8 +164,13 @@ function ModifyEvento({id, titolo, descrizione, indirizzo, ora, data, immagini})
       data: dateS,
       immagini: immaginiS
     };
+
     axios
-      .patch(`http://localhost:5000/api/eventi/${id}`, datas)
+      .patch(`http://localhost:5000/api/eventi/${id}`, datas, {
+        headers: {
+          "x-access-token": tokenBottone
+        }
+      })
       .then((response) => {
         console.log(response);
       }).then(() => {
@@ -224,7 +235,7 @@ function ModifyEvento({id, titolo, descrizione, indirizzo, ora, data, immagini})
             type="date"
             className="editE"
             placeholder={dateS}
-            onChange={(event) => setTime(event.target.value)}
+            onChange={(event) => setDate(event.target.value)}
           />
         </label>
         <label className="right">
@@ -237,9 +248,10 @@ function ModifyEvento({id, titolo, descrizione, indirizzo, ora, data, immagini})
           />
         </label>
       </div>
-
-      {DeleteEvento(id)}
-      <button type="submit" id="bottom-right" className="editE">Modify Ad</button>
+      <div className="row">
+        {DeleteEvento(id)}
+        <button type="submit" id="bottom-right" className="editE">Modify</button>
+      </div>
     </form>
   );
 };
@@ -249,7 +261,11 @@ function DeleteEvento(id) {
   const deleteE = (event) => {
     event.preventDefault();
     axios
-    .delete(`http://localhost:5000/api/eventi/${id}`)
+    .delete(`http://localhost:5000/api/eventi/${id}`, {
+      headers: {
+        "x-access-token": Cookies.get('token')
+      }
+    })
     .then(() => {
       window.location.reload();
     })
@@ -273,7 +289,8 @@ function PostEvento() {
   const [posti, setPosti] = useState('');
   const [visibilita, setVisibilita] = useState(true);
   const [categoria, setCategoria] = useState('socila life');
-  
+  const tokenBottone = Cookies.get('token');
+
   const posting = (event) =>{
     event.preventDefault();
     const datas = {
@@ -288,12 +305,17 @@ function PostEvento() {
       categoria: categoria,
       immagini: immagini
     };
-    alert(JSON.stringify(datas));
-    axios.post('http://localhost:5000/api/eventi', datas)
+    //alert(JSON.stringify(datas));
+    axios.post('http://localhost:5000/api/eventi', datas, {
+      headers: {
+        "x-access-token": tokenBottone
+      }
+    })
     .then(() => {
       window.location.reload();
     })
     .catch((error) => {
+      alert('assicurati di aver compilato tutti i campi');
       console.log(error);
     });
   }
@@ -353,7 +375,7 @@ function PostEvento() {
     </div>
 
     <div className="row">
-      <label htmlFor="immagini">Immagine1</label>
+      <label htmlFor="immagini">Immagine</label>
       <input
         type="file"
         id="immagini"
@@ -414,7 +436,6 @@ function PostEvento() {
       </div>
     </div>
 
-
     <button type="submit" className="newButton">
       Publish
     </button>
@@ -423,7 +444,6 @@ function PostEvento() {
 
   );
 }
-
 
 export {PostEvento}
 export default Evento;

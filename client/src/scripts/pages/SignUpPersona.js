@@ -22,11 +22,11 @@ function SignUpPersona() {
       body: JSON.stringify({
         email, password, nome, cognome, telefono, dataNascita,
       })
-    })
+    });
 
     const data = await response.json()
     if(data.persona){
-      alert('registrazione effettuata')
+      alert('registrazione effettuata');
       window.location.href = '/login'
     } else {
       alert('errore registrazione')

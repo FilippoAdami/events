@@ -145,7 +145,7 @@ router.delete('/persona/:id', getPersona, async (req, res) => {
 
 
 //Prenotazione
-//Aggiunge una evento alla lista prenotazione
+//Aggiunge una evento alla lista prenotazione e decrementa di uno il conto dei posti disponibili
 router.post('/persona/:id/prenotazioni', getPersona, tokenChecker, async(req,res) =>{
 
   let persona = res.persona
@@ -159,40 +159,44 @@ router.post('/persona/:id/prenotazioni', getPersona, tokenChecker, async(req,res
     return res.status(403).send({message: "Unauthorized access"});
   }
 
-
   if(!req.body.eventoID){
     return res.status(400).send({message: "evento ID assente"})
   }
   
-  let evento = await Evento.findById(req.body.eventoID)
+  let evento = await Evento.findById(req.body.eventoID);
+  console.log(JSON.stringify(evento.postiLiberi));
   if (evento == null) {
     return res.status(404).send({message: "Evento non trovato"})
   }
 
   try{
 
-    let utente = await Persona.findById(persona._id)
-    let prenotazioni = []
-    let eventoIdStringa = evento._id.toString()
+    let utente = await Persona.findById(persona._id);
+    let prenotazioni = [];
+    let eventoIdStringa = evento._id.toString();
 
     utente.prenotazioni.forEach(element => {
-      prenotazioni.push(element.toString())
+      prenotazioni.push(element.toString());
     });
 
-    console.log(eventoIdStringa)
-    console.log(prenotazioni)
+    console.log(eventoIdStringa);
+    console.log(prenotazioni);
 
     if(prenotazioni.includes(eventoIdStringa)){
-      return res.status(403).send({message: "Gia prenotato a questo evneto"})
+      return res.status(409).send({message: "Gia prenotato a questo evento"});
     }
-
+    //check if there are still available seats
+    if(evento.postiLiberi > 0){
+    await Evento.findByIdAndUpdate(evento._id,{$push: {utentiPrenotati : persona._id}, $inc: {postiLiberi: -1}});
     await Persona.findByIdAndUpdate(persona._id,{$push: {prenotazioni : evento._id}});
-    await Evento.findByIdAndUpdate(evento._id,{$push: {utentiPrenotati : persona._id}});
+    }else{
+      return res.status(409).send({message: "Posti esauriti"});
+    };
 
-    res.status(201).send({message: "prenotazione effettuate"})
+    res.status(201).send({message: "prenotazione effettuata"});
 
   }catch(err){
-    res.status(500).json({ message: err.message })
+    res.status(500).json({ message: err.message });
   }
 
 })
@@ -213,7 +217,7 @@ router.delete('/persona/:id/prenotazioni/:idEvento', getPersona, tokenChecker, a
   try{
 
     await Persona.findByIdAndUpdate(persona._id,{$pull: {prenotazioni : evento._id}});
-    await Evento.findByIdAndUpdate(evento._id,{$pull: {utentiPrenotati : persona._id}});
+    await Evento.findByIdAndUpdate(evento._id,{$pull: {utentiPrenotati : persona._id} , $inc: {postiLiberi: 1}});
 
     res.status(200).send({message: "prenotazione cancellata"})
 

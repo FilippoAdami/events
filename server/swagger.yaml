@@ -1,7 +1,7 @@
 openapi: '3.0.0'
 info:
   title: Events API
-  version: 1.0.1
+  version: 1.0.2
 paths:
   /api/amministratori:
     get:
@@ -194,6 +194,33 @@ paths:
                 $ref: '#/components/schemas/Persona'
         '500':
           description: Server Error
+    patch:
+      tags:
+        - Persona
+      summary: Update a persona by ID
+      description: This endpoint updates the object persona saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Persona ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Errore modifica dati    
   /api/persona/{id}:
     get:
       tags:
@@ -273,104 +300,7 @@ paths:
         '404':
           description: Persona not found
         '500':
-          description: Server Error
-  
-  /api/persona/email:
-    patch:
-      tags:
-      - Persona
-      summary: Update the email 
-      description: This endpoint update te attribute email of the account persona calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Error update email
-
-  /api/persona/password:
-    patch:
-      tags:
-      - Persona
-      summary: Update the password 
-      description: This endpoint update te attribute password of the account persona calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Error update password
-  
-  /api/persona/telefono:
-    patch:
-      tags:
-      - Persona
-      summary: Update the telefono 
-      description: This endpoint update te attribute telefono of the account persona calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Error update telefono
-
-  /api/persona/nome:
-    patch:
-      tags:
-      - Persona
-      summary: Update the nome 
-      description: This endpoint update te attribute nome of the account persona calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Error update nome
-    
-  /api/persona/cognome:
-    patch:
-      tags:
-      - Persona
-      summary: Update the cognome 
-      description: This endpoint update te attribute cognome of the account persona calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Error update cognome
-  
-  /api/persona/dataNascita:
-    patch:
-      tags:
-      - Persona
-      summary: Update the dataNascita 
-      description: This endpoint update te attribute dataNascita of the account persona calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Error update dataNascita
-  
+          description: Server Error 
   /api/persona/register:
     post:
       tags: 
@@ -430,7 +360,6 @@ paths:
           description: Bad request 
         '500':
           description: Server Error
-
   /api/persona/:id/prenotazioni:    
     post:
       tags: 
@@ -455,9 +384,10 @@ paths:
           description: Unauthorized access 
         '404':
           description: Evento or Persona not found 
+        '409':
+          description: conflict (prenotazione already exist or can not be done)
         '500':
-          description: Server Error
-    
+          description: Server Error  
   /api/persona/:id/prenotazioni/:idEvento:   
     delete:
       tags: 
@@ -476,11 +406,6 @@ paths:
         '500':
           description: Server Error
 
-
-
-
-
-
   /api/attivita:
     get:
       tags:
@@ -496,6 +421,35 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Attivita'
+        '500':
+          description: Server Error
+    patch: 
+      tags:
+      - Attività
+      summary: Update an attività by ID
+      description: This endpoint updates the object attività saved in the database with a specific value of ID attribute.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attività ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attivita'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attivita'
+        '403':
+          description: Unauthorized access
         '500':
           description: Server Error
   /api/attivita/{id}:
@@ -578,119 +532,6 @@ paths:
           description: Attività not found
         '500':
           description: Server Error
-
-  /api/attivita/email:
-    patch:
-      tags:
-      - Attività
-      summary: Update the email 
-      description: This endpoint update te attribute email of the account attivita calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Attivita'
-        '400':
-          description: Error update email
-  
-  /api/attivita/password:
-    patch:
-      tags:
-      - Attività
-      summary: Update the password 
-      description: This endpoint update te attribute password of the account attivita calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Attivita'
-        '400':
-          description: Error update password
-  
-  /api/attivita/telefono:
-    patch:
-      tags:
-      - Attività
-      summary: Update the telefono 
-      description: This endpoint update te attribute telefono of the account attivita calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Attivita'
-        '400':
-          description: Error update telefono
-  
-  /api/attivita/nomeAttivita:
-    patch:
-      tags:
-      - Attività
-      summary: Update the nomeAttivita 
-      description: This endpoint update te attribute nomeAttivita of the account attivita calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Attivita'
-        '400':
-          description: Error update nomeAttivita
-  
-  /api/attivita/indirizzo:
-    patch:
-      tags:
-      - Attività
-      summary: Update the indirizzo 
-      description: This endpoint update te attribute indirizzo of the account attivita calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Attivita'
-        '400':
-          description: Error update indirizzo
-  
-  /api/attivita/partitaIVA:
-    patch:
-      tags:
-      - Attività
-      summary: Update the partitaIVA 
-      description: This endpoint update te attribute partitaIVA of the account attivita calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Attivita'
-        '400':
-          description: Error update partitaIVA
-  
-  /api/attivita/iban:
-    patch:
-      tags:
-      - Attività
-      summary: Update the iban 
-      description: This endpoint update te attribute iban of the account attivita calling it.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Attivita'
-        '400':
-          description: Error update iban
-
   /api/attivita/register:
     post:
       tags: 
@@ -868,7 +709,6 @@ paths:
             description: Event not found
           '500':
             description: Internal server error
- 
   /api/eventi/{id}/postiLiberi:
       get:
         tags:

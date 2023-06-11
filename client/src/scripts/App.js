@@ -1,16 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.js';
 import Profile from './pages/Profile.js';
-import Datas from './pages/Datas.js';
 import LogIn from './pages/LogIn.js';
 import SignUpPersona from './pages/SignUpPersona.js';
 import ResPubbHome from './pages/ResPubbHome.js';
 import SignUpAttivita from './pages/SignUpAttivita.js';
-import PostEvento from './pages/postEvento.js';
-import ModifyAccount from './pages/ModifyAccount.js';
 import ModificaAccount from './pages/modificaAccount.js';
-import Cookies from 'js-cookie';
 
 
 function App() {
@@ -23,12 +19,9 @@ function App() {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/login" element={<LogIn/>} />
         <Route path="/signup" element={<SignUpPersona/>} />
-        <Route path="/datas" element={<Datas/>} />
         <Route path="/respubbhome" element={<ResPubbHome/>} />
         <Route path='/signup/attivita' element={<SignUpAttivita/>}/>
-        <Route path='/postEvento' element={<PostEvento/>}/>
-        <Route path='/modifyAccount' element={<ModifyAccount/>}/>
-        <Route path='/modificaAccount' element={<ModificaAccount/>}/>
+        <Route path='/profile/edit' element={<ModificaAccount/>}/>
       </Routes>
       </div>
     </Router>

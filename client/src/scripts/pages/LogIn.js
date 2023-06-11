@@ -7,7 +7,6 @@ function LogIn() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [statoLogin, setStatoLogin] = useState(false)
 
   const login = (event) => {
     event.preventDefault()
@@ -19,7 +18,6 @@ function LogIn() {
         console.log("errore login")
       } else {
         localStorage.setItem("token", response.data.token)
-        setStatoLogin(true)
         alert("login corretto")
         console.log("login corretto")
         
@@ -46,6 +44,7 @@ function LogIn() {
     })
   }
 
+  /*
   const verifica = () => {
     Axios.get("http://localhost:5000/api/verifica", {
       headers: {
@@ -55,43 +54,8 @@ function LogIn() {
       console.log(response)
     })
   }
+  */
 
-  const logout = () => {
-    Axios.get("http://localhost:5000/api/logout", {
-      headers: {
-        "x-access-token": localStorage.getItem("token"),
-      }
-    }).then((response) =>{
-      localStorage.removeItem("token")
-      setStatoLogin(false)
-      console.log(response)
-
-      Cookies.remove('token')
-      Cookies.remove('email');
-      Cookies.remove('ruolo');
-      Cookies.remove('id');
-
-    })
-  }
-
-  const elimina = () => {
-    Axios.delete("http://localhost:5000/api/elimina", {
-      headers: {
-        "x-access-token": localStorage.getItem("token"),
-      }
-    }).then((response) =>{
-      setStatoLogin(false) 
-      console.log(response)
-
-      
-      Cookies.remove('token')
-      Cookies.remove('email');
-      Cookies.remove('ruolo');
-      Cookies.remove('id');
-
-    })
-
-  }
 
   return (
     <div>
@@ -112,15 +76,7 @@ function LogIn() {
         />
         <br />
         <input type = "submit" value = "login" />
-        
-        
-      </form>
-      <br />
-      <input type = "submit" onClick={verifica} value = "verifica" />
-      <br />
-      {statoLogin && <input type = "submit" onClick={elimina} value = "elimina account" />}
-      <br />
-      {statoLogin && <input type = "submit" onClick={logout} value = "logout" />}
+        </form>
     </div>
   );
 }
