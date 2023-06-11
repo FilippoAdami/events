@@ -15,12 +15,12 @@ function LogIn() {
       email, password,
     }).then((response) => {
       if(!response.data.auth) {
-        //alert("errore login")
-        console.log("login fallito")
+        alert("errore login")
+        console.log("errore login")
       } else {
         localStorage.setItem("token", response.data.token)
         setStatoLogin(true)
-        //alert("login effettuato")
+        alert("login corretto")
         console.log("login corretto")
         
         Cookies.set('token', response.data.token, {

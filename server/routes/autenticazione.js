@@ -14,7 +14,7 @@ router.post('/login', async (req, res) => {
     const persona = await Persona.findOne({ email: req.body.email, ruolo: "persona" })
     const attivita = await Attivita.findOne({ email: req.body.email, ruolo: "attivita" })
     
-    if(persona == null && attivita == null) {
+    if(!persona && !attivita) {
       return res.status(400).json({ auth: false, message: "utente non trovato" })
     }
     if(persona){
@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
     try {
         if( await bcrypt.compare(req.body.password, utente.password)){
             var options = { expiresIn: "30m" }                                                     
-            var token = jwt.sign(utente, process.env.SECRET_TOKEN);
+            var token = jwt.sign(utente, process.env.SECRET_TOKEN, options);
             return res.status(200).json({ auth: true, message: "login effettuato", token: token, utente}) 
           } else {
             return res.status(400).json({ auth: false, message: "password sbagliata"})
