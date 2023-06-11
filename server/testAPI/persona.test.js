@@ -97,7 +97,7 @@ describe('GET /api/persona', () => {
 
 
 //GET BY ID
-describe('GET /api/persona7:id', () => {
+describe('GET /api/persona/:id', () => {
     test('returns the user with matching id and return status 200" ', async () => {
 
         let personaTest = {
