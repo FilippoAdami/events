@@ -31,6 +31,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -48,11 +49,13 @@ function ModificaAccount() {
                 expires: 1,
                 path: '/',
             });
+            
 
             console.log("Email modificata e token aggiornato con successo");
+            alert("email modificata")
+            window.location.href = '/ModificaAccount'
         }
         })
-        window.location.href = '/ModificaAccount'
     }
 
     const modificaPasswordPersona = (event) => {
@@ -66,6 +69,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -85,6 +89,7 @@ function ModificaAccount() {
             });
 
             console.log("Password modificata e token aggiornato con successo");
+            alert("password modificata")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -101,6 +106,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -120,6 +126,7 @@ function ModificaAccount() {
             });
 
             console.log("Telefono modificato e token aggiornato con successo");
+            alert("telefono modificato")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -136,6 +143,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -155,6 +163,7 @@ function ModificaAccount() {
             });
 
             console.log("Nome modificato e token aggiornato con successo");
+            alert("nome modificato")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -171,6 +180,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -190,6 +200,7 @@ function ModificaAccount() {
             });
 
             console.log("Cognome modificato e token aggiornato con successo");
+            alert("cognome modificato")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -206,6 +217,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -225,6 +237,7 @@ function ModificaAccount() {
             });
 
             console.log("Data di nascita modificata e token aggiornato con successo");
+            alert("data di nascita modificata")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -241,6 +254,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -260,6 +274,7 @@ function ModificaAccount() {
             });
 
             console.log("Email modificata e token aggiornato con successo");
+            alert("email modificata")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -276,6 +291,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -295,6 +311,7 @@ function ModificaAccount() {
             });
 
             console.log("Password modificata e token aggiornato con successo");
+            alert("password modificata")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -311,6 +328,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -330,6 +348,7 @@ function ModificaAccount() {
             });
 
             console.log("Telefono modificato e token aggiornato con successo");
+            alert("telefono modificato")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -365,6 +384,7 @@ function ModificaAccount() {
             });
 
             console.log("Nome attivita modificata e token aggiornato con successo");
+            alert("nome attività modificato")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -381,6 +401,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -400,6 +421,7 @@ function ModificaAccount() {
             });
 
             console.log("Indirizzo modificato e token aggiornato con successo");
+            alert("indirizzo modificato")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -416,6 +438,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -435,6 +458,7 @@ function ModificaAccount() {
             });
 
             console.log("Partita iva modificata e token aggiornato con successo");
+            alert("partita iva modificata")
             window.location.href = '/ModificaAccount'
         }
         })
@@ -451,6 +475,7 @@ function ModificaAccount() {
         }).then((response) => {
           if(!response.data.auth){
             console.log(response.data.message)
+            alert("errore modifica")
           } else {
             const newToken = response.data.newToken;
             const nuovoUtente = response.data.nuovoUtente;
@@ -470,6 +495,7 @@ function ModificaAccount() {
             });
 
             console.log("Iban modificato e token aggiornato con successo");
+            alert("iban modificato")
             window.location.href = '/ModificaAccount'
         }
         })
