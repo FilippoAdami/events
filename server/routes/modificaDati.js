@@ -12,14 +12,15 @@ const tokenChecker = require('../controllers/tokenChecker');
 
 //persona
 
-router.patch('/modifica/email/persona', tokenChecker, async (req, res) => {
+router.patch('/persona/email', tokenChecker, async (req, res) => {
   var persona = await Persona.findById(req.utenteLoggato._id)
   if( req.body.email != null) {
     persona.email = req.body.email,
     req.utenteLoggato.email = req.body.email
   }
   try {
-      const nuovoUtente = await persona.save()                                                  
+      const nuovoUtente = await persona.save()  
+      console.log("ciao")                                                
       var newToken = jwt.sign(req.utenteLoggato, process.env.SECRET_TOKEN);
       return res.status(200).json({ auth: true, message: "email modificata", newToken: newToken, nuovoUtente}) 
     } catch (err) {
@@ -27,7 +28,7 @@ router.patch('/modifica/email/persona', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/password/persona', tokenChecker, async (req, res) => {
+router.patch('/persona/password', tokenChecker, async (req, res) => {
   var persona = await Persona.findById(req.utenteLoggato._id)
     if( req.body.password != null) {
         const passwordCryptata = await bcrypt.hash(req.body.password, 10)
@@ -43,7 +44,7 @@ router.patch('/modifica/password/persona', tokenChecker, async (req, res) => {
     }
 })
 
-router.patch('/modifica/telefono/persona', tokenChecker, async (req, res) => {
+router.patch('/persona/telefono', tokenChecker, async (req, res) => {
   var persona = await Persona.findById(req.utenteLoggato._id)
   if( req.body.telefono != null) {
     persona.telefono = req.body.telefono,
@@ -58,7 +59,7 @@ router.patch('/modifica/telefono/persona', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/nome', tokenChecker, async (req, res) => {
+router.patch('/persona/nome', tokenChecker, async (req, res) => {
   var persona = await Persona.findById(req.utenteLoggato._id)
   if( req.body.nome != null) {
     persona.nome = req.body.nome,
@@ -73,7 +74,7 @@ router.patch('/modifica/nome', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/cognome', tokenChecker, async (req, res) => {
+router.patch('/persona/cognome', tokenChecker, async (req, res) => {
   var persona = await Persona.findById(req.utenteLoggato._id)
   if( req.body.cognome != null) {
     persona.cognome = req.body.cognome,
@@ -88,7 +89,7 @@ router.patch('/modifica/cognome', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/dataNascita', tokenChecker, async (req, res) => {
+router.patch('/persona/dataNascita', tokenChecker, async (req, res) => {
   var persona = await Persona.findById(req.utenteLoggato._id)
   if( req.body.dataNascita != null) {
     persona.dataNascita = req.body.dataNascita,
@@ -105,7 +106,7 @@ router.patch('/modifica/dataNascita', tokenChecker, async (req, res) => {
 
 //attivita
 
-router.patch('/modifica/email/attivita', tokenChecker, async (req, res) => {
+router.patch('/attivita/email', tokenChecker, async (req, res) => {
   var attivita = await Attivita.findById(req.utenteLoggato._id)
   if( req.body.email != null) {
     attivita.email = req.body.email,
@@ -120,7 +121,7 @@ router.patch('/modifica/email/attivita', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/password/attivita', tokenChecker, async (req, res) => {
+router.patch('/attivita/password', tokenChecker, async (req, res) => {
   var attivita = await Attivita.findById(req.utenteLoggato._id)
     if( req.body.password != null) {
         const passwordCryptata = await bcrypt.hash(req.body.password, 10)
@@ -136,7 +137,7 @@ router.patch('/modifica/password/attivita', tokenChecker, async (req, res) => {
     }
 })
 
-router.patch('/modifica/telefono/attivita', tokenChecker, async (req, res) => {
+router.patch('/attivita/telefono', tokenChecker, async (req, res) => {
   var attivita = await Attivita.findById(req.utenteLoggato._id)
   if( req.body.telefono != null) {
     attivita.telefono = req.body.telefono,
@@ -151,7 +152,7 @@ router.patch('/modifica/telefono/attivita', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/nomeAttivita', tokenChecker, async (req, res) => {
+router.patch('/attivita/nomeAttivita', tokenChecker, async (req, res) => {
   var attivita = await Attivita.findById(req.utenteLoggato._id)
   if( req.body.nomeAttivita != null) {
     attivita.nomeAttivita = req.body.nomeAttivita,
@@ -166,7 +167,7 @@ router.patch('/modifica/nomeAttivita', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/indirizzo', tokenChecker, async (req, res) => {
+router.patch('/attivita/indirizzo', tokenChecker, async (req, res) => {
   var attivita = await Attivita.findById(req.utenteLoggato._id)
   if( req.body.indirizzo != null) {
     attivita.indirizzo = req.body.indirizzo,
@@ -181,7 +182,7 @@ router.patch('/modifica/indirizzo', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/partitaIVA', tokenChecker, async (req, res) => {
+router.patch('/attivita/partitaIVA', tokenChecker, async (req, res) => {
   var attivita = await Attivita.findById(req.utenteLoggato._id)
   if( req.body.partitaIVA != null) {
     attivita.partitaIVA = req.body.partitaIVA,
@@ -196,7 +197,7 @@ router.patch('/modifica/partitaIVA', tokenChecker, async (req, res) => {
   }
 })
 
-router.patch('/modifica/iban', tokenChecker, async (req, res) => {
+router.patch('/attivita/iban', tokenChecker, async (req, res) => {
   var attivita = await Attivita.findById(req.utenteLoggato._id)
   if( req.body.iban != null) {
     attivita.iban = req.body.iban,

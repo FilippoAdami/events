@@ -22,7 +22,7 @@ function ModificaAccount() {
 
     const modificaEmailPersona = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/email/persona", {
+        Axios.patch("http://localhost:5000/api/persona/email", {
             email,
         }, {
           headers: {
@@ -57,7 +57,7 @@ function ModificaAccount() {
 
     const modificaPasswordPersona = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/password/persona", {
+        Axios.patch("http://localhost:5000/api/persona/password", {
             password,
         }, {
           headers: {
@@ -92,7 +92,7 @@ function ModificaAccount() {
 
     const modificaTelefonoPersona = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/telefono/persona", {
+        Axios.patch("http://localhost:5000/api/persona/telefono", {
             telefono,
         }, {
           headers: {
@@ -127,7 +127,7 @@ function ModificaAccount() {
 
     const modificaNome = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/nome", {
+        Axios.patch("http://localhost:5000/api/persona/nome", {
             nome,
         }, {
           headers: {
@@ -162,7 +162,7 @@ function ModificaAccount() {
 
     const modificaCognome = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/cognome", {
+        Axios.patch("http://localhost:5000/api/persona/cognome", {
             cognome,
         }, {
           headers: {
@@ -197,7 +197,7 @@ function ModificaAccount() {
 
     const modificaDataNascita = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/dataNascita", {
+        Axios.patch("http://localhost:5000/api/persona/dataNascita", {
             dataNascita,
         }, {
           headers: {
@@ -232,7 +232,7 @@ function ModificaAccount() {
 
     const modificaEmailAttivita = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/email/attivita", {
+        Axios.patch("http://localhost:5000/api/attivita/email", {
             email,
         }, {
           headers: {
@@ -267,7 +267,7 @@ function ModificaAccount() {
 
     const modificaPasswordAttivita = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/password/attivita", {
+        Axios.patch("http://localhost:5000/api/attivita/password", {
             password,
         }, {
           headers: {
@@ -302,7 +302,7 @@ function ModificaAccount() {
 
     const modificaTelefonoAttivita = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/telefono/attivita", {
+        Axios.patch("http://localhost:5000/api/attivita/telefono", {
             telefono,
         }, {
           headers: {
@@ -337,7 +337,7 @@ function ModificaAccount() {
 
     const modificaNomeAttivita = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/nomeAttivita", {
+        Axios.patch("http://localhost:5000/api/attivita/nomeAttivita", {
             nomeAttivita,
         }, {
           headers: {
@@ -372,7 +372,7 @@ function ModificaAccount() {
 
     const modificaIndirizzo = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/indirizzo", {
+        Axios.patch("http://localhost:5000/api/attivita/indirizzo", {
             indirizzo,
         }, {
           headers: {
@@ -407,7 +407,7 @@ function ModificaAccount() {
 
     const modificaPartitaIVA = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/partitaIVA", {
+        Axios.patch("http://localhost:5000/api/attivita/partitaIVA", {
             partitaIVA,
         }, {
           headers: {
@@ -442,7 +442,7 @@ function ModificaAccount() {
 
     const modificaIban = (event) => {
         event.preventDefault()
-        Axios.patch("http://localhost:5000/api/modifica/iban", {
+        Axios.patch("http://localhost:5000/api/attivita/iban", {
             iban,
         }, {
           headers: {
