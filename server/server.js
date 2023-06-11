@@ -47,5 +47,10 @@ app.use(routes);
 const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 //export the app for testing purposes
 module.exports = app;
