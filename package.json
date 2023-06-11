@@ -6,7 +6,8 @@
     "scripts": {
         "start": "start cmd /k \"cd ./server && npm run server \" && start cmd /k \"cd ./client && npm run style\" && start cmd /k \"cd ./client && npm start\"",
         "view": "start cmd /k \"cd ./server && npm run server \" && start cmd /k \"cd ./client && npm start\"",
-        "test": "code . -n bash"
+        "test": "code . -n bash",
+        "build": "cd ./client && npm run build"
     },
     "repository": {
         "type": "git",
