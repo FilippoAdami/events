@@ -1,6 +1,6 @@
 # EVENTS! 
-### version: 1.0.1
-END OF FIRST SPRINT
+### version: 1.0.2
+END OF SECOND SPRINT
 cool showcase that allows you to post and subscribe to local events
 ## deployment
 To run the server open a terminal in the server folder and run 'npm run server', it will connect to the mongodb database and run the backend at port 5000.
@@ -12,4 +12,4 @@ Oppure andare nella root del progetto e runnare npm start, aprirà 3 terminal es
 Per vedere la documentazione delle APIs far partire il server con 'npm run server' dalla cartella server e poi andare a 'http://localhost:5000/api-docs/#/'
 
 ## for professors
-To see the website open a terminal on the root folder and run "npm run view", this will first start a new cmd which will run the express server and another cmd that will run the react client server. It will automatically open a new window on the default browser at localhost:3000 with the site running.
+To see the website it is now deployed on render at https://events-tcqp.onrender.com/ . (It works but takes about 2 minutes to load the page)
